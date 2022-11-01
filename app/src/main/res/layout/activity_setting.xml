@@ -48,7 +48,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            app:srcCompat="@drawable/nextButton" />
+            app:srcCompat="@drawable/next_button" />
 
     </LinearLayout>
 
@@ -127,7 +127,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/nextButton" />
+                app:srcCompat="@drawable/next_button" />
         </LinearLayout>
 
         <LinearLayout
@@ -154,7 +154,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/nextButton" />
+                app:srcCompat="@drawable/next_button" />
         </LinearLayout>
 
         <LinearLayout
