@@ -24,6 +24,8 @@
         </activity>
         <activity android:name=".SettingActivity" android:label="Setting"/>
         <activity android:name=".ChangePasswordActivity" android:label="Change Password"/>
+        <activity android:name=".ServiceContentsActivity" android:label="Service"/>
+        <activity android:name=".PrivacyPolicyActivity" android:label="Privacy Policy"/>
     </application>
 
 </manifest>

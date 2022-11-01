@@ -10,8 +10,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class SettingActivity extends AppCompatActivity {
 
-    LinearLayout changePwLayout;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,4 +20,15 @@ public class SettingActivity extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(), ChangePasswordActivity.class);
         startActivity(intent);
     }
+
+    public void ShowPrivacyPolicy(View view) {
+        Intent intent = new Intent(getApplicationContext(), PrivacyPolicyActivity.class);
+        startActivity(intent);
+    }
+
+    public void ShowServiceContents(View view) {
+        Intent intent = new Intent(getApplicationContext(), ServiceContentsActivity.class);
+        startActivity(intent);
+    }
+
 }

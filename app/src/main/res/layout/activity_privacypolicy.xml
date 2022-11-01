@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical"
+            android:paddingBottom="50dp">
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="제 1조"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque elit nulla, viverra ut nibh a, porttitor consequat augue. Aliquam mattis dolor dolor, ut viverra lorem auctor quis. Nam eget felis elit. Cras in lacus non erat porta porta. Maecenas cursus nec diam eu lobortis. Aliquam at elementum elit, non ultricies arcu. Sed vulputate eros vitae dui ultrices, ac rhoncus mauris tempus. Donec non ante dolor. Cras lobortis, libero nec pretium imperdiet, purus ligula scelerisque elit, eget interdum leo odio sit amet metus. Cras lobortis dolor sit amet mi fringilla, quis efficitur leo vestibulum. Proin dignissim tristique erat, eget ullamcorper neque ornare nec. Suspendisse blandit augue odio, eu ornare tellus dignissim id. Pellentesque ex massa, sagittis in libero non, volutpat rhoncus nibh. Praesent rhoncus cursus nunc, sit amet cursus quam hendrerit ut."
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="제 2조"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:text="Duis blandit luctus dui, non commodo dolor tincidunt et. Sed lacinia scelerisque dignissim. Vivamus commodo condimentum dui, ac vehicula nibh lobortis et. Nulla volutpat ultricies leo, id pharetra magna elementum in. Integer aliquet cursus dui. Ut ut finibus dolor. Fusce eget cursus leo. Sed dignissim, est et facilisis cursus, libero dolor molestie mi, ac fringilla lacus neque quis ipsum. Duis interdum risus sagittis metus dictum vehicula. Sed ullamcorper ante ut hendrerit vestibulum. Cras eros nulla, feugiat quis auctor et, convallis in nunc. Mauris viverra ex vel fermentum vulputate. Proin sodales, leo nec gravida sodales, massa mi tristique ex, at sodales est magna ut ipsum. Mauris a fringilla est. Donec non interdum nibh. Curabitur porttitor tellus ut convallis pulvinar."
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="제 3조"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textView7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:text="Duis felis nisl, maximus ac accumsan vel, varius at massa. Fusce hendrerit, arcu non tristique facilisis, mi enim pharetra mauris, eu porta nibh nunc sit amet erat. Aliquam consectetur malesuada mollis. Sed euismod, quam eget lacinia tristique, metus felis ornare metus, vel vestibulum justo lectus non velit. Ut in luctus sem. Etiam id nulla id neque pharetra feugiat eu quis lectus. Donec eget sem bibendum, semper leo sed, rhoncus odio. Morbi mattis, nibh eu porttitor mattis, ipsum nunc ullamcorper metus, sit amet congue urna nulla eleifend mi. Sed ultricies tellus ut placerat ullamcorper."
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/textView10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="제 4조"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/textView11"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:textColor="@color/black"
+                android:text="Etiam cursus neque nec euismod porta. Quisque ut libero et magna scelerisque aliquam. Praesent posuere semper dignissim. Aliquam laoreet ipsum orci, at porta sem congue ac. Nullam sit amet lobortis est. Vivamus sed porta ante. Integer porta dapibus congue. Ut faucibus vitae orci nec luctus. Vivamus sed sagittis lacus. Vestibulum nec velit eu urna vehicula sagittis." />
+
+            <TextView
+                android:id="@+id/textView12"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="제 5조"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/textView13"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:text="Donec at elit leo. Vivamus sed blandit sem. Nulla facilisi. Aenean vitae vehicula lacus, quis gravida ipsum. Pellentesque ac mauris sit amet diam sodales eleifend. Nam lacus enim, aliquam sodales eleifend aliquet, ultricies sed turpis. Quisque venenatis, eros eget egestas venenatis, nibh nibh maximus neque, a fringilla lectus turpis faucibus lorem. Nam vel bibendum elit. Ut porttitor convallis felis, ut convallis lorem." />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
