@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
-        android:text="본인 인증 후 새로운 비밀번호로 변경이 가능합니다."
+        android:text="@string/self_authentication_text"
         android:textColor="@color/black"
         android:textSize="16sp" />
 
@@ -27,37 +27,37 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"
-            android:text="본인인증"
+            android:text="@string/self_authentication"
             android:textColor="@color/black"
             android:textSize="14sp"
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/editTextTextEmailAddress"
+            android:id="@+id/changeEmailInput"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginBottom="10dp"
             android:ems="10"
-            android:hint="이메일을 입력해주세요."
+            android:hint="@string/enter_email"
             android:inputType="textEmailAddress"
             tools:ignore="TouchTargetSizeCheck" />
 
         <EditText
-            android:id="@+id/editTextTextPersonName"
+            android:id="@+id/changeNameInput"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginBottom="10dp"
             android:ems="10"
-            android:hint="이름을 입력해주세요."
+            android:hint="@string/enter_name"
             android:inputType="textPersonName"
             tools:ignore="TouchTargetSizeCheck" />
 
         <EditText
-            android:id="@+id/editTextPhone"
+            android:id="@+id/changeIdInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="아이디를 입력해주세요."
+            android:hint="@string/enter_id"
             android:inputType="phone"
             tools:ignore="TouchTargetSizeCheck" />
     </LinearLayout>
@@ -73,7 +73,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="15dp"
-        android:text="비밀번호 설정"
+        android:text="@string/set_password"
         android:textColor="@color/black"
         android:textSize="14sp"
         android:textStyle="bold" />
@@ -85,32 +85,34 @@
         android:orientation="vertical">
 
         <EditText
-            android:id="@+id/editTextTextPassword2"
+            android:id="@+id/changePwInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:ems="10"
-            android:hint="비밀번호를 입력해주세요."
-            android:inputType="textPassword" />
+            android:hint="@string/enter_password"
+            android:inputType="textPassword"
+            tools:ignore="TouchTargetSizeCheck" />
 
         <EditText
-            android:id="@+id/editTextTextPassword3"
+            android:id="@+id/changePwInput2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="비밀번호를 한 번 더 입력해주세요."
-            android:inputType="textPassword" />
+            android:hint="@string/enter_password_re"
+            android:inputType="textPassword"
+            tools:ignore="TouchTargetSizeCheck" />
 
     </LinearLayout>
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/changePwButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:backgroundTint="#FCC73F"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
-        android:text="비밀번호 바꾸기"
+        android:text="@string/change_password_text"
         android:textColor="@color/black"
         android:textStyle="bold" />
 
