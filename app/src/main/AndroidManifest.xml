@@ -25,6 +25,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".SignUpActivity" android:label="Sign Up"/>
+        <activity android:name=".LoginActivity" android:label="Login"/>
+        <activity android:name=".SettingActivity" android:label="Setting"/>
+        <activity android:name=".ChangePasswordActivity" android:label="Change Password"/>
+        <activity android:name=".ServiceContentsActivity" android:label="Service"/>
+        <activity android:name=".PrivacyPolicyActivity" android:label="Privacy Policy"/>
         <activity
             android:name=".SettingActivity"
             android:label="Setting" />
