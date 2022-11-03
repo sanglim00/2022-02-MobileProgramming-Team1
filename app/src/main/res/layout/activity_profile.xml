@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity ="center"
+        android:fillViewport="true"
+        android:layout_marginTop="0dp"
+        >
+        <LinearLayout
+            android:orientation="vertical"
+            android:id="@+id/layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:orientation="horizontal"
+                android:background="@drawable/ddaeng"
+                android:paddingStart="10dp"
+                android:paddingEnd="20dp"
+                android:layout_marginTop="10dp"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="h_gunn"
+                    android:textSize="30dp"
+                    android:layout_gravity="left"
+                    android:layout_marginStart="10dp"
+                    />
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1"/>
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="right"
+                    android:src="@drawable/ddaeng"
+                    android:background="@color/white"
+                    android:layout_marginBottom="5dp"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="40dp"
+                >
+                <ImageView
+                    android:id="@+id/image_profile"
+                    android:layout_width="180dp"
+                    android:layout_height="180dp"
+                    android:src="@drawable/ddaeng"
+                    android:layout_gravity="center"
+
+                    />
+
+                <android.widget.Button
+                    android:id="@+id/edit_profile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="37dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/ddaeng"
+                    android:textColor="@color/white"
+                    android:text="프로필 편집" />
+
+                <TextView
+                    android:id="@+id/text_profile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="땡순이입니다"
+                    android:textSize="20dp"
+                    android:textColor="@color/black"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="5dp"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:orientation="vertical"
+                android:paddingStart="50dp"
+                android:paddingEnd="40dp"
+                android:layout_marginBottom="15dp"
+                >
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="20dp"
+                    >
+                    <TextView
+                        android:id="@+id/name_current"
+                        android:layout_width="40dp"
+                        android:layout_height="wrap_content"
+                        android:text="이름"
+                        android:textSize="15dp"
+                        android:layout_marginRight="70dp"
+                        />
+
+                    <TextView
+                        android:id="@+id/gender_current"
+                        android:layout_width="40dp"
+                        android:layout_height="wrap_content"
+                        android:text="성별"
+                        android:textSize="15dp"
+                        android:layout_marginRight="40dp"
+
+                        />
+
+                    <TextView
+                        android:id="@+id/date_current"
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content"
+                        android:text="만난 날짜"
+                        android:textSize="15dp"
+                        />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="10dp"
+                    >
+                    <TextView
+                        android:layout_width="40dp"
+                        android:layout_height="wrap_content"
+                        android:text="name"
+                        android:layout_marginRight="70dp"
+                        />
+
+                    <TextView
+                        android:layout_width="45dp"
+                        android:layout_height="wrap_content"
+                        android:text="남 (♂)"
+                        android:textSize="15dp"
+                        android:layout_marginRight="40dp"
+                        />
+
+                    <TextView
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content"
+                        android:text="2022-11-01"
+                        android:textSize="15dp"
+                        />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:stretchColumns="*"
+                >
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:weightSum="3"
+
+                    >
+
+                    <androidx.constraintlayout.utils.widget.ImageFilterButton
+                        android:id="@+id/imageView1"
+                        android:layout_width="0dp"
+                        android:layout_height="130dp"
+                        android:layout_margin="0.8dp"
+                        android:layout_weight="1"
+                        android:adjustViewBounds="true"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ddaeng" />
+
+                    <androidx.constraintlayout.utils.widget.ImageFilterButton
+                        android:id="@+id/imageView2"
+                        android:layout_width="0dp"
+                        android:layout_height="130dp"
+                        android:layout_margin="0.8dp"
+                        android:layout_weight="1"
+                        android:adjustViewBounds="true"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ddaeng"
+
+                        />
+
+                    <!-- height 잡고 있는 놈 : matchparent로 바꾸면 늘어나 -->
+                    <androidx.constraintlayout.utils.widget.ImageFilterButton
+                        android:id="@+id/imageView3"
+                        android:layout_width="0dp"
+                        android:layout_height="130dp"
+                        android:layout_margin="0.8dp"
+                        android:layout_weight="1"
+                        android:adjustViewBounds="true"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ddaeng" />
+
+
+                </TableRow>
+
+
+            </TableLayout>
+
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
