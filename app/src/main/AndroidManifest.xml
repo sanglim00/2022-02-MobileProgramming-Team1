@@ -14,6 +14,9 @@
         android:theme="@style/Theme.PetDiary"
         tools:targetApi="31">
         <activity
+            android:name=".NotiActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
@@ -28,6 +31,18 @@
         <activity android:name=".ChangePasswordActivity" android:label="Change Password"/>
         <activity android:name=".ServiceContentsActivity" android:label="Service"/>
         <activity android:name=".PrivacyPolicyActivity" android:label="Privacy Policy"/>
+        <activity
+            android:name=".SettingActivity"
+            android:label="Setting" />
+        <activity
+            android:name=".ChangePasswordActivity"
+            android:label="Change Password" />
+        <activity
+            android:name=".ServiceContentsActivity"
+            android:label="Service" />
+        <activity
+            android:name=".PrivacyPolicyActivity"
+            android:label="Privacy Policy" />
     </application>
 
 </manifest>
