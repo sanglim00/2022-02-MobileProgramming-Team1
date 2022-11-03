@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">PetDiary</string>
+    <string name="change_password_text">비밀번호 바꾸기</string>
+    <string name="self_authentication_text">본인 인증 후 새로운 비밀번호로 변경이 가능합니다.</string>
+    <string name="enter_password">비밀번호를 입력해주세요.</string>
+    <string name="enter_password_re">비밀번호를 한 번 더 입력해주세요.</string>
+    <string name="set_password">비밀번호 설정</string>
+    <string name="enter_name">이름을 입력해주세요.</string>
+    <string name="enter_id">아이디를 입력해주세요.</string>
+    <string name="enter_email">이메일을 입력해주세요.</string>
+    <string name="self_authentication">본인인증</string>
 </resources>
