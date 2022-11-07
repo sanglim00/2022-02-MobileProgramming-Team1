@@ -9,4 +9,5 @@
     <string name="enter_id">아이디를 입력해주세요.</string>
     <string name="enter_email">이메일을 입력해주세요.</string>
     <string name="self_authentication">본인인증</string>
+
 </resources>
