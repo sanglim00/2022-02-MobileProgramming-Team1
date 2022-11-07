@@ -51,7 +51,7 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="right"
                     android:src="@drawable/icon_profile_setting"
-                    android:background="none"
+                    android:background="@android:color/transparent"
                     android:layout_marginBottom="5dp"
                     />
             </LinearLayout>
@@ -80,7 +80,7 @@
                         android:layout_width="35sp"
                         android:layout_height="35sp"
                         android:src="@drawable/icon_edit_myprofile"
-                        android:background="none"
+                        android:background="@android:color/transparent"
                         android:adjustViewBounds="true"
                         android:scaleType="fitCenter"
                         app:tint="@color/FCC73F"
