@@ -33,17 +33,9 @@
         <activity android:name=".ServiceContentsActivity" android:label="Service"/>
         <activity android:name=".PrivacyPolicyActivity" android:label="Privacy Policy"/>
         <activity
-            android:name=".SettingActivity"
-            android:label="Setting" />
-        <activity
-            android:name=".ChangePasswordActivity"
-            android:label="Change Password" />
-        <activity
-            android:name=".ServiceContentsActivity"
-            android:label="Service" />
-        <activity
-            android:name=".PrivacyPolicyActivity"
-            android:label="Privacy Policy" />
+            android:name=".Profile_OthersActivity"
+            android:label="Profile_Others"/>
+        <activity android:name=".Profile_EditActivity" android:label="Profile_Edit"/>
     </application>
 
 </manifest>
