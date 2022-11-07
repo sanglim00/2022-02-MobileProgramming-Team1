@@ -59,12 +59,13 @@
                 android:orientation="vertical"
                 android:layout_marginTop="40dp"
                 >
-                <ImageView
+
+                <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/image_profile"
                     android:layout_width="180dp"
                     android:layout_height="180dp"
-                    android:src="@drawable/ddaeng"
                     android:layout_gravity="center"
+                    android:src="@drawable/ddaeng2"
 
                     />
 
@@ -184,7 +185,7 @@
                         android:layout_weight="1"
                         android:adjustViewBounds="true"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/ddaeng" />
+                        android:src="@drawable/ddaeng2" />
 
                     <androidx.constraintlayout.utils.widget.ImageFilterButton
                         android:id="@+id/imageView2"
@@ -194,7 +195,7 @@
                         android:layout_weight="1"
                         android:adjustViewBounds="true"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/ddaeng"
+                        android:src="@drawable/ddaeng2"
 
                         />
 
@@ -207,7 +208,7 @@
                         android:layout_weight="1"
                         android:adjustViewBounds="true"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/ddaeng" />
+                        android:src="@drawable/ddaeng2" />
 
 
                 </TableRow>
