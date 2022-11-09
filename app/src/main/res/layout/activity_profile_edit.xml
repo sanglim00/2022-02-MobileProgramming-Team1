@@ -105,7 +105,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="50sp"
                     android:gravity="center"
-                    android:hint="땡순이입니다"
+                    android:hint="한줄 소개"
                     android:textSize="20dp"
                     android:textColor="@color/black"
                     android:layout_gravity="center"
@@ -170,7 +170,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="30sp"
-                            android:hint="땡순이"
+                            android:hint="이름"
                             android:textSize="18sp"
                             android:layout_weight="1"
                             />
@@ -198,7 +198,7 @@
                             android:id="@+id/et_pf_edit_meetDate"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:hint="2022-11-01"
+                            android:hint="만난 날짜"
                             android:textSize="18sp"
                             android:layout_weight="1"
                             />
