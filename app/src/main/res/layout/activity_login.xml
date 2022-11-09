@@ -10,7 +10,7 @@
     tools:context=".Login">
 
     <ImageView
-        android:id="@+id/app"
+        android:id="@+id/iv_app_logo"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_marginTop="70dp"
@@ -23,32 +23,32 @@
         android:layout_marginTop="30dp">
 
         <TextView
+            android:id="@+id/tv_email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="E-MAIL"
-            android:textSize="13dp" />
+            android:text="이메일을 입력해주세요."
+            android:textSize="13sp" />
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColorHint="#dcdcdc"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
             <EditText
-                android:id="@+id/signup_ID"
+                android:id="@+id/et_email"
                 android:layout_width="370dp"
                 android:layout_height="55dp"
                 android:hint="이메일을 입력해주세요."
-                android:inputType="text"
-                android:background="@drawable/border"
+                android:background="@drawable/login_signup_border"
                 android:layout_marginBottom="15dp"
                 />
         </com.google.android.material.textfield.TextInputLayout>
 
-
         <TextView
+            android:id="@+id/tv_password"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="PASSWORD"
-            android:textSize="13dp" />
+            android:textSize="13sp" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="wrap_content"
@@ -58,12 +58,12 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <EditText
-                android:id="@+id/PW"
+                android:id="@+id/et_password"
                 android:layout_width="370dp"
                 android:layout_height="55dp"
                 android:hint="비밀번호를 입력해주세요."
                 android:inputType="textPassword"
-                android:background="@drawable/border" />
+                android:background="@drawable/login_signup_border" />
         </com.google.android.material.textfield.TextInputLayout>
 
     </LinearLayout>
@@ -74,7 +74,7 @@
         android:orientation="vertical"
         android:layout_marginTop="120dp">
         <Button
-            android:id="@+id/Login_btn"
+            android:id="@+id/btn_login"
             android:layout_width="370dp"
             android:layout_height="55dp"
             android:text="로그인"
@@ -84,7 +84,7 @@
             android:backgroundTint="#FCC73F" />
 
         <Button
-            android:id="@+id/Signup_btn"
+            android:id="@+id/btn_signup"
             android:layout_width="370dp"
             android:layout_height="55dp"
             android:text="회원가입"
