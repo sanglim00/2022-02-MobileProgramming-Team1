@@ -3,11 +3,15 @@ package ac.kr.kookmin.petdiary;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 
 public class WritingActivity extends AppCompatActivity {
@@ -16,6 +20,8 @@ public class WritingActivity extends AppCompatActivity {
     private static final int PICK_FROM_ALBUM = 1;
     private static final int CROP_FROM_IMAGE = 2;
 
+    BottomNavigationView bottomNavigationView;
+
 
 
     @Override
@@ -23,6 +29,31 @@ public class WritingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_writing);
 
+
+        bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                Intent intent;
+                switch (item.getItemId()) {
+                    case R.id.action_one:
+                        intent = new Intent(getApplicationContext(), MainActivity.class);
+                        startActivity(intent);
+                        return true;
+                    case R.id.action_two:
+                        return true;
+                    case R.id.action_three:
+                        intent = new Intent(getApplicationContext(), NotiActivity.class);
+                        startActivity(intent);
+                        return true;
+                    case R.id.action_four:
+                        intent = new Intent(getApplicationContext(), ProfileActivity.class);
+                        startActivity(intent);
+                        return true;
+                }
+                return false;
+            }
+        });
 
     }
 
