@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class Profile_EditActivity extends AppCompatActivity {
     String[] genders = {"남 (♂)", "여 (♀)", "기타"};
+    boolean complete = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,11 +77,13 @@ public class Profile_EditActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent();
+                complete = true; // 완료 버튼을 눌렀을 때만 수정 사항이 반영되도록 함.
+
                 intent.putExtra("name",et_edit_name.getText().toString()); // 이름 설정
                 intent.putExtra("gender",txt_gender.getText().toString()); // 성별 설정
                 intent.putExtra("meetDate",et_edit_meetDate.getText().toString()); // 만난 날짜 설정
                 intent.putExtra("one_line", et_edit_one_line_info.getText().toString()); // 한줄 프로필 설정
-
+                intent.putExtra("complete2", complete);
                 setResult(RESULT_OK,intent);
                 finish();
             }

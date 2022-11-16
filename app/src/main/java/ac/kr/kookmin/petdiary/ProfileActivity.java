@@ -57,6 +57,7 @@ public class ProfileActivity extends AppCompatActivity {
 
                 startActivityForResult(intent,0);
             }
+
         });
 
     }
@@ -64,14 +65,19 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onActivityResult(int req, int resultcode, @Nullable Intent data){ // Profile_EditActivity 종료 : 값 받아오기 (intent)
         super.onActivityResult(req, resultcode, data);
         if(req == 0 && resultcode == RESULT_OK){
-            String nameIntent = data.getStringExtra("name");
-            String genderIntent = data.getStringExtra("gender");
-            String meetDateIntent = data.getStringExtra("meetDate");
-            String oneLineIntent = data.getStringExtra("one_line");
-            txt_pf_name.setText(nameIntent);
-            txt_pf_gender.setText(genderIntent);
-            txt_pf_meetDate.setText(meetDateIntent);
-            txt_pf_one_line_info.setText(oneLineIntent);
+            boolean getcomplete = data.getBooleanExtra("complete", false);
+            if(getcomplete){ // 완료 버튼을 눌렀을 때만 수정사항이 반영되도록 함. ( 취소 버튼 제외 )
+                String nameIntent = data.getStringExtra("name");
+                String genderIntent = data.getStringExtra("gender");
+                String meetDateIntent = data.getStringExtra("meetDate");
+                String oneLineIntent = data.getStringExtra("one_line");
+
+                txt_pf_name.setText(nameIntent);
+                txt_pf_gender.setText(genderIntent);
+                txt_pf_meetDate.setText(meetDateIntent);
+                txt_pf_one_line_info.setText(oneLineIntent);
+            }
+
 
         }
     }
