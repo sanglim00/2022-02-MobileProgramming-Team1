@@ -21,7 +21,7 @@
             android:name=".NotiActivity"
             android:exported="false" />
         <activity
-            android:name=".SettingActivity"
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -38,9 +38,9 @@
         <activity
             android:name=".ProfileActivity"
             android:label="Profile" />
-<!--        <activity-->
-<!--            android:name=".SettingActivity"-->
-<!--            android:label="Setting" />-->
+        <activity
+            android:name=".SettingActivity"
+            android:label="Setting" />
         <activity
             android:name=".ChangePasswordActivity"
             android:label="Change Password" />

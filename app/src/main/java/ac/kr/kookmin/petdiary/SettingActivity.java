@@ -25,14 +25,21 @@ public class SettingActivity extends AppCompatActivity {
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                Intent intent;
                 switch (item.getItemId()) {
                     case R.id.action_one:
+                        intent = new Intent(getApplicationContext(), MainActivity.class);
+                        startActivity(intent);
                         return true;
                     case R.id.action_two:
                         return true;
                     case R.id.action_three:
+                        intent = new Intent(getApplicationContext(), NotiActivity.class);
+                        startActivity(intent);
                         return true;
                     case R.id.action_four:
+                        intent = new Intent(getApplicationContext(), ProfileActivity.class);
+                        startActivity(intent);
                         return true;
                 }
                 return false;

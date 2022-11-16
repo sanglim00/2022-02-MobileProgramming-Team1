@@ -6,7 +6,7 @@
         app:showAsAction="ifRoom"
         android:enabled="true"
         android:icon="@android:drawable/ic_dialog_info"
-        android:title="three" />
+        android:title="one" />
     <item
         android:id="@+id/action_two"
         app:showAsAction="ifRoom"
@@ -17,7 +17,7 @@
         app:showAsAction="ifRoom"
         android:enabled="true"
         android:icon="@android:drawable/ic_dialog_info"
-        android:title="one" />
+        android:title="three" />
     <item
         android:id="@+id/action_four"
         app:showAsAction="ifRoom"
