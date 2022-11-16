@@ -18,7 +18,7 @@ public class Profile_OthersActivity extends AppCompatActivity {
         ToggleButton btn_subcribe = findViewById(R.id.btn_pf_others_subcribe);
 
 
-        btn_subcribe.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        btn_subcribe.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() { // 구독 버튼
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean ischecked) {
                 if(ischecked){
@@ -29,6 +29,8 @@ public class Profile_OthersActivity extends AppCompatActivity {
                 }
             }
         });
+
+
 
 
     }
