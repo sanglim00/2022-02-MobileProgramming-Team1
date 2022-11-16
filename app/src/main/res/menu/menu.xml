@@ -6,22 +6,22 @@
         app:showAsAction="ifRoom"
         android:enabled="true"
         android:icon="@android:drawable/ic_dialog_info"
-        android:title="one" />
+        android:title="메인" />
     <item
         android:id="@+id/action_two"
         app:showAsAction="ifRoom"
         android:icon="@android:drawable/ic_dialog_info"
-        android:title="two" />
+        android:title="검색" />
     <item
         android:id="@+id/action_three"
         app:showAsAction="ifRoom"
         android:enabled="true"
         android:icon="@android:drawable/ic_dialog_info"
-        android:title="three" />
+        android:title="알림" />
     <item
         android:id="@+id/action_four"
         app:showAsAction="ifRoom"
         android:enabled="true"
         android:icon="@android:drawable/ic_dialog_info"
-        android:title="four" />
+        android:title="마이페이지" />
 </menu>
