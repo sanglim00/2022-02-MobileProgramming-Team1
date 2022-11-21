@@ -33,14 +33,13 @@
             android:layout_height="wrap_content"
             android:textColorHint="#dcdcdc"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-            <EditText
-                android:id="@+id/et_email"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tit_loginEmail"
                 android:layout_width="370dp"
                 android:layout_height="55dp"
                 android:hint="이메일을 입력해주세요."
                 android:background="@drawable/login_signup_border"
-                android:layout_marginBottom="15dp"
-                />
+                android:layout_marginBottom="15dp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
@@ -57,8 +56,8 @@
             app:passwordToggleEnabled="true"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-            <EditText
-                android:id="@+id/et_password"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tit_loginPassword"
                 android:layout_width="370dp"
                 android:layout_height="55dp"
                 android:hint="비밀번호를 입력해주세요."
