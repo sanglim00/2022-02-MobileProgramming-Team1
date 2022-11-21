@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,6 +18,7 @@ public class LoginActivity extends AppCompatActivity {
     String showTxt, loginEmailTxt, loginPWTxt;
     public boolean loginCheckEmail, loginCheck;
 
+    // 이메일, 비밀번호 입력되었는지 확인
     private boolean hasTxt(TextInputEditText et){
         return (et.getText().toString().trim().length() > 0);
     }
@@ -44,7 +44,7 @@ public class LoginActivity extends AppCompatActivity {
 
             Pattern pattern = Patterns.EMAIL_ADDRESS;
 
-            // 모든 항목이 채워져 있는지 확인
+            // 모든 항목 입력되었는지 확인
             if (!(hasTxt(loginEmail) && hasTxt(loginPW))) {
                 showTxt = "모든 항목을 채워주세요";
                 Toast.makeText(getApplicationContext(), showTxt, Toast.LENGTH_SHORT).show();
