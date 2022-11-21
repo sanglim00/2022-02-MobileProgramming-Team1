@@ -19,12 +19,11 @@
             android:gravity="center">
 
             <LinearLayout
-                android:id="@+id/profile_image"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center">
                 <ImageView
-                    android:id="@+id/app"
+                    android:id="@+id/iv_profile"
                     android:layout_width="150dp"
                     android:layout_height="150dp"
                     android:layout_marginTop="50dp"
@@ -33,13 +32,13 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/person_info"
                 android:layout_width="370dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/tv_personInfo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Person Info"
@@ -56,6 +55,7 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/tv_email"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="E-MAIL"
@@ -67,7 +67,7 @@
                         android:textColorHint="#dcdcdc"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/signup_ID"
+                            android:id="@+id/tit_email"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:hint="이메일을 입력해주세요."
@@ -76,6 +76,7 @@
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <TextView
+                        android:id="@+id/tv_password"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="PASSWORD"
@@ -88,7 +89,7 @@
                         app:passwordToggleEnabled="true"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/PW"
+                            android:id="@+id/tit_password"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:hint="비밀번호를 입력해주세요."
@@ -97,6 +98,7 @@
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <TextView
+                        android:id="@+id/tv_passwordCheck"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="PASSWORD CHECK"
@@ -109,7 +111,7 @@
                         app:passwordToggleEnabled="true"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/P"
+                            android:id="@+id/tit_passwordCheck"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:hint="비밀번호를 한 번 더 입력해주세요."
@@ -118,6 +120,7 @@
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <TextView
+                        android:id="@+id/tv_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="NAME"
@@ -129,7 +132,7 @@
                         android:textColorHint="#dcdcdc"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/signup_name"
+                            android:id="@+id/tit_name"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:hint="이름을 입력해주세요."
@@ -138,6 +141,7 @@
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <TextView
+                        android:id="@+id/tv_phone"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="PHONE"
@@ -148,7 +152,7 @@
                         android:textColorHint="#dcdcdc"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/signup_phone"
+                            android:id="@+id/tit_phone"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:hint="전화번호를 입력해주세요."
@@ -159,13 +163,13 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/pet_info"
                 android:layout_width="370dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/tv_petInfo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Pet Info"
@@ -182,6 +186,7 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/tv_petName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="NAME"
@@ -193,7 +198,7 @@
                         android:textColorHint="#dcdcdc"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/signup_pet_name"
+                            android:id="@+id/tit_petName"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:hint="이름을 입력해주세요."
@@ -202,6 +207,7 @@
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <TextView
+                        android:id="@+id/tv_petType"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="PET TYPE" />
@@ -212,7 +218,7 @@
                         android:layout_marginBottom="15dp">
 
                         <Button
-                            android:id="@+id/pet_check_btn1"
+                            android:id="@+id/btn_petType1"
                             android:layout_width="70dp"
                             android:layout_height="50dp"
                             android:layout_marginEnd="5dp"
@@ -223,7 +229,7 @@
                             android:textStyle="bold" />
 
                         <Button
-                            android:id="@+id/pet_check_btn2"
+                            android:id="@+id/btn_petType2"
                             android:layout_width="70dp"
                             android:layout_height="50dp"
                             android:layout_marginEnd="5dp"
@@ -234,7 +240,7 @@
                             android:textStyle="bold" />
 
                         <Button
-                            android:id="@+id/pet_check_btn4"
+                            android:id="@+id/btn_petType3"
                             android:layout_width="70dp"
                             android:layout_height="50dp"
                             android:layout_marginEnd="5dp"
@@ -245,7 +251,7 @@
                             android:textStyle="bold" />
 
                         <Button
-                            android:id="@+id/pet_check_btn5"
+                            android:id="@+id/btn_petType4"
                             android:layout_width="70dp"
                             android:layout_height="50dp"
                             android:layout_marginEnd="5dp"
@@ -256,7 +262,7 @@
                             android:textStyle="bold" />
 
                         <Button
-                            android:id="@+id/pet_check_btn6"
+                            android:id="@+id/btn_petType5"
                             android:layout_width="70dp"
                             android:layout_height="50dp"
                             android:backgroundTint="@color/white"
@@ -267,32 +273,24 @@
                     </LinearLayout>
 
                     <TextView
-                        android:id="@+id/gender"
+                        android:id="@+id/tv_petGender"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="GENDER"
                         android:layout_marginBottom="5dp" />
                     <Spinner
-                        android:id="@+id/spinner"
+                        android:id="@+id/spinner_petGender"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="15dp" />
 
                     <TextView
+                        android:id="@+id/tv_petBirth"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="BIRTH" />
-
-        <!--            <EditText-->
-        <!--                android:id="@+id/pet_birth"-->
-        <!--                android:layout_width="match_parent"-->
-        <!--                android:layout_height="70dp"-->
-        <!--                android:layout_marginLeft="10dp"-->
-        <!--                android:hint="생년월일을 입력해주세요."-->
-        <!--                android:inputType="text" />-->
-
                     <CalendarView
-                        android:id="@+id/calendarView"
+                        android:id="@+id/cv_petBirth"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
@@ -307,6 +305,7 @@
                 android:layout_marginTop="20dp">
 
                 <TextView
+                    android:id="@+id/tv_privacyUsage"
                     android:layout_width="370dp"
                     android:layout_height="wrap_content"
                     android:text="개인정보 이용 동의"
@@ -317,13 +316,13 @@
                     style="@style/Hyperlink" />
 
                 <TextView
-                    android:id="@+id/terms_text"
+                    android:id="@+id/tv_privacyUsageText"
                     android:layout_width="370dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:scrollbars="vertical"
                     android:text="-개인정보 수집 및 이용 동의-\n
-주식회사 만두컴퍼니(이하 “회사” 또는 서비스명인 “반려일지”라 함)는 이용자의 개인정보보호를 매우 중요시하며, 『개인정보보호법』, 『정보통신망이용촉진 및 정보보호에 관한 법률』 등 개인정보보호규정 및 정보통신부가 제정한 『개인정보보호지침』을 준수하고 있습니다.
+주식회사 모프 팀1(이하 “회사” 또는 서비스명인 “반려일지”라 함)는 이용자의 개인정보보호를 매우 중요시하며, 『개인정보보호법』, 『정보통신망이용촉진 및 정보보호에 관한 법률』 등 개인정보보호규정 및 정보통신부가 제정한 『개인정보보호지침』을 준수하고 있습니다.
 회사는 원활한 서비스 제공을 위해 이용자로부터 아래와 같이 개인정보 수집 및 이용동의를 받고자합니다. 내용을 자세히 읽으신 후 동의하시면 원래 화면으로 돌아가 해당 화면의 안내에 따라 버튼을 눌러 주시기 바랍니다. 자세한 내용은 회사의 개인정보처리방침을 참조하여 주시기 바랍니다.\n
 -개인정보 수집 항목-\n
 전화번호, 이름, 주소\n
@@ -334,7 +333,6 @@
                     android:textStyle="bold" />
 
                 <RadioGroup
-                    android:id="@+id/accept_group"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
@@ -342,7 +340,7 @@
                     tools:ignore="RtlHardcoded">
 
                     <RadioButton
-                        android:id="@+id/accept"
+                        android:id="@+id/btn_accept"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="0dp"
@@ -351,7 +349,7 @@
                         android:textStyle="bold" />
 
                     <RadioButton
-                        android:id="@+id/decline"
+                        android:id="@+id/btn_decline"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
@@ -369,7 +367,7 @@
                 android:orientation="vertical"
                 android:layout_marginTop="60dp">
                 <Button
-                    android:id="@+id/btn_login"
+                    android:id="@+id/btn_completion"
                     android:layout_width="370dp"
                     android:layout_height="55dp"
                     android:text="회원가입 완료하기"
@@ -379,7 +377,7 @@
                     android:backgroundTint="#FCC73F" />
 
                 <Button
-                    android:id="@+id/btn_signup"
+                    android:id="@+id/btn_back"
                     android:layout_width="370dp"
                     android:layout_height="55dp"
                     android:text="뒤로가기"
