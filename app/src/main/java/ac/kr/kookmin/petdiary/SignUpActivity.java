@@ -154,7 +154,7 @@ public class SignUpActivity extends AppCompatActivity {
                 showTxt = "모든 항목을 채워주세요.";
                 Toast.makeText(getApplicationContext(), showTxt, Toast.LENGTH_SHORT).show();
             } else if (!joinBtnCheck) {
-                showTxt = "PET TYPE을 선택해주세요";
+                showTxt = "반려동물 종류를 선택해주세요";
                 Toast.makeText(getApplicationContext(), showTxt, Toast.LENGTH_SHORT).show();
             } else if (!joinCheckGender) {
                 showTxt = "성별을 선택해주세요";
@@ -217,5 +217,11 @@ public class SignUpActivity extends AppCompatActivity {
             startActivity(intentSign);
             finish();
         });
+    }
+
+    // 백버튼 클릭 방지
+    @Override
+    public void onBackPressed() {
+        // super.onBackPressed();
     }
 }
