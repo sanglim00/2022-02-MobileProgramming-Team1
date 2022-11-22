@@ -30,13 +30,10 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
-                android:id="@+id/iv_postImg"
+                android:id="@+id/Img_upload"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:minWidth="200dp"
-                android:minHeight="200dp"
-                android:visibility="gone"
-                tools:srcCompat="@tools:sample/avatars" />
+                android:layout_height="400dp"
+                app:srcCompat="@drawable/ddaeng2" />
 
             <Button
                 android:id="@+id/btn_uploadImg"
@@ -44,7 +41,6 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:backgroundTint="#ffffff"
-                android:onClick="UploadImg"
                 android:text="이미지 업로드"
                 android:textColor="@color/black"
                 app:strokeColor="@color/FCC73F"

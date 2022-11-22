@@ -21,7 +21,7 @@
             android:name=".NotiActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".WritingActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -50,9 +50,9 @@
         <activity
             android:name=".PrivacyPolicyActivity"
             android:label="Privacy Policy" />
-        <activity
-            android:name=".WritingActivity"
-            android:label="Writing"/>
+<!--        <activity-->
+<!--            android:name=".WritingActivity"-->
+<!--            android:label="Writing"/>-->
         <activity
             android:name=".Profile_OthersActivity"
             android:label="Profile_Others"/>
