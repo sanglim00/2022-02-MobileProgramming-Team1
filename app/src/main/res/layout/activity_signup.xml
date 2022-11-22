@@ -8,329 +8,380 @@
     android:gravity="center"
     tools:context=".SignUp">
 
-    <ImageView
-    android:id="@+id/app"
-    android:layout_width="150dp"
-    android:layout_height="150dp"
-    android:layout_marginTop="70dp"
-    android:background="#8c8c8c" />
-
     <ScrollView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:gravity="center">
+
             <LinearLayout
-                android:id="@+id/person_info"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center">
+                <ImageView
+                    android:id="@+id/iv_profile"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_marginTop="50dp"
+                    android:layout_marginBottom="15dp"
+                    android:src="@drawable/profile_img" />
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="370dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="30dp"
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/tv_personInfo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Person Info"
                     android:textColor="@color/black"
-                    android:textSize="30sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="E-MAIL"/>
-
-                <EditText
-                    android:id="@+id/signup_ID"
-                    android:layout_width="match_parent"
-                    android:layout_height="70dp"
-                    android:layout_marginLeft="10dp"
-                    android:hint="이메일을 입력해주세요."
-                    android:inputType="text"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="PASSWORD" />
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:paddingBottom="10dp"
+                    style="@style/Hyperlink" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal" >
-
-                    <EditText
-                        android:id="@+id/signup_PW"
-                        android:layout_width="235dp"
-                        android:layout_height="70dp"
-                        android:layout_marginLeft="10dp"
-                        android:hint="비밀번호를 입력해주세요."
-                        android:inputType="text" />
-                    <Button
-                        android:id="@+id/PW_check_btn"
-                        android:layout_width="120dp"
-                        android:layout_height="60dp"
-                        android:text="PW 확인"
-                        android:textColor="@color/black"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:backgroundTint="#FCC73F" />
-                </LinearLayout>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="PASSWORD_CHECK" />
-
-                <EditText
-                    android:id="@+id/PW_CHECK"
-                    android:layout_width="match_parent"
-                    android:layout_height="70dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginTop="10dp"
-                    android:hint="비밀번호를 한 번 더 입력해주세요."
-                    android:inputType="text" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="NAME" />
-
-                <EditText
-                    android:id="@+id/name"
-                    android:layout_width="match_parent"
-                    android:layout_height="70dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginTop="10dp"
-                    android:hint="이름을 입력해주세요."
-                    android:inputType="text" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="PHONE" />
-
-                <EditText
-                    android:id="@+id/phone"
-                    android:layout_width="match_parent"
-                    android:layout_height="70dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginTop="10dp"
-                    android:hint="전화번호를 입력해주세요."
-                    android:inputType="phone" />
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
                     android:orientation="vertical">
 
+                    <TextView
+                        android:id="@+id/tv_email"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="E-MAIL"
+                        android:textSize="13sp" />
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="370dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="15dp"
+                        android:textColorHint="#dcdcdc"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/tit_email"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:hint="이메일을 입력해주세요."
+                            android:inputType="text"
+                            android:background="@drawable/login_signup_border" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <TextView
+                        android:id="@+id/tv_password"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="PASSWORD"
+                        android:textSize="13sp" />
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="370dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="15dp"
+                        android:textColorHint="#dcdcdc"
+                        app:passwordToggleEnabled="true"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/tit_password"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:hint="비밀번호를 입력해주세요."
+                            android:inputType="textPassword"
+                            android:background="@drawable/login_signup_border" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <TextView
+                        android:id="@+id/tv_passwordCheck"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="PASSWORD CHECK"
+                        android:textSize="13sp" />
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="370dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="15dp"
+                        android:textColorHint="#dcdcdc"
+                        app:passwordToggleEnabled="true"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/tit_passwordCheck"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:hint="비밀번호를 한 번 더 입력해주세요."
+                            android:inputType="textPassword"
+                            android:background="@drawable/login_signup_border" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <TextView
+                        android:id="@+id/tv_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="NAME"
+                        android:textSize="13sp" />
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="370dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="15dp"
+                        android:textColorHint="#dcdcdc"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/tit_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:hint="이름을 입력해주세요."
+                            android:inputType="text"
+                            android:background="@drawable/login_signup_border" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <TextView
+                        android:id="@+id/tv_phone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="PHONE"
+                        android:textSize="13sp" />
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="370dp"
+                        android:layout_height="wrap_content"
+                        android:textColorHint="#dcdcdc"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/tit_phone"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:hint="전화번호를 입력해주세요."
+                            android:inputType="text"
+                            android:background="@drawable/login_signup_border" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="370dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_petInfo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Pet Info"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:paddingBottom="10dp"
+                    style="@style/Hyperlink" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_petName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="NAME"
+                        android:textSize="13sp" />
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="370dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="15dp"
+                        android:textColorHint="#dcdcdc"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/tit_petName"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:hint="이름을 입력해주세요."
+                            android:inputType="text"
+                            android:background="@drawable/login_signup_border" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <TextView
+                        android:id="@+id/tv_petType"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="PET TYPE" />
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:gravity="center_horizontal">
+                        android:layout_marginBottom="15dp">
 
-                        <TextView
-                            android:id="@+id/signup_terms"
-                            android:layout_width="170dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="7dp"
-                            android:layout_marginTop="18dp"
-                            android:text="*개인정보이용동의"
-                            android:textAlignment="center"
+                        <Button
+                            android:id="@+id/btn_petType1"
+                            android:layout_width="70dp"
+                            android:layout_height="50dp"
+                            android:layout_marginEnd="5dp"
+                            android:backgroundTint="@color/white"
+                            android:text="dog"
                             android:textColor="@color/black"
-                            android:textSize="20sp"
+                            android:textSize="15sp"
                             android:textStyle="bold" />
 
-                        <RadioGroup
-                            android:id="@+id/accept_group"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:layout_marginTop="13dp">
+                        <Button
+                            android:id="@+id/btn_petType2"
+                            android:layout_width="70dp"
+                            android:layout_height="50dp"
+                            android:layout_marginEnd="5dp"
+                            android:backgroundTint="@color/white"
+                            android:text="cat"
+                            android:textColor="@color/black"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
 
-                            <RadioButton
-                                android:id="@+id/accept"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="40dp"
-                                android:layout_marginTop="0dp"
-                                android:text="동의"
-                                android:textSize="16sp"
-                                android:textStyle="bold" />
+                        <Button
+                            android:id="@+id/btn_petType3"
+                            android:layout_width="70dp"
+                            android:layout_height="50dp"
+                            android:layout_marginEnd="5dp"
+                            android:backgroundTint="@color/white"
+                            android:text="fish"
+                            android:textColor="@color/black"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
 
-                            <RadioButton
-                                android:id="@+id/decline"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="10dp"
-                                android:layout_marginTop="0dp"
-                                android:layout_marginRight="10dp"
-                                android:text="거절"
-                                android:textSize="16sp"
-                                android:textStyle="bold" />
-                        </RadioGroup>
+                        <Button
+                            android:id="@+id/btn_petType4"
+                            android:layout_width="70dp"
+                            android:layout_height="50dp"
+                            android:layout_marginEnd="5dp"
+                            android:backgroundTint="@color/white"
+                            android:text="pig"
+                            android:textColor="@color/black"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <Button
+                            android:id="@+id/btn_petType5"
+                            android:layout_width="70dp"
+                            android:layout_height="50dp"
+                            android:backgroundTint="@color/white"
+                            android:text="+"
+                            android:textColor="@color/black"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
                     </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tv_petGender"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="GENDER"
+                        android:layout_marginBottom="5dp" />
+                    <Spinner
+                        android:id="@+id/spinner_petGender"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="15dp" />
+
+                    <TextView
+                        android:id="@+id/tv_petBirth"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="BIRTH" />
+                    <CalendarView
+                        android:id="@+id/cv_petBirth"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
                 </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_marginTop="20dp">
 
                 <TextView
-                    android:id="@+id/terms_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="60dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
+                    android:id="@+id/tv_privacyUsage"
+                    android:layout_width="370dp"
+                    android:layout_height="wrap_content"
+                    android:text="개인정보 이용 동의"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:paddingBottom="10dp"
+                    style="@style/Hyperlink" />
+
+                <TextView
+                    android:id="@+id/tv_privacyUsageText"
+                    android:layout_width="370dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
                     android:scrollbars="vertical"
                     android:text="-개인정보 수집 및 이용 동의-\n
-주식회사 만두컴퍼니(이하 “회사” 또는 서비스명인 “Booky”라 함)는 이용자의 개인정보보호를 매우 중요시하며, 『개인정보보호법』, 『정보통신망이용촉진 및 정보보호에 관한 법률』 등 개인정보보호규정 및 정보통신부가 제정한 『개인정보보호지침』을 준수하고 있습니다.
+주식회사 모프 팀1(이하 “회사” 또는 서비스명인 “반려일지”라 함)는 이용자의 개인정보보호를 매우 중요시하며, 『개인정보보호법』, 『정보통신망이용촉진 및 정보보호에 관한 법률』 등 개인정보보호규정 및 정보통신부가 제정한 『개인정보보호지침』을 준수하고 있습니다.
 회사는 원활한 서비스 제공을 위해 이용자로부터 아래와 같이 개인정보 수집 및 이용동의를 받고자합니다. 내용을 자세히 읽으신 후 동의하시면 원래 화면으로 돌아가 해당 화면의 안내에 따라 버튼을 눌러 주시기 바랍니다. 자세한 내용은 회사의 개인정보처리방침을 참조하여 주시기 바랍니다.\n
 -개인정보 수집 항목-\n
 전화번호, 이름, 주소\n
 -개인정보의 이용 및 보유시간-\n
 회원 탈퇴 시까지 (관련 법령에 따라 보존할 필요가 있는 경우는 해당 보존 기간)\n
 -동의를 거부할 권리 및 동의를 거부할 경우의 불이익-\n
-‍위의 개인정보 수집 및 이용에 대한 동의를 거부할 권리가 있으나 동의를 거부할 경우 ‘Booky’ 서비스 제공에 제한 등 불이익을 받을 수 있습니다."
-                    android:textStyle="bold"
-                    android:visibility="invisible" />
-            </LinearLayout>
-            <LinearLayout
-                android:id="@+id/pet_info"
-                android:layout_width="370dp"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Pet Info"
-                    android:textColor="@color/black"
-                    android:textSize="30sp"
+‍위의 개인정보 수집 및 이용에 대한 동의를 거부할 권리가 있으나 동의를 거부할 경우 ‘반려일지’ 서비스 제공에 제한 등 불이익을 받을 수 있습니다."
                     android:textStyle="bold" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="NAME" />
-
-                <EditText
-                    android:id="@+id/pet_name"
+                <RadioGroup
                     android:layout_width="match_parent"
-                    android:layout_height="70dp"
-                    android:layout_marginLeft="10dp"
-                    android:hint="이름을 입력해주세요."
-                    android:inputType="text"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="PET TYPE"/>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_marginLeft="10dp" >
+                    android:gravity="right"
+                    tools:ignore="RtlHardcoded">
 
-                    <Button
-                        android:id="@+id/pet_check_btn1"
-                        android:layout_width="70dp"
-                        android:layout_height="40dp"
-                        android:text="dog"
-                        android:textColor="@color/black"
-                        android:textSize="15sp"
-                        android:textStyle="bold"
-                        android:backgroundTint="@color/white" />
-                    <Button
-                        android:id="@+id/pet_check_btn2"
-                        android:layout_width="70dp"
-                        android:layout_height="40dp"
-                        android:text="cat"
-                        android:textColor="@color/black"
-                        android:textSize="15sp"
-                        android:textStyle="bold"
-                        android:backgroundTint="@color/white" />
-                    <Button
-                        android:id="@+id/pet_check_btn3"
-                        android:layout_width="70dp"
-                        android:layout_height="40dp"
-                        android:text="snake"
-                        android:textColor="@color/black"
-                        android:textSize="15sp"
-                        android:textStyle="bold"
-                        android:backgroundTint="@color/white" />
-                    <Button
-                        android:id="@+id/pet_check_btn4"
-                        android:layout_width="70dp"
-                        android:layout_height="40dp"
-                        android:text="fish"
-                        android:textColor="@color/black"
-                        android:textSize="15sp"
-                        android:textStyle="bold"
-                        android:backgroundTint="@color/white" />
-                    <Button
-                        android:id="@+id/pet_check_btn5"
-                        android:layout_width="70dp"
-                        android:layout_height="40dp"
-                        android:text="pig"
-                        android:textColor="@color/black"
-                        android:textSize="15sp"
-                        android:textStyle="bold"
-                        android:backgroundTint="@color/white" />
-                </LinearLayout>
+                    <RadioButton
+                        android:id="@+id/btn_accept"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="0dp"
+                        android:text="동의"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="GENDER" />
-
-                <EditText
-                    android:id="@+id/pet_gender"
-                    android:layout_width="match_parent"
-                    android:layout_height="70dp"
-                    android:layout_marginLeft="10dp"
-                    android:hint="성별을 입력해주세요."
-                    android:inputType="text"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="BIRTH" />
-
-                <EditText
-                    android:id="@+id/pet_birth"
-                    android:layout_width="match_parent"
-                    android:layout_height="70dp"
-                    android:layout_marginLeft="10dp"
-                    android:hint="생년월일을 입력해주세요."
-                    android:inputType="text"/>
+                    <RadioButton
+                        android:id="@+id/btn_decline"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="0dp"
+                        android:layout_marginRight="10dp"
+                        android:text="거절"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+                </RadioGroup>
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:layout_marginTop="60dp">
                 <Button
-                    android:id="@+id/Login_btn"
+                    android:id="@+id/btn_completion"
                     android:layout_width="370dp"
                     android:layout_height="55dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_below="@+id/PW"
-                    android:layout_centerInParent="true"
                     android:text="회원가입 완료하기"
-                    android:textSize="16sp"
+                    android:textSize="13sp"
                     android:textStyle="bold"
                     android:textColor="@color/black"
                     android:backgroundTint="#FCC73F" />
 
                 <Button
-                    android:id="@+id/Signup_btn"
+                    android:id="@+id/btn_back"
                     android:layout_width="370dp"
                     android:layout_height="55dp"
-                    android:layout_below="@+id/Login_btn"
-                    android:layout_centerInParent="true"
                     android:text="뒤로가기"
-                    android:textSize="16sp"
+                    android:textSize="13sp"
                     android:textStyle="bold"
                     android:textColor="@color/black"
                     android:backgroundTint="@color/white"
@@ -339,6 +390,4 @@
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
-
-
 </LinearLayout>
