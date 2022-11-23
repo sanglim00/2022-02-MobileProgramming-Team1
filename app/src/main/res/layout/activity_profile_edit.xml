@@ -202,17 +202,37 @@
                                 android:layout_height="wrap_content"
                                 />
                         </LinearLayout>
-
-                        <EditText
-
-                            android:id="@+id/et_pf_edit_meetDate"
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:hint="만난 날짜"
-                            android:gravity="center"
-                            android:textSize="18sp"
+                            android:orientation="horizontal"
                             android:layout_weight="1"
-                            />
+                            android:weightSum="5"
+                            >
+                            <TextView
+                                android:id="@+id/txt_pf_edit_meetDate"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:hint="만난 날짜"
+                                android:gravity="center"
+                                android:textSize="18sp"
+                                android:layout_weight="4"
+                                />
+                            <ImageButton
+                                android:id="@+id/imgBtn_pf_calendar"
+                                android:layout_width="30sp"
+                                android:layout_height="30sp"
+                                android:layout_weight="1"
+                                android:src="@drawable/icon_edit_profile_calendar"
+                                android:background="@android:color/transparent"
+                                android:adjustViewBounds="true"
+                                android:scaleType="fitCenter"
+                                app:tint="@color/FCC73F"
+                                android:layout_gravity="center"
+                                />
+                        </LinearLayout>
+
+
 
                     </TableRow>
 
