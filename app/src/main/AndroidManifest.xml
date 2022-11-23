@@ -3,6 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="ac.kr.kookmin.petdiary">
 
+    <!-- 권한 설정  -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -12,10 +16,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PetDiary"
+
+        tools:targetApi="31"
+        android:requestLegacyExternalStorage="true"
+
+        >
         tools:targetApi="31">
         <meta-data
             android:name="com.google.android.actions"
             android:resource="@drawable/border" />
+
 
         <activity
             android:name=".NotiActivity"
@@ -57,6 +67,9 @@
             android:name=".Profile_OthersActivity"
             android:label="Profile_Others"/>
         <activity android:name=".Profile_EditActivity" android:label="Profile_Edit"/>
+
+        <activity android:name=".calendarActivity" android:label="calendar"/>
+
     </application>
 
 </manifest>
