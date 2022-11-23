@@ -31,9 +31,13 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
 
     @Override
     public int getItemCount() {
-        return 0;
+        return mainList.size();
     }
 
+    public void setMainList(ArrayList<MainItemList> list) {
+        this.mainList = list;
+        notifyDataSetChanged();
+    }
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         CircleImageView profile_img;
@@ -44,7 +48,7 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             profile_img = (CircleImageView) itemView.findViewById(R.id.recycler_ID_pic);
-            username = (TextView) itemView.findViewById(R.id.recycler_ID);
+            username = (TextView) itemView.findViewById(R.id.recycler_ID_text);
             content_img = (ImageView) itemView.findViewById(R.id.recycler_content_pic);
             content = (TextView) itemView.findViewById(R.id.recycler_content_text);
         }
