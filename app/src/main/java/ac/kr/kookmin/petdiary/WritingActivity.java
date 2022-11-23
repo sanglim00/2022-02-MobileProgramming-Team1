@@ -105,10 +105,9 @@ public class WritingActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == 0) {
-            if (requestCode == RESULT_OK) {
-                Glide.with(getApplicationContext()).load(data.getData()).override(400, 400).into(uploadImg);
-            }
+        if(requestCode == 0 && requestCode == 0) {
+            // load: 가져올 이미지, override: 이미지 크기 조정, into: 이미지를 출력할 객체
+            Glide.with(getApplicationContext()).load(data.getData()).override(400, 400).into(uploadImg);
         }
     }
 
