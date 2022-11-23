@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -29,6 +30,7 @@ public class WritingActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
     ImageView uploadImg;
     Button uploadImgBtn;
+    EditText postContents;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +45,8 @@ public class WritingActivity extends AppCompatActivity {
                 UploadImg();
             }
         });
+
+        postContents = findViewById(R.id.et_postContents);
 
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -112,6 +116,6 @@ public class WritingActivity extends AppCompatActivity {
     }
 
     public void UploadPost(View view) {
-        Toast.makeText(getApplicationContext(), "업로드 버튼 클릭", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), postContents.getText().toString(), Toast.LENGTH_SHORT).show();
     }
 }
