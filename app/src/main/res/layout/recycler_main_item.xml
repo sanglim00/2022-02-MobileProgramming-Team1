@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingLeft="15dp"
+    android:paddingTop="8dp"
+    android:paddingRight="15dp"
+    android:paddingBottom="8dp"
+    android:orientation="vertical">
+
+    <GridLayout
+        android:id="@+id/recycler_ID"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/recycler_ID_pic"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ddaeng"
+            app:civ_border_color="#FF000000"
+            app:civ_border_width="2dp" />
+
+        <TextView
+            android:id="@+id/recycler_ID_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="30px"
+            android:layout_marginTop="21px"
+
+            android:text="my._.ddaengsun"
+            android:textColor="@color/black"
+            android:textSize="16dp"
+            android:textStyle="bold" />
+    </GridLayout>
+
+    <ImageView
+        android:id="@+id/recycler_content_pic"
+        android:layout_width="match_parent"
+        android:layout_height="900px"
+        android:layout_below="@id/recycler_ID"
+        android:layout_marginTop="30px"
+        android:src="@drawable/ddaeng"></ImageView>
+
+    <TextView
+        android:id="@+id/recycler_content_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/recycler_content_pic"
+        android:layout_marginTop="30px"
+        android:text="더미 데이터입니다. 텍스트 들어갈 자리입니다."
+        android:textStyle="normal"
+        android:textColor="@color/black"
+        android:textSize="14dp" />
+
+</LinearLayout>
