@@ -30,7 +30,7 @@
             android:name=".NotiActivity"
             android:exported="false" />
         <activity
-            android:name=".ProfileActivity"
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -44,9 +44,9 @@
         <activity
             android:name=".LoginActivity"
             android:label="Login" />
-       <!-- <activity
+       <activity
             android:name=".ProfileActivity"
-            android:label="Profile" /> -->
+            android:label="Profile" />
         <activity
             android:name=".SettingActivity"
             android:label="Setting" />
