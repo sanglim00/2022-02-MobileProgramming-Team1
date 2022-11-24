@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -284,10 +285,19 @@ public class Profile_EditActivity extends AppCompatActivity {
         }
 
     }
-    @Override
-    public void onBackPressed() { // 백버튼 방지
-        // super.onBackPressed();
+
+    public boolean onKeyDown(int keycode, KeyEvent event){
+        if(keycode == KeyEvent.KEYCODE_BACK){
+            Intent intent = new Intent();
+            intent.putExtra("image_changed", false);
+            intent.putExtra("complete", false);
+            setResult(0,intent);
+            finish();
+            return true;
+        }
+        return false;
     }
+
 
 
 }
