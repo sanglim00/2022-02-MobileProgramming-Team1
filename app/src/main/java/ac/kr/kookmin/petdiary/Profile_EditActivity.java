@@ -284,10 +284,7 @@ public class Profile_EditActivity extends AppCompatActivity {
         }
 
     }
-    @Override
-    public void onBackPressed() { // 백버튼 방지
-        // super.onBackPressed();
-    }
+
 
 
 }
