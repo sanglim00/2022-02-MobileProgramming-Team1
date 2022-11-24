@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -31,6 +32,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.core.app.ActivityCompat;
 import androidx.annotation.NonNull;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 import java.io.ByteArrayOutputStream;
 
 
@@ -43,6 +47,9 @@ public class Profile_EditActivity extends AppCompatActivity {
     private Bitmap bit;
     private BitmapFactory.Options bitOption;
     boolean image_changed = false;
+    BottomNavigationView bottomNavigationView;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,6 +89,34 @@ public class Profile_EditActivity extends AppCompatActivity {
         txt_gender.setText(genderIntent);
         et_edit_meetDate.setText(meetDateIntent);
         et_edit_one_line_info.setText(oneLineIntent); // 기존값 받아옴
+
+
+
+        bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation); // footer
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                Intent intent;
+                switch (item.getItemId()) {
+                    case R.id.action_one:
+                        intent = new Intent(getApplicationContext(), MainActivity.class);
+                        startActivity(intent);
+                        return true;
+                    case R.id.action_two:
+                        return true;
+                    case R.id.action_three:
+                        intent = new Intent(getApplicationContext(), NotiActivity.class);
+                        startActivity(intent);
+                        return true;
+                    case R.id.action_four:
+                        intent = new Intent(getApplicationContext(), ProfileActivity.class);
+                        startActivity(intent);
+                        return true;
+                }
+                return false;
+            }
+        });
+
 
 
         imgBtn_edit_editimage.setOnClickListener(new View.OnClickListener(){ // 프로필 사진 변경 버튼
@@ -244,6 +279,10 @@ public class Profile_EditActivity extends AppCompatActivity {
 
         }
 
+    }
+    @Override
+    public void onBackPressed() { // 백버튼 방지
+        // super.onBackPressed();
     }
 
 
