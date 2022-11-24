@@ -132,16 +132,18 @@ public class ProfileActivity extends AppCompatActivity {
                                 }
 
                             }
+
+                            String nameIntent = result.getData().getStringExtra("name");
+                            String genderIntent = result.getData().getStringExtra("gender");
+                            String meetDateIntent = result.getData().getStringExtra("meetDate");
+                            String oneLineIntent = result.getData().getStringExtra("one_line");
+                            txt_pf_name.setText(nameIntent);
+                            txt_pf_gender.setText(genderIntent);
+                            txt_pf_meetDate.setText(meetDateIntent);
+                            txt_pf_one_line_info.setText(oneLineIntent);
                         }
 
-                        String nameIntent = result.getData().getStringExtra("name");
-                        String genderIntent = result.getData().getStringExtra("gender");
-                        String meetDateIntent = result.getData().getStringExtra("meetDate");
-                        String oneLineIntent = result.getData().getStringExtra("one_line");
-                        txt_pf_name.setText(nameIntent);
-                        txt_pf_gender.setText(genderIntent);
-                        txt_pf_meetDate.setText(meetDateIntent);
-                        txt_pf_one_line_info.setText(oneLineIntent);
+
                     }
                 }
             });
