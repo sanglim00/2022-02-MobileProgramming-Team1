@@ -21,7 +21,6 @@
         android:requestLegacyExternalStorage="true"
 
         >
-        tools:targetApi="31">
         <meta-data
             android:name="com.google.android.actions"
             android:resource="@drawable/border" />
