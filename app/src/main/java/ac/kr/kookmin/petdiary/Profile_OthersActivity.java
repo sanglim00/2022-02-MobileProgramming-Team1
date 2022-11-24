@@ -37,10 +37,14 @@ public class Profile_OthersActivity extends AppCompatActivity {
                     case R.id.action_two:
                         return true;
                     case R.id.action_three:
-                        intent = new Intent(getApplicationContext(), NotiActivity.class);
+                        intent = new Intent(getApplicationContext(), WritingActivity.class);
                         startActivity(intent);
                         return true;
                     case R.id.action_four:
+                        intent = new Intent(getApplicationContext(), NotiActivity.class);
+                        startActivity(intent);
+                        return true;
+                    case R.id.action_five:
                         intent = new Intent(getApplicationContext(), ProfileActivity.class);
                         startActivity(intent);
                         return true;
