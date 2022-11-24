@@ -4,8 +4,10 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.media.Image;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -20,6 +22,7 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContract;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -29,6 +32,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.widget.Toast;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 
 public class ProfileActivity extends AppCompatActivity {
     TextView txt_pf_name;
@@ -37,11 +42,7 @@ public class ProfileActivity extends AppCompatActivity {
     TextView txt_pf_one_line_info;
     ImageView img_pf;
     Bitmap bitmap;
-
-    private final String TAG = "Test";
-
-    private final int REQUEST_CODE = 1102;
-
+    BottomNavigationView bottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +57,34 @@ public class ProfileActivity extends AppCompatActivity {
 
         ImageButton imgBtn_setting = findViewById(R.id.imgBtn_setting); // 환경설정 버튼
         Button btn_edit_profile = findViewById(R.id.btn_pf_edit_profile); // 프로필 편집
+
+
+        bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation); // footer
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                Intent intent;
+                switch (item.getItemId()) {
+                    case R.id.action_one:
+                        intent = new Intent(getApplicationContext(), MainActivity.class);
+                        startActivity(intent);
+                        return true;
+                    case R.id.action_two:
+                        return true;
+                    case R.id.action_three:
+                        intent = new Intent(getApplicationContext(), NotiActivity.class);
+                        startActivity(intent);
+                        return true;
+                    case R.id.action_four:
+                        intent = new Intent(getApplicationContext(), ProfileActivity.class);
+                        startActivity(intent);
+                        return true;
+                }
+                return false;
+            }
+        });
+
+
 
 
         btn_edit_profile.setOnClickListener(new View.OnClickListener() { // 프로필 편집
@@ -112,4 +141,10 @@ public class ProfileActivity extends AppCompatActivity {
                     }
                 }
             });
+    @Override
+    public void onBackPressed() { // 백버튼 방지
+        // super.onBackPressed();
+    }
+
+
 }

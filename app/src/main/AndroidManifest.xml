@@ -45,7 +45,7 @@
         <activity
             android:name=".LoginActivity"
             android:label="Login" />
-        <activity
+       <activity
             android:name=".ProfileActivity"
             android:label="Profile" />
         <activity
@@ -66,9 +66,10 @@
         <activity
             android:name=".Profile_OthersActivity"
             android:label="Profile_Others"/>
-        <activity android:name=".Profile_EditActivity" android:label="Profile_Edit"/>
-
-        <activity android:name=".calendarActivity" android:label="calendar"/>
+        <activity android:name=".Profile_EditActivity"
+            android:label="Profile_Edit"/>
+        <activity android:name=".calendarActivity"
+            android:label="calendar"/>
 
     </application>
 
