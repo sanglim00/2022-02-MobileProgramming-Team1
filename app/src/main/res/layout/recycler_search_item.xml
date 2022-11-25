@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
@@ -11,7 +10,7 @@
     android:paddingBottom="8dp">
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/profile"
+        android:id="@+id/profileImg"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:src="@drawable/ddaeng" />
@@ -25,26 +24,31 @@
         android:gravity="center_vertical"
         android:orientation="vertical">
 
+
         <TextView
-            android:id="@+id/notiTitle"
+            android:id="@+id/searchContent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="알림 제목"
+            android:layout_marginBottom="2dp"
+            android:text="gae_ggum_is_my_life"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/searchTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="지겨운 견생...."
             android:textColor="#7C7C7C"
             android:textSize="12sp"
             android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/notiContent"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="알림의 자세한 내용이 이 곳에 표시됩니다."
-            android:textColor="@color/black" />
+
     </LinearLayout>
 
     <ImageView
-        android:id="@+id/postImage"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:src="@drawable/grey_default" />
+        android:id="@+id/nextIcon"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/grey_default"
+        app:srcCompat="@drawable/next_button" />
 </LinearLayout>
