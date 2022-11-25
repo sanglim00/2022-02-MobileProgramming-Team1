@@ -3,117 +3,133 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingLeft="15dp"
-    android:paddingTop="20dp"
-    android:paddingRight="15dp">
+    android:orientation="vertical">
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/Logo"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:text="@string/self_authentication_text"
+        android:layout_height="40dp"
+        android:background="#FCC73F"
+        android:gravity="center"
+        android:text="Change Password"
         android:textColor="@color/black"
-        android:textSize="16sp" />
+        android:textSize="20dp"
+        android:textStyle="bold" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="10dp">
 
         <TextView
-            android:id="@+id/textView8"
+            android:id="@+id/textView4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:text="@string/self_authentication_text"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:text="@string/self_authentication"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/changeEmailInput"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="10dp"
+                android:ems="10"
+                android:hint="@string/enter_email"
+                android:inputType="textEmailAddress"
+                tools:ignore="TouchTargetSizeCheck" />
+
+            <EditText
+                android:id="@+id/changeNameInput"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="10dp"
+                android:ems="10"
+                android:hint="@string/enter_name"
+                android:inputType="textPersonName"
+                tools:ignore="TouchTargetSizeCheck" />
+
+            <EditText
+                android:id="@+id/changeIdInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/enter_id"
+                android:inputType="phone"
+                tools:ignore="TouchTargetSizeCheck" />
+        </LinearLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:layout_marginBottom="25dp" />
+
+        <TextView
+            android:id="@+id/textView9"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"
-            android:text="@string/self_authentication"
+            android:text="@string/set_password"
             android:textColor="@color/black"
             android:textSize="14sp"
             android:textStyle="bold" />
 
-        <EditText
-            android:id="@+id/changeEmailInput"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="10dp"
-            android:ems="10"
-            android:hint="@string/enter_email"
-            android:inputType="textEmailAddress"
-            tools:ignore="TouchTargetSizeCheck" />
-
-        <EditText
-            android:id="@+id/changeNameInput"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="10dp"
-            android:ems="10"
-            android:hint="@string/enter_name"
-            android:inputType="textPersonName"
-            tools:ignore="TouchTargetSizeCheck" />
-
-        <EditText
-            android:id="@+id/changeIdInput"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="@string/enter_id"
-            android:inputType="phone"
-            tools:ignore="TouchTargetSizeCheck" />
-    </LinearLayout>
+            android:layout_marginBottom="25dp"
+            android:orientation="vertical">
 
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
-        android:layout_marginBottom="25dp" />
+            <EditText
+                android:id="@+id/changePwInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:ems="10"
+                android:hint="@string/enter_password"
+                android:inputType="textPassword"
+                tools:ignore="TouchTargetSizeCheck" />
 
-    <TextView
-        android:id="@+id/textView9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="15dp"
-        android:text="@string/set_password"
-        android:textColor="@color/black"
-        android:textSize="14sp"
-        android:textStyle="bold" />
+            <EditText
+                android:id="@+id/changePwInput2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/enter_password_re"
+                android:inputType="textPassword"
+                tools:ignore="TouchTargetSizeCheck" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="25dp"
-        android:orientation="vertical">
+        </LinearLayout>
 
-        <EditText
-            android:id="@+id/changePwInput"
+        <Button
+            android:id="@+id/changePwButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:ems="10"
-            android:hint="@string/enter_password"
-            android:inputType="textPassword"
-            tools:ignore="TouchTargetSizeCheck" />
-
-        <EditText
-            android:id="@+id/changePwInput2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="@string/enter_password_re"
-            android:inputType="textPassword"
-            tools:ignore="TouchTargetSizeCheck" />
+            android:backgroundTint="#FCC73F"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:text="@string/change_password_text"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
 
     </LinearLayout>
-
-    <Button
-        android:id="@+id/changePwButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:backgroundTint="#FCC73F"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:text="@string/change_password_text"
-        android:textColor="@color/black"
-        android:textStyle="bold" />
 
 </GridLayout>

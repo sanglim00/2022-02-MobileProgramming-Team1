@@ -49,6 +49,8 @@ public class Profile_EditActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
     String txt_gender = "";
 
+    ImageButton openSetting;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +61,15 @@ public class Profile_EditActivity extends AppCompatActivity {
         bitOption = new BitmapFactory.Options();
         bitOption.inSampleSize = 4;
 
+
+        openSetting = findViewById(R.id.imgBtn_setting);
+        openSetting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), SettingActivity.class);
+                startActivity(intent);
+            }
+        });
 
         img_pf = findViewById(R.id.img_pf);
         ImageButton imgBtn_edit_editimage = findViewById(R.id.imgBtn_pf_edit_editimage);
@@ -92,6 +103,7 @@ public class Profile_EditActivity extends AppCompatActivity {
 
 
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation); // footer
+        bottomNavigationView.setSelectedItemId(R.id.action_five);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
