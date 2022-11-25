@@ -1,9 +1,9 @@
 package ac.kr.kookmin.petdiary;
 
 public class SearchItem {
-    private String userId;
-    private String userInfo;
-    private String profileSrc;
+    private String userId;          // 검색된 유저의 아이디
+    private String userInfo;        // 검색된 유저의 한 줄 소개
+    private String profileSrc;      // 검색된 유저의 프로필 사진
 
     public SearchItem(String userId, String userInfo, String profileSrc) {
         this.userId = userId;
