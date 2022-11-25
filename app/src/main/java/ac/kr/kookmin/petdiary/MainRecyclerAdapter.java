@@ -68,13 +68,13 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
             like_btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    like_btn.setSelected(!like_btn.isSelected());
                     if (like_btn.isSelected()) {
                         like_btn.setImageResource(R.drawable.img_like_active);
                     }
                     else {
                         like_btn.setImageResource(R.drawable.img_like_unactive);
                     }
-                    like_btn.setSelected(!like_btn.isSelected());
                 }
             });
             content_img.setOnClickListener(new View.OnClickListener() {
