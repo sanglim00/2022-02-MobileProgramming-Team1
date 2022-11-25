@@ -279,13 +279,13 @@ public class SignUpActivity extends AppCompatActivity {
             .addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void unused) {
-                    Log.d("201", "DocumentSnapshot Id: " + uid);
+                    Log.d("201", "User DocumentSnapshot Id: " + uid);
                 }
             })
             .addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Log.w("500", "Error Adding Document", e);
+                    Log.w("500", "Error Adding User Document", e);
                 }
             });
     }
