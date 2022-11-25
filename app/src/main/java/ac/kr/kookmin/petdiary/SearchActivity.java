@@ -32,6 +32,14 @@ public class SearchActivity extends AppCompatActivity {
         searchView.setLayoutManager(new LinearLayoutManager(this));
 
         ArrayList<SearchItem> searchItems = new ArrayList<>();
+        for(int i = 1; i <= 20; i++){
+            if (i % 3 == 0)
+                searchItems.add(new SearchItem("my._.ddaengsun", "지겨운 견생....", ""));
+            else if (i % 3 == 1)
+                searchItems.add(new SearchItem("__catvely__", "캣타워 사줄 때까지 숨참는 중...", ""));
+            else
+                searchItems.add(new SearchItem("gae_ggum", "개껌조아 너무조아", ""));
+        }
         searchAdapter.setSearchList(searchItems);
 
 

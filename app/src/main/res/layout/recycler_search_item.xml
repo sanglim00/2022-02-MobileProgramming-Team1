@@ -49,6 +49,5 @@
         android:id="@+id/nextIcon"
         android:layout_width="20dp"
         android:layout_height="20dp"
-        android:src="@drawable/grey_default"
-        app:srcCompat="@drawable/next_button" />
+        android:src="@drawable/next_button" />
 </LinearLayout>
