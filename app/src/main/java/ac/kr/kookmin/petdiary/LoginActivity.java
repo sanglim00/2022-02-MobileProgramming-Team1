@@ -32,6 +32,17 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if(currentUser != null){
+            Intent intentSign = new Intent(getApplication(), MainActivity.class);
+            startActivity(intentSign);
+            finish();
+        }
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
@@ -90,6 +101,7 @@ public class LoginActivity extends AppCompatActivity {
                         toastMsg = "로그인에 성공하였습니다!";
                         Toast.makeText(getApplicationContext(), toastMsg, Toast.LENGTH_SHORT).show();
                         Intent intentSign = new Intent(getApplication(), MainActivity.class);
+                        intentSign.putExtra("uid", user.getUid());
                         startActivity(intentSign);
                         finish();
                     } else {

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.InputFilter;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.AdapterView;
@@ -16,15 +17,32 @@ import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import ac.kr.kookmin.petdiary.models.User;
+
 public class SignUpActivity extends AppCompatActivity {
+
+    private FirebaseAuth mAuth;
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+
     ImageView joinProfile;
     TextInputEditText joinEmail, joinPW, joinPWChk, joinName, joinPhone, joinPetName;
     Button dog, cat, fish, pig, plus, completion, back;
@@ -44,6 +62,7 @@ public class SignUpActivity extends AppCompatActivity {
         setContentView(R.layout.activity_signup);
 
         // 변수 초기화
+        mAuth = FirebaseAuth.getInstance();
         joinProfile = findViewById(R.id.iv_profile);
         joinEmail = findViewById(R.id.tit_email);
         joinPW = findViewById(R.id.tit_password);
@@ -218,4 +237,57 @@ public class SignUpActivity extends AppCompatActivity {
             finish();
         });
     }
+
+    private void createAccount(String email, String pw, User user) {
+        final boolean[] isExistUser = {false};
+        // 같은 계정으로 가입되어 있는게 있는지 체크
+        db.collection("users").whereEqualTo("email", email).get()
+            .addOnCompleteListener(this, new OnCompleteListener<QuerySnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    if (task.isSuccessful()) {
+                        for (DocumentSnapshot doc : task.getResult()) {
+                            if (doc.exists()) {
+                                isExistUser[0] = true;
+                                break;
+                            }
+                        }
+                    } else {
+                        // 서버 오류
+                    }
+                }
+            });
+        if (isExistUser[0]) {
+            // 중복 가입 시도 시,
+            return;
+        }
+        mAuth.createUserWithEmailAndPassword(email, pw)
+            .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if (task.isSuccessful()) {
+                        // 성공 시,
+                    } else {
+                        // 실패 시,
+                    }
+                }
+            });
+    }
+
+    private void createUserDocument(User user, String uid) {
+        db.collection("users").document(uid).set(user)
+            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void unused) {
+                    Log.d("201", "User DocumentSnapshot Id: " + uid);
+                }
+            })
+            .addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Log.w("500", "Error Adding User Document", e);
+                }
+            });
+    }
 }
+
