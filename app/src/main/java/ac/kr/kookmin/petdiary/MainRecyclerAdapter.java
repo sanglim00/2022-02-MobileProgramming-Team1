@@ -1,5 +1,6 @@
 package ac.kr.kookmin.petdiary;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,16 +56,14 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
 
         CircleImageView profile_img;
         TextView        username;
-        ImageView       content_img;
-        TextView        content;
+        ImageButton     content_img;
         ImageButton     like_btn;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             profile_img = (CircleImageView) itemView.findViewById(R.id.recycler_ID_pic);
             username = (TextView) itemView.findViewById(R.id.recycler_ID_text);
-            content_img = (ImageView) itemView.findViewById(R.id.recycler_content_pic);
-            content = (TextView) itemView.findViewById(R.id.recycler_content_text);
+            content_img = (ImageButton) itemView.findViewById(R.id.recycler_content_pic);
             like_btn = (ImageButton) itemView.findViewById(R.id.recycler_like_btn);
             like_btn.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -76,19 +75,21 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
                         like_btn.setImageResource(R.drawable.img_like_unactive);
                     }
                     like_btn.setSelected(!like_btn.isSelected());
-
-//                    int pos = getAdapterPosition();
-//                    if (pos != RecyclerView.NO_POSITION) {
-//                        if (mListener != null) {
-//                            mListener.onLikeBtnClick(view, pos);
-//                        }
-//                    }
+                }
+            });
+            content_img.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent;
+                    if (content_img.isPressed()) {
+                        intent = new Intent(view.getContext(), NotiActivity.class);
+                        view.getContext().startActivity(intent);
+                    }
                 }
             });
         }
         void onBind(MainItemList item) {
             username.setText(item.getUsername());
-            content.setText(item.getContent());
         }
     }
 }
