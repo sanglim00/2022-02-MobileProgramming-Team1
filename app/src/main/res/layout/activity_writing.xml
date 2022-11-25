@@ -32,8 +32,8 @@
             <ImageView
                 android:id="@+id/Img_upload"
                 android:layout_width="match_parent"
-                android:layout_height="400dp"
-                app:srcCompat="@drawable/ddaeng2" />
+                android:layout_height="360dp"
+                app:srcCompat="@drawable/upload_default" />
 
             <Button
                 android:id="@+id/btn_uploadImg"
@@ -77,20 +77,4 @@
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:orientation="vertical">
-
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/bottom_navigation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:itemBackground="@color/white"
-            app:itemIconTint="@color/black"
-            app:itemTextColor="@color/FCC73F"
-            app:layout_behavior="tech.thdev.app.view.BottomNavigationBehavior"
-            app:menu="@menu/menu" />
-    </LinearLayout>
 </GridLayout>
