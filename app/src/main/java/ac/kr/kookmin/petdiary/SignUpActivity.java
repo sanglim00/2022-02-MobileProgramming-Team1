@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.text.InputFilter;
 import android.util.Log;
 import android.util.Patterns;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -53,7 +54,7 @@ public class SignUpActivity extends AppCompatActivity {
     RadioButton accept;
     public String showTxt, joinEmailTxt, joinPWTxt, joinPWChkTxt, joinIDTxt, joinPhoneTxt,
             joinPetNameTxt, joinPetType, joinGender, joinDate;
-    String[] items = {"성별을 선택해주세요.", "남 (♂)", "여 (♀)", "공개 안 함"};
+    String[] items = {"성별을 선택해주세요", "남 (♂)", "여 (♀)", "공개 안 함"};
     public boolean joinCheckEmail, joinCheckPW, joinCheckPhone, joinBtnCheck, joinCheckGender, joinCheckDate;
     private final int CALL_GALLERY = 0;
     private Bitmap bit;
@@ -118,6 +119,36 @@ public class SignUpActivity extends AppCompatActivity {
             alert.show();
         });
 
+        // 이메일 엔터 방지
+        joinEmail.setOnKeyListener((v, keyCode, event) -> {
+            return KeyEvent.KEYCODE_ENTER == keyCode;
+        });
+
+        // 비밀번호 엔터 방지
+        joinPW.setOnKeyListener((v, keyCode, event) -> {
+            return KeyEvent.KEYCODE_ENTER == keyCode;
+        });
+
+        // 비밀번호 확인 엔터 방지
+        joinPWChk.setOnKeyListener((v, keyCode, event) -> {
+            return KeyEvent.KEYCODE_ENTER == keyCode;
+        });
+
+        // 아이디 엔터 방지
+        joinID.setOnKeyListener((v, keyCode, event) -> {
+            return KeyEvent.KEYCODE_ENTER == keyCode;
+        });
+
+        // 전화번호 엔터 방지
+        joinPhone.setOnKeyListener((v, keyCode, event) -> {
+            return KeyEvent.KEYCODE_ENTER == keyCode;
+        });
+
+        // 반려동물 이름 엔터 방지
+        joinPetName.setOnKeyListener((v, keyCode, event) -> {
+            return KeyEvent.KEYCODE_ENTER == keyCode;
+        });
+
         // pet type 저장
         dog.setOnClickListener(view -> {
             joinPetType = "dog";
@@ -170,6 +201,9 @@ public class SignUpActivity extends AppCompatActivity {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+                if (items[position] == "성별을 선택해주세요") {
+
+                }
                 joinGender = items[position];
                 joinCheckGender = true;
             }
@@ -184,7 +218,6 @@ public class SignUpActivity extends AppCompatActivity {
         joinMeetDate.setOnDateChangeListener((view, year, month, dayOfMonth) -> {
             joinCheckDate = true;
             joinDate = String.format("%d/%d/%02d", year, month + 1, dayOfMonth);
-            Toast.makeText(getApplicationContext(), joinDate, Toast.LENGTH_SHORT).show();
         });
 
         // 회원가입 완료하기 버튼 클릭 함수
@@ -210,7 +243,6 @@ public class SignUpActivity extends AppCompatActivity {
             } else if (!joinCheckDate) {
                 showTxt = "만난 날짜를 선택해주세요";
             } else if (!accept.isChecked()) {
-                Toast.makeText(this, accept.isChecked() + "", Toast.LENGTH_SHORT).show();
                 showTxt = "개인정보 이용약관 동의가 필요합니다";
             }
 
@@ -234,35 +266,31 @@ public class SignUpActivity extends AppCompatActivity {
             Matcher Malpha = Palpha.matcher(joinPWTxt);
 
             if (!pattern.matcher(joinEmailTxt).matches()){
+                joinCheckEmail = false;
                 showTxt = "올바른 이메일을 입력해주세요";
-                Toast.makeText(getApplicationContext(), showTxt, Toast.LENGTH_SHORT).show();
             }
 
             // 비밀번호 5글자 이상 입력되었는지 확인
             else if (joinPWTxt.length() < 5) {
                 joinCheckPW = false;
                 showTxt = "비밀번호는 5글자 이상 입력해주세요";
-                Toast.makeText(getApplicationContext(), showTxt, Toast.LENGTH_SHORT).show();
             }
 
             // 비밀번호 유효성 검사
             else if (!Msymbol.find() || !Malpha.find()) {
                 joinCheckPW = false;
                 showTxt = "비밀번호에 숫자, 특수문자, 대소문자가 포함되어야합니다";
-                Toast.makeText(getApplicationContext(), showTxt, Toast.LENGTH_SHORT).show();
             }
             // 비밀번호와 비밀번호 확인 일치여부 확인
             else if (!joinPWTxt.equals(joinPWChkTxt)){
                 joinCheckPW = false;
                 showTxt = "두 비밀번호가 다릅니다";
-                Toast.makeText(getApplicationContext(), showTxt, Toast.LENGTH_SHORT).show();
             }
 
             // 전화번호 유효성 검사
             else if (!Pattern.matches("^01(?:0|1|[6-9])-(?:\\d{3}|\\d{4})-\\d{4}$", joinPhoneTxt)) {
                 joinCheckPhone = false;
                 showTxt = "올바른 전화번호를 입력해주세요";
-                Toast.makeText(getApplicationContext(), showTxt, Toast.LENGTH_SHORT).show();
             }
 
             if (!showTxt.equals("")) {
