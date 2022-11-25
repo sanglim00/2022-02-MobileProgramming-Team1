@@ -10,8 +10,10 @@
         android:layout_height="135dp"
         android:layout_margin="0.6dp"
         android:adjustViewBounds="true"
+        android:layout_gravity="center_vertical"
         android:scaleType="centerCrop"
         android:src="@drawable/heedong1"
+
         />
 
 

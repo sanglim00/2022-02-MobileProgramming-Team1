@@ -102,17 +102,9 @@ public class Profile_OthersActivity extends AppCompatActivity {
     private void getData(){
         PostItem_Profile_Others data = new PostItem_Profile_Others(R.drawable.heedong1);
         adapter.addItem(data);
-        data = new PostItem_Profile_Others(R.drawable.heedong1);
         adapter.addItem(data);
-        data = new PostItem_Profile_Others(R.drawable.heedong1);
         adapter.addItem(data);
-        data = new PostItem_Profile_Others(R.drawable.heedong1);
         adapter.addItem(data);
-        data = new PostItem_Profile_Others(R.drawable.heedong1);
-        adapter.addItem(data);
-        data = new PostItem_Profile_Others(R.drawable.heedong1);
-        adapter.addItem(data);
-        data = new PostItem_Profile_Others(R.drawable.heedong1);
         adapter.addItem(data);
 
     }
