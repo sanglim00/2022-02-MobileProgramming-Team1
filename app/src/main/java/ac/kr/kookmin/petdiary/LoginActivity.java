@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
+import android.view.KeyEvent;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -56,6 +57,16 @@ public class LoginActivity extends AppCompatActivity {
         sign = findViewById(R.id.btn_signup);
         showTxt = "";
         loginCheckEmail = true;
+
+        // 이메일 엔터 방지
+        loginEmail.setOnKeyListener((v, keyCode, event) -> {
+            return KeyEvent.KEYCODE_ENTER == keyCode;
+        });
+
+        // 비밀번호 엔터 방지
+        loginPW.setOnKeyListener((v, keyCode, event) -> {
+            return KeyEvent.KEYCODE_ENTER == keyCode;
+        });
 
         // 로그인 버튼 클릭
         login.setOnClickListener(view -> {
