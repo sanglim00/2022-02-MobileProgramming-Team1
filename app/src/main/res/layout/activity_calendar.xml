@@ -17,7 +17,7 @@
         android:text="만난 날짜"
         android:layout_gravity="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textColor="#9E28B3"
+        android:textColor="@color/FCC73F"
         android:textSize="24sp"
         android:textStyle="bold"
         />
