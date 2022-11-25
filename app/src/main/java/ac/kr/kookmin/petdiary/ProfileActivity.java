@@ -1,33 +1,28 @@
 package ac.kr.kookmin.petdiary;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.graphics.drawable.BitmapDrawable;
-import android.media.Image;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContract;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.Nullable;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-import java.io.ByteArrayOutputStream;
-import java.text.BreakIterator;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.widget.Toast;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 
 public class ProfileActivity extends AppCompatActivity {
@@ -37,16 +32,17 @@ public class ProfileActivity extends AppCompatActivity {
     TextView txt_pf_one_line_info;
     ImageView img_pf;
     Bitmap bitmap;
+    BottomNavigationView bottomNavigationView;
 
-    private final String TAG = "Test";
-
-    private final int REQUEST_CODE = 1102;
-
+    Profile_Post_RecyclerViewAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+
+        init();
+        getData();
 
         txt_pf_name = findViewById(R.id.txt_pf_name); // 프로필 layout - 이름
         txt_pf_gender = findViewById(R.id.txt_pf_gender); // 프로필 layout - 성별
@@ -56,6 +52,41 @@ public class ProfileActivity extends AppCompatActivity {
 
         ImageButton imgBtn_setting = findViewById(R.id.imgBtn_setting); // 환경설정 버튼
         Button btn_edit_profile = findViewById(R.id.btn_pf_edit_profile); // 프로필 편집
+
+
+        bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation); // footer
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                Intent intent;
+                switch (item.getItemId()) {
+                    case R.id.action_one:
+                        intent = new Intent(getApplicationContext(), MainActivity.class);
+                        startActivity(intent);
+                        finish();
+                        return true;
+                    case R.id.action_two:
+                        intent = new Intent(getApplicationContext(), SearchActivity.class);
+                        startActivity(intent);
+                        finish();
+                        return true;
+                    case R.id.action_three:
+                        intent = new Intent(getApplicationContext(), WritingActivity.class);
+                        startActivity(intent);
+                        return true;
+                    case R.id.action_four:
+                        intent = new Intent(getApplicationContext(), NotiActivity.class);
+                        startActivity(intent);
+                        finish();
+                        return true;
+                    case R.id.action_five:
+                        return true;
+                }
+                return false;
+            }
+        });
+
+
 
 
         btn_edit_profile.setOnClickListener(new View.OnClickListener() { // 프로필 편집
@@ -99,17 +130,43 @@ public class ProfileActivity extends AppCompatActivity {
                                 }
 
                             }
+
+                            String nameIntent = result.getData().getStringExtra("name");
+                            String genderIntent = result.getData().getStringExtra("gender");
+                            String meetDateIntent = result.getData().getStringExtra("meetDate");
+                            String oneLineIntent = result.getData().getStringExtra("one_line");
+                            txt_pf_name.setText(nameIntent);
+                            txt_pf_gender.setText(genderIntent);
+                            txt_pf_meetDate.setText(meetDateIntent);
+                            txt_pf_one_line_info.setText(oneLineIntent);
                         }
 
-                        String nameIntent = result.getData().getStringExtra("name");
-                        String genderIntent = result.getData().getStringExtra("gender");
-                        String meetDateIntent = result.getData().getStringExtra("meetDate");
-                        String oneLineIntent = result.getData().getStringExtra("one_line");
-                        txt_pf_name.setText(nameIntent);
-                        txt_pf_gender.setText(genderIntent);
-                        txt_pf_meetDate.setText(meetDateIntent);
-                        txt_pf_one_line_info.setText(oneLineIntent);
+
                     }
                 }
             });
+
+    private void init(){
+        RecyclerView recyclerView = findViewById(R.id.post_recyclerView);
+
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false);
+
+        recyclerView.setLayoutManager(gridLayoutManager);
+
+
+        adapter = new Profile_Post_RecyclerViewAdapter();
+        recyclerView.setAdapter(adapter);
+    }
+
+    private void getData(){
+        PostItem_Profile data = new PostItem_Profile(R.drawable.ddaeng2);
+        adapter.addItem(data);
+        adapter.addItem(data);
+        adapter.addItem(data);
+        adapter.addItem(data);
+
+    }
+
+
+
 }

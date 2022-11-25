@@ -1,17 +1,25 @@
 package ac.kr.kookmin.petdiary;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
+
+import ac.kr.kookmin.petdiary.models.Notification;
 
 public class NotiActivity extends AppCompatActivity {
 
     RecyclerView notiView;
     NotiRecyclerAdapter notiAdapter;
+    BottomNavigationView bottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,16 +33,49 @@ public class NotiActivity extends AppCompatActivity {
         notiView.setAdapter(notiAdapter);
         notiView.setLayoutManager(new LinearLayoutManager(this));
 
-        ArrayList<NotiItem> notiItems = new ArrayList<>();
+        ArrayList<Notification> notiItems = new ArrayList<>();
 
         for(int i = 1; i <= 20; i++){
             if (i % 3 == 0)
-                notiItems.add(new NotiItem("좋아요 알림", "h._.gunn님이 회원님의 게시물을 좋아합...", "", "", i));
+                notiItems.add(new Notification("좋아요 알림", "h._.gunn님이 회원님의 게시물을 좋아합...", "", "", i));
             else if (i % 3 == 1)
-                notiItems.add(new NotiItem("게시물 알림", "h._.gunn님이 회원님의 게시물에 댓글을...", "", "", i));
+                notiItems.add(new Notification("게시물 알림", "h._.gunn님이 회원님의 게시물에 댓글을...", "", "", i));
             else
-                notiItems.add(new NotiItem("구독 알림", "h._.gunn님의 새로운 게시물.", "", "", i));
+                notiItems.add(new Notification("구독 알림", "h._.gunn님의 새로운 게시물.", "", "", i));
         }
         notiAdapter.setNotiList(notiItems);
+
+
+        bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                Intent intent;
+                switch (item.getItemId()) {
+                    case R.id.action_one:
+                        intent = new Intent(getApplicationContext(), MainActivity.class);
+                        startActivity(intent);
+                        finish();
+                        return true;
+                    case R.id.action_two:
+                        intent = new Intent(getApplicationContext(), SearchActivity.class);
+                        startActivity(intent);
+                        finish();
+                        return true;
+                    case R.id.action_three:
+                        intent = new Intent(getApplicationContext(), WritingActivity.class);
+                        startActivity(intent);
+                        return true;
+                    case R.id.action_four:
+                        return true;
+                    case R.id.action_five:
+                        intent = new Intent(getApplicationContext(), ProfileActivity.class);
+                        startActivity(intent);
+                        finish();
+                        return true;
+                }
+                return false;
+            }
+        });
     }
 }

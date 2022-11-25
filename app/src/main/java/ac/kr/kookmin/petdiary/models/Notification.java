@@ -1,13 +1,13 @@
-package ac.kr.kookmin.petdiary;
+package ac.kr.kookmin.petdiary.models;
 
-public class NotiItem {
+public class Notification {
     private String title;
     private String content;
     private String profileSrc;
     private String postImageSrc;
     private int resourceId;
 
-    public NotiItem(String title, String content, String profileSrc, String postImageSrc, int resourceId) {
+    public Notification(String title, String content, String profileSrc, String postImageSrc, int resourceId) {
         this.title = title;
         this.content = content;
         this.profileSrc = profileSrc;

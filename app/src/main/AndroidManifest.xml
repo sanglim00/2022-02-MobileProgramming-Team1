@@ -21,7 +21,6 @@
         android:requestLegacyExternalStorage="true"
 
         >
-        tools:targetApi="31">
         <meta-data
             android:name="com.google.android.actions"
             android:resource="@drawable/border" />
@@ -33,6 +32,14 @@
         <activity
             android:name=".MainActivity"
             android:exported="true">
+        </activity>
+        <activity
+            android:name=".SignUpActivity"
+            android:label="Sign Up" />
+        <activity
+            android:name=".LoginActivity"
+            android:label="PetDiary"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -40,17 +47,14 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SignUpActivity"
-            android:label="Sign Up" />
-        <activity
-            android:name=".LoginActivity"
-            android:label="Login" />
-        <activity
             android:name=".ProfileActivity"
             android:label="Profile" />
         <activity
             android:name=".SettingActivity"
             android:label="Setting" />
+        <activity
+            android:name=".SearchActivity"
+            android:label="Search" />
         <activity
             android:name=".ChangePasswordActivity"
             android:label="Change Password" />
@@ -66,9 +70,12 @@
         <activity
             android:name=".Profile_OthersActivity"
             android:label="Profile_Others"/>
-        <activity android:name=".Profile_EditActivity" android:label="Profile_Edit"/>
-
-        <activity android:name=".calendarActivity" android:label="calendar"/>
+        <activity
+            android:name=".Profile_EditActivity"
+            android:label="Profile_Edit"/>
+        <activity
+            android:name=".calendarActivity"
+            android:label="calendar"/>
 
     </application>
 

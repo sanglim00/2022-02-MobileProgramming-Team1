@@ -1,7 +1,6 @@
 package ac.kr.kookmin.petdiary;
 
 import android.Manifest;
-import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -9,6 +8,8 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.KeyEvent;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -23,7 +24,6 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import java.io.FileNotFoundException;
-import java.io.InputStream;
 
 
 import androidx.annotation.Nullable;
@@ -31,11 +31,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.core.app.ActivityCompat;
 import androidx.annotation.NonNull;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 import java.io.ByteArrayOutputStream;
 
 
 public class Profile_EditActivity extends AppCompatActivity {
-    String[] genders = {"남 (♂)", "여 (♀)", "기타"};
+    String[] genders = {"공개 안함","남 (♂)", "여 (♀)"};
     boolean complete = false;
     TextView et_edit_meetDate;
     ImageView img_pf;
@@ -43,6 +46,10 @@ public class Profile_EditActivity extends AppCompatActivity {
     private Bitmap bit;
     private BitmapFactory.Options bitOption;
     boolean image_changed = false;
+    BottomNavigationView bottomNavigationView;
+    String txt_gender = "";
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,7 +66,6 @@ public class Profile_EditActivity extends AppCompatActivity {
 
         EditText et_edit_name = findViewById(R.id.et_pf_edit_name); // 이름 편집 EditText
         Spinner spinner_gender = findViewById(R.id.spiner_pf_gender); // 성별 선택 Spinner
-        TextView txt_gender = findViewById(R.id.txt_pf_edit_gender); // 성별 선택 txt
         et_edit_meetDate = findViewById(R.id.txt_pf_edit_meetDate); // 만난 날짜 편집 Text
         EditText et_edit_one_line_info = findViewById(R.id.et_pf_edit_one_line_info); // 한줄 소개 편집 EditText
 
@@ -79,9 +85,44 @@ public class Profile_EditActivity extends AppCompatActivity {
 
 
         et_edit_name.setText(nameIntent);
-        txt_gender.setText(genderIntent);
+
         et_edit_meetDate.setText(meetDateIntent);
         et_edit_one_line_info.setText(oneLineIntent); // 기존값 받아옴
+
+
+
+        bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation); // footer
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                Intent intent;
+                switch (item.getItemId()) {
+                    case R.id.action_one:
+                        intent = new Intent(getApplicationContext(), MainActivity.class);
+                        startActivity(intent);
+                        finish();
+                        return true;
+                    case R.id.action_two:
+                        intent = new Intent(getApplicationContext(), SearchActivity.class);
+                        startActivity(intent);
+                        finish();
+                        return true;
+                    case R.id.action_three:
+                        intent = new Intent(getApplicationContext(), WritingActivity.class);
+                        startActivity(intent);
+                        return true;
+                    case R.id.action_four:
+                        intent = new Intent(getApplicationContext(), NotiActivity.class);
+                        startActivity(intent);
+                        finish();
+                        return true;
+                    case R.id.action_five:
+                        return true;
+                }
+                return false;
+            }
+        });
+
 
 
         imgBtn_edit_editimage.setOnClickListener(new View.OnClickListener(){ // 프로필 사진 변경 버튼
@@ -104,7 +145,6 @@ public class Profile_EditActivity extends AppCompatActivity {
             }
         });
 
-
         ArrayAdapter<String> adapter = new ArrayAdapter<String>( // 성별 선택 Spinner Adapter
                 this, android.R.layout.simple_spinner_item,genders);
 
@@ -116,12 +156,12 @@ public class Profile_EditActivity extends AppCompatActivity {
         spinner_gender.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() { // 성별 선택 Spinner item 선택
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-                txt_gender.setText(genders[position]);
+                txt_gender = (genders[position]).toString();
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-                txt_gender.setText("");
+                txt_gender = ("공개 안함");
             }
 
         });
@@ -149,7 +189,7 @@ public class Profile_EditActivity extends AppCompatActivity {
 
                 }
                 intent.putExtra("name", et_edit_name.getText().toString()); // 이름 설정
-                intent.putExtra("gender", txt_gender.getText().toString()); // 성별 설정
+                intent.putExtra("gender", txt_gender); // 성별 설정
                 intent.putExtra("meetDate", et_edit_meetDate.getText().toString()); // 만난 날짜 설정
                 intent.putExtra("one_line", et_edit_one_line_info.getText().toString()); // 한줄 프로필 설정
                 intent.putExtra("complete", complete);
@@ -245,6 +285,19 @@ public class Profile_EditActivity extends AppCompatActivity {
         }
 
     }
+
+    public boolean onKeyDown(int keycode, KeyEvent event){
+        if(keycode == KeyEvent.KEYCODE_BACK){
+            Intent intent = new Intent();
+            intent.putExtra("image_changed", false);
+            intent.putExtra("complete", false);
+            setResult(0,intent);
+            finish();
+            return true;
+        }
+        return false;
+    }
+
 
 
 }

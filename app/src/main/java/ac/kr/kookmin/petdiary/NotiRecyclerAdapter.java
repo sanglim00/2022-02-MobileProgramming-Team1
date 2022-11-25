@@ -11,11 +11,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
+import ac.kr.kookmin.petdiary.models.Notification;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class NotiRecyclerAdapter extends RecyclerView.Adapter<NotiRecyclerAdapter.ViewHolder> {
 
-    private ArrayList<NotiItem> notiList;
+    private ArrayList<Notification> notiList;
 
     @NonNull
     @Override
@@ -34,7 +35,7 @@ public class NotiRecyclerAdapter extends RecyclerView.Adapter<NotiRecyclerAdapte
         return notiList.size();
     }
 
-    public void setNotiList(ArrayList<NotiItem> list) {
+    public void setNotiList(ArrayList<Notification> list) {
         this.notiList = list;
         notifyDataSetChanged();
     }
@@ -53,7 +54,7 @@ public class NotiRecyclerAdapter extends RecyclerView.Adapter<NotiRecyclerAdapte
             postImage = (ImageView) itemView.findViewById(R.id.postImage);
         }
 
-        void onBind(NotiItem item){
+        void onBind(Notification item){
             title.setText(item.getTitle());
             content.setText(item.getContent());
         }

@@ -1,24 +1,50 @@
 package ac.kr.kookmin.petdiary;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.util.ArrayList;
 
-public class SettingActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity {
 
+    RecyclerView mainView;
+    MainRecyclerAdapter mainAdapter;
     BottomNavigationView bottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_setting);
+        setContentView(R.layout.activity_main);
+
+        ArrayList<MainItemList> mainItems = new ArrayList<>();
+        mainView = (RecyclerView) findViewById(R.id.mainRecycler);
+        mainAdapter = new MainRecyclerAdapter();
+        mainView.setAdapter(mainAdapter);
+        mainView.setLayoutManager(new LinearLayoutManager(this));
+
+        for (int i = 0; i < 20; i++) {
+            mainItems.add(new MainItemList("test_username", "테스트용입니다.", "", ""));
+        }
+        mainAdapter.setMainList(mainItems);
+//        mainAdapter.setOnItemClickListener(new MainRecyclerAdapter.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(View v, int position) {
+//            }
+//
+//            @Override
+//            public void onLikeBtnClick(View v, int position) {
+//
+//            }
+//        });
 
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -29,48 +55,24 @@ public class SettingActivity extends AppCompatActivity {
                     case R.id.action_one:
                         intent = new Intent(getApplicationContext(), MainActivity.class);
                         startActivity(intent);
-                        finish();
                         return true;
                     case R.id.action_two:
-                        intent = new Intent(getApplicationContext(), SearchActivity.class);
-                        startActivity(intent);
-                        finish();
                         return true;
                     case R.id.action_three:
                         intent = new Intent(getApplicationContext(), WritingActivity.class);
                         startActivity(intent);
-                        finish();
                         return true;
                     case R.id.action_four:
                         intent = new Intent(getApplicationContext(), NotiActivity.class);
                         startActivity(intent);
-                        finish();
                         return true;
                     case R.id.action_five:
                         intent = new Intent(getApplicationContext(), ProfileActivity.class);
                         startActivity(intent);
-                        finish();
                         return true;
                 }
                 return false;
             }
         });
     }
-
-    public void ChangePW(View view) {
-        Intent intent = new Intent(getApplicationContext(), ChangePasswordActivity.class);
-        startActivity(intent);
-    }
-
-    public void ShowPrivacyPolicy(View view) {
-        Intent intent = new Intent(getApplicationContext(), PrivacyPolicyActivity.class);
-        startActivity(intent);
-    }
-
-    public void ShowServiceContents(View view) {
-        Intent intent = new Intent(getApplicationContext(), ServiceContentsActivity.class);
-        startActivity(intent);
-    }
-
-
 }

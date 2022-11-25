@@ -3,22 +3,45 @@ package ac.kr.kookmin.petdiary;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.util.ArrayList;
 
-public class SettingActivity extends AppCompatActivity {
+public class SearchActivity extends AppCompatActivity {
 
+    RecyclerView searchView;
+    SearchRecyclerAdapter searchAdapter;
     BottomNavigationView bottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_setting);
+        setContentView(R.layout.activity_search);
+
+        searchView = (RecyclerView) findViewById(R.id.searchRecyclerView);
+
+        searchAdapter = new SearchRecyclerAdapter();
+
+        searchView.setAdapter(searchAdapter);
+        searchView.setLayoutManager(new LinearLayoutManager(this));
+
+        ArrayList<SearchItem> searchItems = new ArrayList<>();
+        for(int i = 1; i <= 20; i++){
+            if (i % 3 == 0)
+                searchItems.add(new SearchItem("my._.ddaengsun", "지겨운 견생....", ""));
+            else if (i % 3 == 1)
+                searchItems.add(new SearchItem("__catvely__", "캣타워 사줄 때까지 숨참는 중...", ""));
+            else
+                searchItems.add(new SearchItem("gae_ggum", "개껌조아 너무조아", ""));
+        }
+        searchAdapter.setSearchList(searchItems);
+
 
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -32,14 +55,10 @@ public class SettingActivity extends AppCompatActivity {
                         finish();
                         return true;
                     case R.id.action_two:
-                        intent = new Intent(getApplicationContext(), SearchActivity.class);
-                        startActivity(intent);
-                        finish();
                         return true;
                     case R.id.action_three:
                         intent = new Intent(getApplicationContext(), WritingActivity.class);
                         startActivity(intent);
-                        finish();
                         return true;
                     case R.id.action_four:
                         intent = new Intent(getApplicationContext(), NotiActivity.class);
@@ -56,21 +75,4 @@ public class SettingActivity extends AppCompatActivity {
             }
         });
     }
-
-    public void ChangePW(View view) {
-        Intent intent = new Intent(getApplicationContext(), ChangePasswordActivity.class);
-        startActivity(intent);
-    }
-
-    public void ShowPrivacyPolicy(View view) {
-        Intent intent = new Intent(getApplicationContext(), PrivacyPolicyActivity.class);
-        startActivity(intent);
-    }
-
-    public void ShowServiceContents(View view) {
-        Intent intent = new Intent(getApplicationContext(), ServiceContentsActivity.class);
-        startActivity(intent);
-    }
-
-
 }
