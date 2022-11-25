@@ -149,8 +149,8 @@ public class ProfileActivity extends AppCompatActivity {
     private void init(){
         RecyclerView recyclerView = findViewById(R.id.post_recyclerView);
 
-
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false);
+
         recyclerView.setLayoutManager(gridLayoutManager);
 
 
@@ -161,14 +161,10 @@ public class ProfileActivity extends AppCompatActivity {
     private void getData(){
         PostItem_Profile data = new PostItem_Profile(R.drawable.ddaeng2);
         adapter.addItem(data);
-        data = new PostItem_Profile(R.drawable.ddaeng2);
         adapter.addItem(data);
-        data = new PostItem_Profile(R.drawable.ddaeng2);
         adapter.addItem(data);
-        data = new PostItem_Profile(R.drawable.ddaeng2);
         adapter.addItem(data);
-        data = new PostItem_Profile(R.drawable.ddaeng2);
-        adapter.addItem(data);
+
     }
 
 
