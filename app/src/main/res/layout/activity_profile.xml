@@ -180,58 +180,20 @@
 
 
             </LinearLayout>
-
-            <TableLayout
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:stretchColumns="*"
                 >
 
-                <TableRow
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/post_recyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:weightSum="3"
-                    >
 
-                    <androidx.constraintlayout.utils.widget.ImageFilterButton
-                        android:id="@+id/imageView1"
-                        android:layout_width="0dp"
-                        android:layout_height="135dp"
-                        android:layout_margin="0.8dp"
-                        android:layout_weight="1"
-                        android:adjustViewBounds="true"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/ddaeng2" />
+                    />
 
-                    <androidx.constraintlayout.utils.widget.ImageFilterButton
-                        android:id="@+id/imageView2"
-                        android:layout_width="0dp"
-                        android:layout_height="135dp"
-                        android:layout_margin="0.8dp"
-                        android:layout_weight="1"
-                        android:adjustViewBounds="true"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/ddaeng2"
-
-                        />
-
-                    <androidx.constraintlayout.utils.widget.ImageFilterButton
-                        android:id="@+id/imageView3"
-                        android:layout_width="0dp"
-                        android:layout_height="135dp"
-                        android:layout_margin="0.8dp"
-                        android:layout_weight="1"
-                        android:adjustViewBounds="true"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/ddaeng2" />
-
-
-                </TableRow>
-
-
-            </TableLayout>
-
+            </LinearLayout>
 
         </LinearLayout>
     </ScrollView>

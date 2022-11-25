@@ -15,6 +15,9 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -31,10 +34,15 @@ public class ProfileActivity extends AppCompatActivity {
     Bitmap bitmap;
     BottomNavigationView bottomNavigationView;
 
+    Profile_Post_RecyclerViewAdapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+
+        init();
+        getData();
 
         txt_pf_name = findViewById(R.id.txt_pf_name); // 프로필 layout - 이름
         txt_pf_gender = findViewById(R.id.txt_pf_gender); // 프로필 layout - 성별
@@ -138,6 +146,31 @@ public class ProfileActivity extends AppCompatActivity {
                     }
                 }
             });
+
+    private void init(){
+        RecyclerView recyclerView = findViewById(R.id.post_recyclerView);
+
+
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(gridLayoutManager);
+
+
+        adapter = new Profile_Post_RecyclerViewAdapter();
+        recyclerView.setAdapter(adapter);
+    }
+
+    private void getData(){
+        PostItem_Profile data = new PostItem_Profile(R.drawable.ddaeng2);
+        adapter.addItem(data);
+        data = new PostItem_Profile(R.drawable.ddaeng2);
+        adapter.addItem(data);
+        data = new PostItem_Profile(R.drawable.ddaeng2);
+        adapter.addItem(data);
+        data = new PostItem_Profile(R.drawable.ddaeng2);
+        adapter.addItem(data);
+        data = new PostItem_Profile(R.drawable.ddaeng2);
+        adapter.addItem(data);
+    }
 
 
 
