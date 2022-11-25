@@ -104,48 +104,34 @@ public class SignUpActivity extends AppCompatActivity {
             alert.show();
         });
 
-
-
         // 이메일 엔터 방지
         joinEmail.setOnKeyListener((v, keyCode, event) -> {
-            if (keyCode == event.KEYCODE_ENTER)
-                return true;
-            return false;
+            return KeyEvent.KEYCODE_ENTER == keyCode;
         });
 
         // 비밀번호 엔터 방지
         joinPW.setOnKeyListener((v, keyCode, event) -> {
-            if (keyCode == event.KEYCODE_ENTER)
-                return true;
-            return false;
+            return KeyEvent.KEYCODE_ENTER == keyCode;
         });
 
         // 비밀번호 확인 엔터 방지
         joinPWChk.setOnKeyListener((v, keyCode, event) -> {
-            if (keyCode == event.KEYCODE_ENTER)
-                return true;
-            return false;
+            return KeyEvent.KEYCODE_ENTER == keyCode;
         });
 
         // 아이디 엔터 방지
         joinID.setOnKeyListener((v, keyCode, event) -> {
-            if (keyCode == event.KEYCODE_ENTER)
-                return true;
-            return false;
+            return KeyEvent.KEYCODE_ENTER == keyCode;
         });
 
         // 전화번호 엔터 방지
         joinPhone.setOnKeyListener((v, keyCode, event) -> {
-            if (keyCode == event.KEYCODE_ENTER)
-                return true;
-            return false;
+            return KeyEvent.KEYCODE_ENTER == keyCode;
         });
 
         // 반려동물 이름 엔터 방지
         joinPetName.setOnKeyListener((v, keyCode, event) -> {
-            if (keyCode == event.KEYCODE_ENTER)
-                return true;
-            return false;
+            return KeyEvent.KEYCODE_ENTER == keyCode;
         });
 
         // pet type 저장
