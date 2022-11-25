@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -39,11 +40,14 @@ import ac.kr.kookmin.petdiary.models.Post;
 public class WritingActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
+
     ImageView uploadImg;
     Button uploadImgBtn;
     EditText postContents;
+    CheckBox Download;
 
-    boolean isImageSelected = false;
+    boolean isImageSelected = false;    // 이미지 유무 여부
+    boolean permitToDownload = false;   // 사진 다운로드 허용 여부
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +65,20 @@ public class WritingActivity extends AppCompatActivity {
         });
 
         postContents = findViewById(R.id.et_postContents);
-
+        Download = findViewById(R.id.ck_download);
+        Download.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(Download.isChecked()) {
+                    Toast.makeText(getApplicationContext(), "다른 유저가 내 사진을 다운받을 수 있습니다.", Toast.LENGTH_SHORT).show();
+                    permitToDownload = true;
+                }
+                else{
+                    Toast.makeText(getApplicationContext(), "다른 유저가 내 사진을 다운받지 못합니다.", Toast.LENGTH_SHORT).show();
+                    permitToDownload = false;
+                }
+           }
+        });
 
     }
     private void UploadImg() {
