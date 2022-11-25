@@ -68,9 +68,11 @@
         <activity
             android:name=".Profile_OthersActivity"
             android:label="Profile_Others"/>
-        <activity android:name=".Profile_EditActivity"
+        <activity
+            android:name=".Profile_EditActivity"
             android:label="Profile_Edit"/>
-        <activity android:name=".calendarActivity"
+        <activity
+            android:name=".calendarActivity"
             android:label="calendar"/>
 
     </application>

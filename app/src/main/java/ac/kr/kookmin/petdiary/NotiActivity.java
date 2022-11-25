@@ -24,7 +24,7 @@ public class NotiActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notification);
 
-        notiView = (RecyclerView) findViewById(R.id.notiRecyclerView);
+        notiView = (RecyclerView) findViewById(R.id.searchRecyclerView);
 
         notiAdapter = new NotiRecyclerAdapter();
 
