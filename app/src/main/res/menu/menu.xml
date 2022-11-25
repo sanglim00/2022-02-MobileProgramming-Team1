@@ -3,31 +3,31 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/action_one"
-        app:showAsAction="ifRoom"
         android:enabled="true"
-        android:icon="@android:drawable/ic_dialog_info"
-        android:title="메인" />
+        android:icon="@drawable/main"
+        android:title="메인"
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_two"
-        app:showAsAction="ifRoom"
-        android:icon="@android:drawable/ic_dialog_info"
-        android:title="검색" />
+        android:icon="@drawable/search"
+        android:title="검색"
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_three"
-        app:showAsAction="ifRoom"
         android:enabled="true"
-        android:icon="@android:drawable/ic_dialog_info"
-        android:title="작성" />
+        android:icon="@drawable/writing"
+        android:title="작성"
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_four"
-        app:showAsAction="ifRoom"
         android:enabled="true"
-        android:icon="@android:drawable/ic_dialog_info"
-        android:title="알림" />
+        android:icon="@drawable/noti"
+        android:title="알림"
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_five"
-        app:showAsAction="ifRoom"
         android:enabled="true"
-        android:icon="@android:drawable/ic_dialog_info"
-        android:title="마이페이지" />
+        android:icon="@drawable/user"
+        android:title="유저"
+        app:showAsAction="ifRoom" />
 </menu>
