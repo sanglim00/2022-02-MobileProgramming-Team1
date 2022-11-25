@@ -51,6 +51,9 @@
             android:name=".SettingActivity"
             android:label="Setting" />
         <activity
+            android:name=".SearchActivity"
+            android:label="Search" />
+        <activity
             android:name=".ChangePasswordActivity"
             android:label="Change Password" />
         <activity
