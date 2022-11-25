@@ -8,18 +8,27 @@ import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 
 public class Profile_OthersActivity extends AppCompatActivity {
     boolean issubcribed = false;
+
     BottomNavigationView bottomNavigationView; // footer
+
+    Profile_Post_Others_RecyclerViewAdapter adapter;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_others);
 
+        init();
+        getData();
 
         ToggleButton btn_subcribe = findViewById(R.id.btn_pf_others_subcribe); // 구독 버튼
 
@@ -78,4 +87,34 @@ public class Profile_OthersActivity extends AppCompatActivity {
 
 
     }
+    private void init(){
+        RecyclerView recyclerView = findViewById(R.id.post_recyclerView_others);
+
+
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(gridLayoutManager);
+
+
+        adapter = new Profile_Post_Others_RecyclerViewAdapter();
+        recyclerView.setAdapter(adapter);
+    }
+
+    private void getData(){
+        PostItem_Profile_Others data = new PostItem_Profile_Others(R.drawable.heedong1);
+        adapter.addItem(data);
+        data = new PostItem_Profile_Others(R.drawable.heedong1);
+        adapter.addItem(data);
+        data = new PostItem_Profile_Others(R.drawable.heedong1);
+        adapter.addItem(data);
+        data = new PostItem_Profile_Others(R.drawable.heedong1);
+        adapter.addItem(data);
+        data = new PostItem_Profile_Others(R.drawable.heedong1);
+        adapter.addItem(data);
+        data = new PostItem_Profile_Others(R.drawable.heedong1);
+        adapter.addItem(data);
+        data = new PostItem_Profile_Others(R.drawable.heedong1);
+        adapter.addItem(data);
+
+    }
+
 }
