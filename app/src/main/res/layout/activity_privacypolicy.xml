@@ -2,9 +2,20 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingLeft="20dp"
-    android:paddingRight="20dp">
+    android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/logo"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginBottom="10dp"
+        android:background="#FCC73F"
+        android:gravity="center"
+        android:text="개인정보 이용약관"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        android:textStyle="bold" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -15,6 +26,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:orientation="vertical"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
             android:paddingBottom="50dp">
 
             <TextView
@@ -78,15 +91,15 @@
                 android:text="제 4조"
                 android:textColor="@color/black"
                 android:textSize="14sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textView11"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
-                android:textColor="@color/black"
-                android:text="Etiam cursus neque nec euismod porta. Quisque ut libero et magna scelerisque aliquam. Praesent posuere semper dignissim. Aliquam laoreet ipsum orci, at porta sem congue ac. Nullam sit amet lobortis est. Vivamus sed porta ante. Integer porta dapibus congue. Ut faucibus vitae orci nec luctus. Vivamus sed sagittis lacus. Vestibulum nec velit eu urna vehicula sagittis." />
+                android:text="Etiam cursus neque nec euismod porta. Quisque ut libero et magna scelerisque aliquam. Praesent posuere semper dignissim. Aliquam laoreet ipsum orci, at porta sem congue ac. Nullam sit amet lobortis est. Vivamus sed porta ante. Integer porta dapibus congue. Ut faucibus vitae orci nec luctus. Vivamus sed sagittis lacus. Vestibulum nec velit eu urna vehicula sagittis."
+                android:textColor="@color/black" />
 
             <TextView
                 android:id="@+id/textView12"
@@ -96,14 +109,14 @@
                 android:text="제 5조"
                 android:textColor="@color/black"
                 android:textSize="14sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textView13"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:text="Donec at elit leo. Vivamus sed blandit sem. Nulla facilisi. Aenean vitae vehicula lacus, quis gravida ipsum. Pellentesque ac mauris sit amet diam sodales eleifend. Nam lacus enim, aliquam sodales eleifend aliquet, ultricies sed turpis. Quisque venenatis, eros eget egestas venenatis, nibh nibh maximus neque, a fringilla lectus turpis faucibus lorem. Nam vel bibendum elit. Ut porttitor convallis felis, ut convallis lorem." />
+                android:text="Donec at elit leo. Vivamus sed blandit sem. Nulla facilisi. Aenean vitae vehicula lacus, quis gravida ipsum. Pellentesque ac mauris sit amet diam sodales eleifend. Nam lacus enim, aliquam sodales eleifend aliquet, ultricies sed turpis. Quisque venenatis, eros eget egestas venenatis, nibh nibh maximus neque, a fringilla lectus turpis faucibus lorem. Nam vel bibendum elit. Ut porttitor convallis felis, ut convallis lorem."
+                android:textColor="@color/black" />
         </LinearLayout>
     </ScrollView>
 

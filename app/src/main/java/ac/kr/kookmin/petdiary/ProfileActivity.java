@@ -65,6 +65,7 @@ public class ProfileActivity extends AppCompatActivity {
         });
 
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation); // footer
+        bottomNavigationView.setSelectedItemId(R.id.action_five);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
