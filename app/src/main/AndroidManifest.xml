@@ -76,7 +76,12 @@
         <activity
             android:name=".calendarActivity"
             android:label="calendar"/>
-
+        <service android:name=".services.PetDiaryFCMService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>
