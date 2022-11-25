@@ -110,7 +110,6 @@ public class Profile_EditActivity extends AppCompatActivity {
                     case R.id.action_three:
                         intent = new Intent(getApplicationContext(), WritingActivity.class);
                         startActivity(intent);
-                        finish();
                         return true;
                     case R.id.action_four:
                         intent = new Intent(getApplicationContext(), NotiActivity.class);
