@@ -38,7 +38,7 @@
             android:label="Sign Up" />
         <activity
             android:name=".LoginActivity"
-            android:label="Login"
+            android:label="PetDiary"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
