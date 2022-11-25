@@ -1,7 +1,6 @@
 package ac.kr.kookmin.petdiary;
 
 import android.Manifest;
-import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -25,7 +24,6 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import java.io.FileNotFoundException;
-import java.io.InputStream;
 
 
 import androidx.annotation.Nullable;
