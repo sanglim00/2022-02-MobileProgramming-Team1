@@ -59,7 +59,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="left|center"
             android:id="@+id/recycler_like_btn"
-            android:background="@drawable/btn_mainpage_like"></ImageButton>
+            android:src="@drawable/img_like_unactive"
+            android:background="@color/white"></ImageButton>
 
         <Button
             android:layout_width="wrap_content"
