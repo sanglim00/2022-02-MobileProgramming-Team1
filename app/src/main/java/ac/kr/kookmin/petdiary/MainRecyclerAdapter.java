@@ -3,6 +3,7 @@ package ac.kr.kookmin.petdiary;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -38,12 +39,25 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
         this.mainList = list;
         notifyDataSetChanged();
     }
+
+    interface OnItemClickListener {
+        void onItemClick(View v, int position);
+        void onLikeBtnClick(View v, int position);
+    }
+
+    private OnItemClickListener mListener = null;
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.mListener = listener;
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         CircleImageView profile_img;
         TextView        username;
         ImageView       content_img;
         TextView        content;
+        ImageButton     like_btn;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -51,6 +65,26 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
             username = (TextView) itemView.findViewById(R.id.recycler_ID_text);
             content_img = (ImageView) itemView.findViewById(R.id.recycler_content_pic);
             content = (TextView) itemView.findViewById(R.id.recycler_content_text);
+            like_btn = (ImageButton) itemView.findViewById(R.id.recycler_like_btn);
+            like_btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (like_btn.isSelected()) {
+                        like_btn.setImageResource(R.drawable.img_like_active);
+                    }
+                    else {
+                        like_btn.setImageResource(R.drawable.img_like_unactive);
+                    }
+                    like_btn.setSelected(!like_btn.isSelected());
+
+//                    int pos = getAdapterPosition();
+//                    if (pos != RecyclerView.NO_POSITION) {
+//                        if (mListener != null) {
+//                            mListener.onLikeBtnClick(view, pos);
+//                        }
+//                    }
+                }
+            });
         }
         void onBind(MainItemList item) {
             username.setText(item.getUsername());
