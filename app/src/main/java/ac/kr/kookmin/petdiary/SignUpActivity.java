@@ -8,6 +8,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.InputFilter;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.KeyEvent;
 import android.view.View;
@@ -21,16 +22,27 @@ import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.io.FileNotFoundException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import ac.kr.kookmin.petdiary.models.User;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class SignUpActivity extends AppCompatActivity {
@@ -48,6 +60,8 @@ public class SignUpActivity extends AppCompatActivity {
     private Bitmap bit;
     private BitmapFactory.Options bitOption;
     boolean image_changed = false;
+    private FirebaseAuth mAuth;
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     private boolean hasTxt(TextInputEditText et){
         return (et.getText().toString().trim().length() > 0);
@@ -59,6 +73,7 @@ public class SignUpActivity extends AppCompatActivity {
         setContentView(R.layout.activity_signup);
 
         // 변수 초기화
+        mAuth = FirebaseAuth.getInstance();
         joinProfile = findViewById(R.id.iv_profile);
         joinPfEdit = findViewById(R.id.imgBtn_pf_edit_editimage);
         joinMeetDate = findViewById(R.id.cv_meetDate);
@@ -202,11 +217,13 @@ public class SignUpActivity extends AppCompatActivity {
         // 만난 날짜 설정 함수
         joinMeetDate.setOnDateChangeListener((view, year, month, dayOfMonth) -> {
             joinCheckDate = true;
-            joinDate = String.format("%d / %d / %d", year, month + 1, dayOfMonth);
+            joinDate = String.format("%d/%d/%02d", year, month + 1, dayOfMonth);
         });
 
         // 회원가입 완료하기 버튼 클릭 함수
         completion.setOnClickListener(view -> {
+
+            showTxt = "";
             // 문자열 추출
             joinEmailTxt = joinEmail.getText().toString();
             joinPWTxt = joinPW.getText().toString();
@@ -282,9 +299,8 @@ public class SignUpActivity extends AppCompatActivity {
             }
 
             // 회원가입 성공시
-            Intent intentSign = new Intent(getApplication(), LoginActivity.class);
-            startActivity(intentSign);
-            finish();
+            User user = new User(joinEmailTxt, joinIDTxt, joinPhoneTxt, joinPetNameTxt, joinPetType, joinGender, joinDate);
+            signUp(joinEmailTxt, joinPWTxt, user);
         });
 
         // 뒤로가기 버튼 클릭시
@@ -315,4 +331,69 @@ public class SignUpActivity extends AppCompatActivity {
             }
         }
     }
+
+    private void signUp(String email, String pw, User user) {
+        // 같은 계정으로 가입되어 있는게 있는지 체크
+        db.collection("users").whereEqualTo("email", email).get()
+            .addOnCompleteListener(this, new OnCompleteListener<QuerySnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    if (task.isSuccessful()) {
+                        for (QueryDocumentSnapshot doc : task.getResult()) {
+                            if (doc.exists()) {
+                                Toast.makeText(SignUpActivity.this, "이미 회원가입 된 유저입니다. 로그인 해주세요.", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+                        }
+                        db.collection("users").whereEqualTo("userName", user.getUserName()).get()
+                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                    for (QueryDocumentSnapshot doc : task.getResult()) {
+                                        if (doc.exists()) {
+                                            Toast.makeText(SignUpActivity.this, "이미 존재하는 아이디입니다. 다른 아이디를 사용해주세요.", Toast.LENGTH_SHORT).show();
+                                            return;
+                                        }
+                                    }
+                                    pushAccount(email, pw, user);
+                                }
+                            });
+                    }
+                }
+            });
+
+    }
+
+    private void pushAccount(String email, String pw, User user) {
+        mAuth.createUserWithEmailAndPassword(email, pw)
+            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if (task.isSuccessful()) {
+                        // 성공 시,
+                        db.collection("users").document(mAuth.getCurrentUser().getUid()).set(user)
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void unused) {
+                                        Log.d("201", "User DocumentSnapshot Id: " + mAuth.getCurrentUser().getUid());
+                                        Toast.makeText(SignUpActivity.this, "회원가입에 성공하였습니다.", Toast.LENGTH_SHORT).show();
+                                        Intent intentSign = new Intent(getApplication(), LoginActivity.class);
+                                        startActivity(intentSign);
+                                        finish();
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Log.w("500", "Error Adding User Document", e);
+                                    }
+                                });
+                    } else {
+                        // 실패 시,
+                        Toast.makeText(SignUpActivity.this, "회원가입에 실패하였습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+    }
+
 }
