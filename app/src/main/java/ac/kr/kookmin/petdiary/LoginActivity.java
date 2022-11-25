@@ -20,6 +20,7 @@ import com.google.firebase.auth.FirebaseUser;
 import java.util.regex.Pattern;
 
 public class LoginActivity extends AppCompatActivity {
+    private long backpressedTime = 0;
     private FirebaseAuth mAuth;
     TextInputEditText loginEmail, loginPW;
     Button login, sign;
@@ -111,5 +112,16 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 }
             });
+    }
+
+    // 백버튼 두번 클릭시 앱 종료
+    @Override
+    public void onBackPressed() {
+        if (System.currentTimeMillis() > backpressedTime + 2000) {
+            backpressedTime = System.currentTimeMillis();
+            Toast.makeText(this, "뒤로가기 버튼을 한번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show();
+        } else if (System.currentTimeMillis() <= backpressedTime + 2000) {
+            finish();
+        }
     }
 }
