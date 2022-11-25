@@ -39,7 +39,6 @@ import ac.kr.kookmin.petdiary.models.Post;
 public class WritingActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    BottomNavigationView bottomNavigationView;
     ImageView uploadImg;
     Button uploadImgBtn;
     EditText postContents;
@@ -63,34 +62,6 @@ public class WritingActivity extends AppCompatActivity {
 
         postContents = findViewById(R.id.et_postContents);
 
-        bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                Intent intent;
-                switch (item.getItemId()) {
-                    case R.id.action_one:
-                        intent = new Intent(getApplicationContext(), MainActivity.class);
-                        startActivity(intent);
-                        return true;
-                    case R.id.action_two:
-                        return true;
-                    case R.id.action_three:
-                        intent = new Intent(getApplicationContext(), WritingActivity.class);
-                        startActivity(intent);
-                        return true;
-                    case R.id.action_four:
-                        intent = new Intent(getApplicationContext(), NotiActivity.class);
-                        startActivity(intent);
-                        return true;
-                    case R.id.action_five:
-                        intent = new Intent(getApplicationContext(), ProfileActivity.class);
-                        startActivity(intent);
-                        return true;
-                }
-                return false;
-            }
-        });
 
     }
     private void UploadImg() {
@@ -130,7 +101,7 @@ public class WritingActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == 0 && requestCode == 0) {
             // load: 가져올 이미지, override: 이미지 크기 조정, into: 이미지를 출력할 객체
-            Glide.with(getApplicationContext()).load(data.getData()).override(400, 400).into(uploadImg);
+            Glide.with(getApplicationContext()).load(data.getData()).override(360, 360).into(uploadImg);
             isImageSelected = true;
         }
     }

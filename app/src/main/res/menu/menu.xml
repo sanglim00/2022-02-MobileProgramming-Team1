@@ -9,6 +9,7 @@
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_two"
+        android:enabled="true"
         android:icon="@drawable/search"
         android:title="검색"
         app:showAsAction="ifRoom" />
