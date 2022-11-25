@@ -37,16 +37,17 @@ public class MainActivity extends AppCompatActivity {
         mainAdapter.setMainList(mainItems);
 
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setSelectedItemId(R.id.action_one);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 Intent intent;
                 switch (item.getItemId()) {
                     case R.id.action_one:
-                        intent = new Intent(getApplicationContext(), MainActivity.class);
-                        startActivity(intent);
                         return true;
                     case R.id.action_two:
+                        intent = new Intent(getApplicationContext(), SearchActivity.class);
+                        startActivity(intent);
                         return true;
                     case R.id.action_three:
                         intent = new Intent(getApplicationContext(), WritingActivity.class);

@@ -46,6 +46,8 @@ public class SearchActivity extends AppCompatActivity {
 
         // 푸터 메뉴 클릭 시 이벤트
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        // 클릭 시 현재 페이지인 푸터를 active 하게
+        bottomNavigationView.setSelectedItemId(R.id.action_two);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
