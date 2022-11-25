@@ -15,8 +15,10 @@ import java.util.ArrayList;
 
 public class SearchActivity extends AppCompatActivity {
 
+    // 검색 결과 유저를 recycleerview로 보여주기 위함
     RecyclerView searchView;
     SearchRecyclerAdapter searchAdapter;
+    // 푸터
     BottomNavigationView bottomNavigationView;
 
     @Override
@@ -42,7 +44,7 @@ public class SearchActivity extends AppCompatActivity {
         }
         searchAdapter.setSearchList(searchItems);
 
-
+        // 푸터 메뉴 클릭 시 이벤트
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -55,6 +57,7 @@ public class SearchActivity extends AppCompatActivity {
                         finish();
                         return true;
                     case R.id.action_two:
+                        // 현재 페이지는 클릭되지 않도록
                         return true;
                     case R.id.action_three:
                         intent = new Intent(getApplicationContext(), WritingActivity.class);
