@@ -57,6 +57,20 @@ public class LoginActivity extends AppCompatActivity {
         showTxt = "";
         loginCheckEmail = true;
 
+        // 이메일 엔터 방지
+        loginEmail.setOnKeyListener((v, keyCode, event) -> {
+            if (keyCode == event.KEYCODE_ENTER)
+                return true;
+            return false;
+        });
+
+        // 비밀번호 엔터 방지
+        loginPW.setOnKeyListener((v, keyCode, event) -> {
+            if (keyCode == event.KEYCODE_ENTER)
+                return true;
+            return false;
+        });
+
         // 로그인 버튼 클릭
         login.setOnClickListener(view -> {
             loginEmailTxt = loginEmail.getText().toString();
