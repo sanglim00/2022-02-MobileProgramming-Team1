@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".main_page">
+    tools:context=".MainActivity">
 
     <TextView
         android:id="@+id/Logo"
@@ -24,15 +24,18 @@
         android:id="@+id/main_radioGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="@+id/Logo"
         app:layout_constraintStart_toStartOf="@+id/Logo"
-        app:layout_constraintTop_toBottomOf="@+id/Logo">
+        app:layout_constraintTop_toBottomOf="@+id/Logo"
+        >
 
         <RadioButton
-            android:id="@+id/btn_petType1"
+            android:id="@+id/btn_main_petType1"
             android:layout_width="70dp"
-            android:layout_height="50dp"
+            android:layout_height="40dp"
             android:layout_marginEnd="5dp"
             android:background="@drawable/radio_btn_color"
             android:button="@null"
@@ -40,12 +43,13 @@
             android:text="DOG"
             android:textColor="@drawable/radio_btn_text"
             android:textSize="15sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            tools:ignore="TouchTargetSizeCheck" />
 
         <RadioButton
-            android:id="@+id/btn_petType2"
+            android:id="@+id/btn_main_petType2"
             android:layout_width="70dp"
-            android:layout_height="50dp"
+            android:layout_height="40dp"
             android:layout_marginEnd="5dp"
             android:background="@drawable/radio_btn_color"
             android:button="@null"
@@ -53,12 +57,13 @@
             android:text="CAT"
             android:textColor="@drawable/radio_btn_text"
             android:textSize="15sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            tools:ignore="TouchTargetSizeCheck" />
 
         <RadioButton
-            android:id="@+id/btn_petType3"
+            android:id="@+id/btn_main_petType3"
             android:layout_width="70dp"
-            android:layout_height="50dp"
+            android:layout_height="40dp"
             android:layout_marginEnd="5dp"
             android:background="@drawable/radio_btn_color"
             android:button="@null"
@@ -66,12 +71,13 @@
             android:text="FISH"
             android:textColor="@drawable/radio_btn_text"
             android:textSize="15sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            tools:ignore="TouchTargetSizeCheck" />
 
         <RadioButton
-            android:id="@+id/btn_petType4"
+            android:id="@+id/btn_main_petType4"
             android:layout_width="70dp"
-            android:layout_height="50dp"
+            android:layout_height="40dp"
             android:layout_marginEnd="5dp"
             android:background="@drawable/radio_btn_color"
             android:button="@null"
@@ -79,19 +85,21 @@
             android:text="PIG"
             android:textColor="@drawable/radio_btn_text"
             android:textSize="15sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            tools:ignore="TouchTargetSizeCheck" />
 
         <RadioButton
-            android:id="@+id/btn_petType5"
+            android:id="@+id/btn_main_petType_extra"
             android:layout_width="70dp"
-            android:layout_height="50dp"
+            android:layout_height="40dp"
             android:background="@drawable/radio_btn_color"
             android:button="@null"
             android:gravity="center"
             android:text="+"
             android:textColor="@drawable/radio_btn_text"
             android:textSize="15sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            tools:ignore="TouchTargetSizeCheck" />
     </RadioGroup>
 
 

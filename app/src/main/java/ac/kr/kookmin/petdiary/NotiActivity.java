@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -52,16 +53,15 @@ public class NotiActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 Intent intent;
+                if(item.getItemId() != R.id.action_four) finish();
                 switch (item.getItemId()) {
                     case R.id.action_one:
                         intent = new Intent(getApplicationContext(), MainActivity.class);
                         startActivity(intent);
-                        finish();
                         return true;
                     case R.id.action_two:
                         intent = new Intent(getApplicationContext(), SearchActivity.class);
                         startActivity(intent);
-                        finish();
                         return true;
                     case R.id.action_three:
                         intent = new Intent(getApplicationContext(), WritingActivity.class);
@@ -72,11 +72,22 @@ public class NotiActivity extends AppCompatActivity {
                     case R.id.action_five:
                         intent = new Intent(getApplicationContext(), ProfileActivity.class);
                         startActivity(intent);
-                        finish();
                         return true;
                 }
                 return false;
             }
         });
+    }
+
+
+    @Override
+    public boolean onKeyDown(int keycode, KeyEvent event) {
+        bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        if( keycode == KeyEvent.KEYCODE_BACK) {
+            bottomNavigationView.setSelectedItemId(R.id.action_one);
+            return true;
+        }
+
+        return false;
     }
 }

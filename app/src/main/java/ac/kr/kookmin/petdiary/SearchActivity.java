@@ -2,6 +2,7 @@ package ac.kr.kookmin.petdiary;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
@@ -52,11 +53,11 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 Intent intent;
+                if(item.getItemId() != R.id.action_two) finish();
                 switch (item.getItemId()) {
                     case R.id.action_one:
                         intent = new Intent(getApplicationContext(), MainActivity.class);
                         startActivity(intent);
-                        finish();
                         return true;
                     case R.id.action_two:
                         // 현재 페이지는 클릭되지 않도록
@@ -68,16 +69,25 @@ public class SearchActivity extends AppCompatActivity {
                     case R.id.action_four:
                         intent = new Intent(getApplicationContext(), NotiActivity.class);
                         startActivity(intent);
-                        finish();
                         return true;
                     case R.id.action_five:
                         intent = new Intent(getApplicationContext(), ProfileActivity.class);
                         startActivity(intent);
-                        finish();
                         return true;
                 }
                 return false;
             }
         });
+    }
+
+    @Override
+    public boolean onKeyDown(int keycode, KeyEvent event) {
+        bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        if( keycode == KeyEvent.KEYCODE_BACK) {
+            bottomNavigationView.setSelectedItemId(R.id.action_one);
+            return true;
+        }
+
+        return false;
     }
 }

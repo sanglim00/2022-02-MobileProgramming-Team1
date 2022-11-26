@@ -1,17 +1,17 @@
 package ac.kr.kookmin.petdiary;
 
 public class PostItem_Profile {
-    int image;
+    String image;
 
-    public PostItem_Profile(int image){
+    public PostItem_Profile(String image){
         this.image = image;
     }
 
-    public int getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(int image) {
+    public void setImage(String image) {
         this.image = image;
     }
 

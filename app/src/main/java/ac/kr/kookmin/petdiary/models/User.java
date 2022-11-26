@@ -15,6 +15,8 @@ public class User {
     private ArrayList<String> follower;
     private String fcmToken;
 
+    private boolean alertAccept = true;
+
     public User() {
 
     }
@@ -115,5 +117,13 @@ public class User {
 
     public void setFcmToken(String fcmToken) {
         this.fcmToken = fcmToken;
+    }
+
+    public boolean isAlertAccept() {
+        return alertAccept;
+    }
+
+    public void setAlertAccept(boolean alertAccept) {
+        this.alertAccept = alertAccept;
     }
 }
