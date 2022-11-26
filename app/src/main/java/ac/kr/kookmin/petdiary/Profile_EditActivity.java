@@ -35,14 +35,23 @@ import androidx.core.content.ContextCompat;
 import androidx.core.app.ActivityCompat;
 import androidx.annotation.NonNull;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
 
+import ac.kr.kookmin.petdiary.models.User;
+
 
 public class Profile_EditActivity extends AppCompatActivity {
-    String[] genders = {"공개 안함","남 (♂)", "여 (♀)"};
-    boolean complete = false;
+    String[] genders = {"공개 안 함","남 (♂)", "여 (♀)"};
     TextView et_edit_meetDate;
     ImageView img_pf;
     private final int CALL_GALLERY = 0;
@@ -51,6 +60,7 @@ public class Profile_EditActivity extends AppCompatActivity {
     boolean image_changed = false;
     BottomNavigationView bottomNavigationView;
     String txt_gender = "";
+    String uid;
 
     ImageButton openSetting;
 
@@ -77,7 +87,7 @@ public class Profile_EditActivity extends AppCompatActivity {
         img_pf = findViewById(R.id.img_pf);
         ImageButton imgBtn_edit_editimage = findViewById(R.id.imgBtn_pf_edit_editimage);
 
-
+        TextView txt_pf_id = findViewById(R.id.txt_pf_id);
         EditText et_edit_name = findViewById(R.id.et_pf_edit_name); // 이름 편집 EditText
         Spinner spinner_gender = findViewById(R.id.spiner_pf_gender); // 성별 선택 Spinner
         et_edit_meetDate = findViewById(R.id.txt_pf_edit_meetDate); // 만난 날짜 편집 Text
@@ -91,15 +101,16 @@ public class Profile_EditActivity extends AppCompatActivity {
 
 
         Intent editIntent = getIntent();
+        String idIntent = editIntent.getStringExtra("id");
         String nameIntent = editIntent.getStringExtra("name");
         String genderIntent =  editIntent.getStringExtra("gender");
         String meetDateIntent = editIntent.getStringExtra("meetDate");
         String oneLineIntent = editIntent.getStringExtra("one_line");
+        uid = editIntent.getStringExtra("uid");
 
 
-
+        txt_pf_id.setText(idIntent);
         et_edit_name.setText(nameIntent);
-
         et_edit_meetDate.setText(meetDateIntent);
         et_edit_one_line_info.setText(oneLineIntent); // 기존값 받아옴
 
@@ -181,30 +192,41 @@ public class Profile_EditActivity extends AppCompatActivity {
         btn_edit_complete.setOnClickListener(new View.OnClickListener() { // 편집 완료 버튼 onclick
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent();
-                intent.putExtra("image_changed", image_changed);
-                // 프로필 이미지 변경 여부 - 프로필 이미지 변경을 안하고 완료 시 intent 용량이 초과되어 강제종료 되는 듯하여 이미지 변경시에만 인텐트를 주고 받도록 하였습니다.
-                complete = true; // 완료 버튼을 눌렀을 때만 수정 사항이 반영되도록 함.
-                if (image_changed){
-
-                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
-
-                    Bitmap bitmap = ((BitmapDrawable) img_pf.getDrawable()).getBitmap();
-
-                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-
-                    byte[] byteArray = stream.toByteArray();
-
-                    intent.putExtra("image", byteArray); // 이미지 전달
-
+                FirebaseFirestore db = FirebaseFirestore.getInstance();
+                String name = et_edit_name.getText().toString();
+                String gender = txt_gender;
+                String date = et_edit_meetDate.getText().toString();
+                String comment = et_edit_one_line_info.getText().toString();
+                if (name == null || name.equals("")) {
+                    Toast.makeText(Profile_EditActivity.this, "이름을 입력해주세요.", Toast.LENGTH_SHORT).show();
+                    return;
+                } else if (date == null || date.equals("")) {
+                    Toast.makeText(Profile_EditActivity.this, "만난 날짜를 선택해주세요.", Toast.LENGTH_SHORT).show();
+                    return;
                 }
-                intent.putExtra("name", et_edit_name.getText().toString()); // 이름 설정
-                intent.putExtra("gender", txt_gender); // 성별 설정
-                intent.putExtra("meetDate", et_edit_meetDate.getText().toString()); // 만난 날짜 설정
-                intent.putExtra("one_line", et_edit_one_line_info.getText().toString()); // 한줄 프로필 설정
-                intent.putExtra("complete", complete);
-                setResult(0, intent);
-                finish();
+                db.collection("users").document(uid).update(
+                        "petName", name,
+                        "gender", gender,
+                        "comment", comment,
+                        "petBirth", date
+                ).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        if (image_changed) {
+                            updateImage();
+                        } else {
+                            Intent intent = new Intent();
+                            setResult(0, intent);
+                            finish();
+                        }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(Profile_EditActivity.this, "변경에 실패하였습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
             }
         });
 
@@ -343,6 +365,30 @@ public class Profile_EditActivity extends AppCompatActivity {
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(intent, 0);
+    }
+
+    private void updateImage() {
+        StorageReference imageRef = FirebaseStorage.getInstance().getReference().child("profiles/" + uid);
+        img_pf.setDrawingCacheEnabled(true);
+        img_pf.buildDrawingCache();
+        Bitmap bitmap = ((BitmapDrawable) img_pf.getDrawable()).getBitmap();
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] data = baos.toByteArray();
+        imageRef.putBytes(data).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                // 사진 업로드 실패 시,
+                Toast.makeText(Profile_EditActivity.this, "프로필 사진 변경에 실패하였습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                Intent intent = new Intent();
+                setResult(0, intent);
+                finish();
+            }
+        });
     }
 
 

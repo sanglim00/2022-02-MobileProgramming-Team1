@@ -60,6 +60,8 @@ public class ProfileActivity extends AppCompatActivity {
 
     ImageButton openSetting;
 
+    String comment;
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -128,10 +130,12 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ProfileActivity.this, Profile_EditActivity.class);
+                intent.putExtra("id", txt_pf_id.getText());
                 intent.putExtra("name", txt_pf_name.getText());
                 intent.putExtra("gender", txt_pf_gender.getText());
                 intent.putExtra("meetDate", txt_pf_meetDate.getText());
-                intent.putExtra("one_line", txt_pf_one_line_info.getText());
+                intent.putExtra("one_line", comment);
+                intent.putExtra("uid", mAuth.getCurrentUser().getUid());
                 startActivityResult.launch(intent);
             }
         });
@@ -235,12 +239,12 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private void initProfileData(User user, String uid) {
+        comment = user.getComment();
         txt_pf_id.setText(user.getUserName());
         txt_pf_name.setText(user.getPetName());
         txt_pf_gender.setText(user.getGender());
         txt_pf_meetDate.setText(user.getPetBirth());
-        String comment = user.getComment() == null || user.getComment().equals("") ? "한 줄 소개가 없습니다." : user.getComment();
-        txt_pf_one_line_info.setText(comment);
+        txt_pf_one_line_info.setText(comment == null || comment.equals("") ? "한 줄 소개가 없습니다." : user.getComment());
 
         StorageReference profile = storage.getReference().child("profiles/" + uid);
 
@@ -248,11 +252,15 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<Uri> task) {
                 if (task.isSuccessful()) {
+                    if (ProfileActivity.this.isFinishing())
+                        return;
                     Glide.with(ProfileActivity.this)
                             .load(task.getResult())
                             .into(img_pf);
                     if (adapter.getItemCount() == 0) initPostData(uid);
                 } else {
+                    if (ProfileActivity.this.isFinishing())
+                        return;
                     Glide.with(ProfileActivity.this)
                             .load(R.drawable.default_profile)
                             .into(img_pf);
