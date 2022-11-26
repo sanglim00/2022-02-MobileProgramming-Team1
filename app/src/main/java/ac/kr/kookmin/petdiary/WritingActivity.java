@@ -136,6 +136,10 @@ public class WritingActivity extends AppCompatActivity {
             Bundle extras = data.getExtras(); // Bundle로 데이터를 입력
             Bitmap imageBitmap = (Bitmap) extras.get("data"); // Bitmap으로 컨버전
             uploadImg.setImageBitmap(imageBitmap);  // 이미지뷰에 Bitmap으로 이미지를 입력
+            isImageSelected = true;
+        }
+        else {
+            isImageSelected = false;
         }
     }
 
