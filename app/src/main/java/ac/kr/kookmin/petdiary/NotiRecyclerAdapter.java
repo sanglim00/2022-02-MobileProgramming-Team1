@@ -1,10 +1,12 @@
 package ac.kr.kookmin.petdiary;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -28,6 +30,20 @@ public class NotiRecyclerAdapter extends RecyclerView.Adapter<NotiRecyclerAdapte
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.onBind(notiList.get(position));
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String  postid;
+                Intent  intent;
+                int     pos;
+
+                pos = holder.getAdapterPosition();
+                postid = notiList.get(pos).getPostId();
+                Toast.makeText(view.getContext(), postid, Toast.LENGTH_SHORT).show();
+                intent = new Intent(view.getContext(), PostDetailActivity.class);
+                view.getContext().startActivity(intent);
+            }
+        });
     }
 
     @Override

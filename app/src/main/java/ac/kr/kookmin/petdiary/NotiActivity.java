@@ -38,11 +38,11 @@ public class NotiActivity extends AppCompatActivity {
 
         for(int i = 1; i <= 20; i++){
             if (i % 3 == 0)
-                notiItems.add(new Notification("좋아요 알림", "h._.gunn님이 회원님의 게시물을 좋아합...", "", "", i));
+                notiItems.add(new Notification("좋아요 알림", "h._.gunn님이 회원님의 게시물을 좋아합...", "", "", i, "notilike" + i));
             else if (i % 3 == 1)
-                notiItems.add(new Notification("게시물 알림", "h._.gunn님이 회원님의 게시물에 댓글을...", "", "", i));
+                notiItems.add(new Notification("게시물 알림", "h._.gunn님이 회원님의 게시물에 댓글을...", "", "", i, "noticomment" + i));
             else
-                notiItems.add(new Notification("구독 알림", "h._.gunn님의 새로운 게시물.", "", "", i));
+                notiItems.add(new Notification("구독 알림", "h._.gunn님의 새로운 게시물.", "", "", i, "notipost" + i));
         }
         notiAdapter.setNotiList(notiItems);
 

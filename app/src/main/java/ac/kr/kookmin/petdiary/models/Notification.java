@@ -5,14 +5,16 @@ public class Notification {
     private String content;
     private String profileSrc;
     private String postImageSrc;
+    private String postId;
     private int resourceId;
 
-    public Notification(String title, String content, String profileSrc, String postImageSrc, int resourceId) {
+    public Notification(String title, String content, String profileSrc, String postImageSrc, int resourceId, String postId) {
         this.title = title;
         this.content = content;
         this.profileSrc = profileSrc;
         this.postImageSrc = postImageSrc;
         this.resourceId = resourceId;
+        this.postId = postId;
     }
 
     public String getTitle() {
@@ -53,5 +55,13 @@ public class Notification {
 
     public void setResourceId(int resourceId) {
         this.resourceId = resourceId;
+    }
+
+    public String getPostId() {
+        return postId;
+    }
+
+    public void setPostId(String postId) {
+        this.postId = postId;
     }
 }
