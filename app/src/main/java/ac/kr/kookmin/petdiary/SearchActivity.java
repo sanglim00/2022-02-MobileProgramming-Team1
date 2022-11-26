@@ -52,7 +52,7 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 Intent intent;
-                finish();
+                if(item.getItemId() != R.id.action_two) finish();
                 switch (item.getItemId()) {
                     case R.id.action_one:
                         intent = new Intent(getApplicationContext(), MainActivity.class);
