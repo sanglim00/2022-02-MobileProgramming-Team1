@@ -24,14 +24,16 @@
         android:id="@+id/main_radioGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="@+id/Logo"
         app:layout_constraintStart_toStartOf="@+id/Logo"
-        app:layout_constraintTop_toBottomOf="@+id/Logo">
+        app:layout_constraintTop_toBottomOf="@+id/Logo"
+        >
 
         <RadioButton
-            android:id="@+id/btn_petType1"
+            android:id="@+id/btn_main_petType1"
             android:layout_width="70dp"
             android:layout_height="40dp"
             android:layout_marginEnd="5dp"
@@ -45,7 +47,7 @@
             tools:ignore="TouchTargetSizeCheck" />
 
         <RadioButton
-            android:id="@+id/btn_petType2"
+            android:id="@+id/btn_main_petType2"
             android:layout_width="70dp"
             android:layout_height="40dp"
             android:layout_marginEnd="5dp"
@@ -59,7 +61,7 @@
             tools:ignore="TouchTargetSizeCheck" />
 
         <RadioButton
-            android:id="@+id/btn_petType3"
+            android:id="@+id/btn_main_petType3"
             android:layout_width="70dp"
             android:layout_height="40dp"
             android:layout_marginEnd="5dp"
@@ -73,7 +75,7 @@
             tools:ignore="TouchTargetSizeCheck" />
 
         <RadioButton
-            android:id="@+id/btn_petType4"
+            android:id="@+id/btn_main_petType4"
             android:layout_width="70dp"
             android:layout_height="40dp"
             android:layout_marginEnd="5dp"
@@ -87,7 +89,7 @@
             tools:ignore="TouchTargetSizeCheck" />
 
         <RadioButton
-            android:id="@+id/btn_petType5"
+            android:id="@+id/btn_main_petType_extra"
             android:layout_width="70dp"
             android:layout_height="40dp"
             android:background="@drawable/radio_btn_color"
