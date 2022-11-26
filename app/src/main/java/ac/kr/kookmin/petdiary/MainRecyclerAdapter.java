@@ -56,15 +56,25 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
 
         CircleImageView profile_img;
         TextView        username;
-        ImageButton     content_img;
+        ImageView       content_img;
         ImageButton     like_btn;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             profile_img = (CircleImageView) itemView.findViewById(R.id.recycler_ID_pic);
             username = (TextView) itemView.findViewById(R.id.recycler_ID_text);
-            content_img = (ImageButton) itemView.findViewById(R.id.recycler_content_pic);
+            content_img = (ImageView) itemView.findViewById(R.id.recycler_content_pic);
             like_btn = (ImageButton) itemView.findViewById(R.id.recycler_like_btn);
+            profile_img.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (profile_img.isPressed()) {
+                        Intent intent;
+                        intent = new Intent(view.getContext(), ProfileActivity.class);
+                        view.getContext().startActivity(intent);
+                    }
+                }
+            });
             like_btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
