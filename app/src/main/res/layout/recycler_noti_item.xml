@@ -38,6 +38,8 @@
             android:id="@+id/notiContent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:text="알림의 자세한 내용이 이 곳에 표시됩니다."
             android:textColor="@color/black" />
     </LinearLayout>

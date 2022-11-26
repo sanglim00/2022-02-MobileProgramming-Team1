@@ -1,4 +1,5 @@
 package ac.kr.kookmin.petdiary;
+import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
 import android.view.View;
@@ -35,6 +36,7 @@ public class ViewHolder_Post_Profile extends RecyclerView.ViewHolder{
             @Override
             public void onComplete(@NonNull Task<Uri> task) {
                 if (task.isSuccessful()) {
+                    if (((Activity) ctx).isFinishing()) return;
                     Glide.with(ctx)
                             .load(task.getResult())
                             .into(img_post);
