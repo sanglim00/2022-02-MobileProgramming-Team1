@@ -20,6 +20,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -49,6 +50,7 @@ public class SignUpActivity extends AppCompatActivity {
     CircleImageView joinProfile;
     ImageButton joinPfEdit;
     CalendarView joinMeetDate;
+    TextView joinPrivacy,joinPrivacyTxt;
     TextInputEditText joinEmail, joinPW, joinPWChk, joinID, joinPhone, joinPetName;
     Button dog, cat, fish, pig, plus, completion, back;
     RadioButton accept;
@@ -57,6 +59,7 @@ public class SignUpActivity extends AppCompatActivity {
     String[] items = {"성별을 선택해주세요", "남 (♂)", "여 (♀)", "공개 안 함"};
     public boolean joinCheckEmail, joinCheckPW, joinCheckPhone, joinBtnCheck, joinCheckGender, joinCheckDate;
     private final int CALL_GALLERY = 0;
+    private int control;
     private Bitmap bit;
     private BitmapFactory.Options bitOption;
     boolean image_changed = false;
@@ -77,6 +80,8 @@ public class SignUpActivity extends AppCompatActivity {
         joinProfile = findViewById(R.id.iv_profile);
         joinPfEdit = findViewById(R.id.imgBtn_pf_edit_editimage);
         joinMeetDate = findViewById(R.id.cv_meetDate);
+        joinPrivacy = findViewById(R.id.tv_privacyUsage);
+        joinPrivacyTxt = findViewById(R.id.tv_privacyUsageText);
         joinEmail = findViewById(R.id.tit_email);
         joinPW = findViewById(R.id.tit_password);
         joinPWChk = findViewById(R.id.tit_passwordCheck);
@@ -201,9 +206,6 @@ public class SignUpActivity extends AppCompatActivity {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-                if (items[position] == "성별을 선택해주세요") {
-
-                }
                 joinGender = items[position];
                 joinCheckGender = true;
             }
@@ -218,6 +220,16 @@ public class SignUpActivity extends AppCompatActivity {
         joinMeetDate.setOnDateChangeListener((view, year, month, dayOfMonth) -> {
             joinCheckDate = true;
             joinDate = String.format("%d/%d/%02d", year, month + 1, dayOfMonth);
+        });
+
+        // 개인정보 이용 동의 토글 함수
+        joinPrivacy.setOnClickListener(view -> {
+            control += 1;
+            if (view==joinPrivacy && control%2==1) {
+                joinPrivacyTxt.setVisibility(View.VISIBLE);
+            } else {
+                joinPrivacyTxt.setVisibility(View.GONE);
+            }
         });
 
         // 회원가입 완료하기 버튼 클릭 함수
