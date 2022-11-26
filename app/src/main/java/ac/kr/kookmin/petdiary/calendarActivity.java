@@ -35,7 +35,7 @@ public class calendarActivity extends AppCompatActivity {
                 diaryTextView.setVisibility(View.VISIBLE);
                 save_Btn.setVisibility(View.VISIBLE);
                 textView2.setVisibility(View.INVISIBLE);
-                diaryTextView.setText(String.format("%d / %d / %d", year, month + 1, dayOfMonth));
+                diaryTextView.setText(String.format("%d/%d/%02d", year, month + 1, dayOfMonth));
             }
         });
 
