@@ -209,18 +209,6 @@ public class ProfileActivity extends AppCompatActivity {
                 });
     }
 
-
-
-    private void getData(){
-//        PostItem_Profile data = new PostItem_Profile(R.drawable.ddaeng2);
-//        adapter.addItem(data);
-//        adapter.addItem(data);
-//        adapter.addItem(data);
-//        adapter.addItem(data);
-
-    }
-
-
     @Override
     public boolean onKeyDown(int keycode, KeyEvent event) {
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
