@@ -12,11 +12,15 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapter.ViewHolder> {
+
+    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
     private ArrayList<MainItemList> mainList;
     @NonNull
@@ -77,9 +81,14 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
 
                         pos = getAdapterPosition();
                         uid = mainList.get(pos).getUid();
-                        Toast.makeText(itemView.getContext(), uid, Toast.LENGTH_SHORT).show();
-                        intent = new Intent(view.getContext(), ProfileActivity.class);
-                        view.getContext().startActivity(intent);
+                        String userUid = mAuth.getCurrentUser().getUid();
+                        if (uid != null && userUid != null && uid.equals(userUid)) {
+                            intent = new Intent(view.getContext(), ProfileActivity.class);
+                            view.getContext().startActivity(intent);
+                        } else {
+                            intent = new Intent(view.getContext(), Profile_OthersActivity.class);
+                            view.getContext().startActivity(intent);
+                        }
                     }
                 }
             });
