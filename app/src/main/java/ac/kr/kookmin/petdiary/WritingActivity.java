@@ -29,6 +29,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -39,6 +40,7 @@ import java.io.File;
 import java.io.InputStream;
 
 import ac.kr.kookmin.petdiary.models.Post;
+import ac.kr.kookmin.petdiary.models.User;
 
 
 public class WritingActivity extends AppCompatActivity {
@@ -151,45 +153,52 @@ public class WritingActivity extends AppCompatActivity {
             Toast.makeText(this, "내용을 입력해주세요.", Toast.LENGTH_SHORT).show();
             return;
         }
-        Post post = new Post(mAuth.getCurrentUser().getUid(), "", postContents.getText().toString(), true);
-        db.collection("posts").add(post)
-            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                @Override
-                public void onSuccess(DocumentReference documentReference) {
-                    Log.d("201", "Post DocumentSnapshot Id: " + documentReference.getId());
+        db.collection("users").document(mAuth.getCurrentUser().getUid()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                User user = documentSnapshot.toObject(User.class);
+                Post post = new Post(mAuth.getCurrentUser().getUid(), "", postContents.getText().toString(), true, user.getPetType());
+                db.collection("posts").add(post)
+                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                            @Override
+                            public void onSuccess(DocumentReference documentReference) {
+                                Log.d("201", "Post DocumentSnapshot Id: " + documentReference.getId());
 
-                    StorageReference storeageRef = FirebaseStorage.getInstance().getReference();
-                    StorageReference imageRef = storeageRef.child("images/" + documentReference.getId());
-                    uploadImg.setDrawingCacheEnabled(true);
-                    uploadImg.buildDrawingCache();
-                    Bitmap bitmap = ((BitmapDrawable) uploadImg.getDrawable()).getBitmap();
-                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-                    byte[] data = baos.toByteArray();
+                                StorageReference storageRef = FirebaseStorage.getInstance().getReference();
+                                StorageReference imageRef = storageRef.child("images/" + documentReference.getId());
+                                uploadImg.setDrawingCacheEnabled(true);
+                                uploadImg.buildDrawingCache();
+                                Bitmap bitmap = ((BitmapDrawable) uploadImg.getDrawable()).getBitmap();
+                                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                                byte[] data = baos.toByteArray();
 
-                    UploadTask uploadTask = imageRef.putBytes(data);
-                    uploadTask.addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            // 사진 업로드 실패 시,
-                        }
-                    }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            // 사진 업로드 성공 시,
-                            Toast.makeText(WritingActivity.this, "업로드가 완료되었습니다!", Toast.LENGTH_SHORT).show();
-                            finish();
-                        }
-                    });
-                }
-            })
-            .addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Log.w("500", "Error Adding Post Document", e);
-                    Toast.makeText(WritingActivity.this, "게시물 올리기에 실패했습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
-                }
-            });
+                                UploadTask uploadTask = imageRef.putBytes(data);
+                                uploadTask.addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        // 사진 업로드 실패 시,
+                                    }
+                                }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                    @Override
+                                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                        // 사진 업로드 성공 시,
+                                        Toast.makeText(WritingActivity.this, "업로드가 완료되었습니다!", Toast.LENGTH_SHORT).show();
+                                        finish();
+                                    }
+                                });
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.w("500", "Error Adding Post Document", e);
+                                Toast.makeText(WritingActivity.this, "게시물 올리기에 실패했습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+            }
+        });
+
 
     }
 

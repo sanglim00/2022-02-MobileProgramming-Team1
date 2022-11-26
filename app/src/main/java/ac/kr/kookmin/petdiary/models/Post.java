@@ -5,11 +5,13 @@ public class Post {
     private String content;
     private int likes = 0;
     private boolean acceptDown;
+    private String petType;
 
-    public Post(String from, String image, String content, boolean acceptDown) {
+    public Post(String from, String image, String content, boolean acceptDown, String petType) {
         this.from = from;
         this.content = content;
         this.acceptDown = acceptDown;
+        this.petType = petType;
     }
 
     public String getFrom() {
