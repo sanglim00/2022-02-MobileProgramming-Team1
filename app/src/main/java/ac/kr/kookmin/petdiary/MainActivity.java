@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,18 +18,28 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.security.spec.ECField;
 import java.util.ArrayList;
 
+import ac.kr.kookmin.petdiary.models.Post;
+import ac.kr.kookmin.petdiary.models.User;
+
 public class MainActivity extends AppCompatActivity {
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
     RecyclerView mainView;
     private MainRecyclerAdapter mainAdapter;
     BottomNavigationView bottomNavigationView;
     private RadioGroup  radio_tags;
     private RadioButton radio_tag_btn;
-    private String      current_tag = "DOG";
+    private String      current_tag = "dog";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,8 +54,7 @@ public class MainActivity extends AppCompatActivity {
         mainView.setAdapter(mainAdapter);
         mainView.setLayoutManager(new LinearLayoutManager(this));
         RadioSelectListener(mainItems);
-        RecyclerItemUpdate(mainItems);
-        mainAdapter.setMainList(mainItems);
+        RecyclerItemUpdate();
 
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         bottomNavigationView.setSelectedItemId(R.id.action_one);
@@ -95,34 +105,30 @@ public class MainActivity extends AppCompatActivity {
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
                 switch (i) {
                     case R.id.btn_main_petType1:
-                        current_tag = "DOG";
-                        Toast.makeText(MainActivity.this, current_tag, Toast.LENGTH_SHORT).show();
-                        RecyclerItemUpdate(mainItems);
+                        current_tag = "dog";
+                        RecyclerItemUpdate();
                         break;
                     case R.id.btn_main_petType2:
-                        current_tag = "CAT";
-                        Toast.makeText(MainActivity.this, current_tag, Toast.LENGTH_SHORT).show();
-                        RecyclerItemUpdate(mainItems);
+                        current_tag = "cat";
+                        RecyclerItemUpdate();
                         break;
                     case R.id.btn_main_petType3:
-                        current_tag = "FISH";
-                        Toast.makeText(MainActivity.this, current_tag, Toast.LENGTH_SHORT).show();
-                        RecyclerItemUpdate(mainItems);
+                        current_tag = "fish";
+                        RecyclerItemUpdate();
                         break;
                     case R.id.btn_main_petType4:
-                        current_tag = "PIG";
-                        Toast.makeText(MainActivity.this, current_tag, Toast.LENGTH_SHORT).show();
-                        RecyclerItemUpdate(mainItems);
+                        current_tag = "pig";
+                        RecyclerItemUpdate();
                         break;
                     case R.id.btn_main_petType_extra:
-                        setExtraTag(mainItems);
+                        setExtraTag();
                         break;
                 }
             }
         });
     }
 
-    public void setExtraTag(ArrayList<MainItemList> mainItems) {
+    public void setExtraTag() {
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
 
         alert.setTitle("태그 추가");
@@ -134,8 +140,8 @@ public class MainActivity extends AppCompatActivity {
         alert.setPositiveButton("적용", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                 current_tag = inputTag.getText().toString();
-                 RecyclerItemUpdate(mainItems);
+                 current_tag = inputTag.getText().toString().toLowerCase();
+                 RecyclerItemUpdate();
             }
         });
         alert.setNegativeButton("취소", new DialogInterface.OnClickListener() {
@@ -146,11 +152,37 @@ public class MainActivity extends AppCompatActivity {
         alert.show();
     }
 
-    public void RecyclerItemUpdate(ArrayList<MainItemList> mainItems) {
-        mainItems.clear();
-        for (int i = 0; i < 20; i++) {
-            mainItems.add(new MainItemList(current_tag, "", ""));
-        }
-        mainAdapter.setMainList(mainItems);
+    public void RecyclerItemUpdate() {
+        mainAdapter.clearMainList();
+        db.collection("posts").whereEqualTo("petType", current_tag).get()
+            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    if (task.isSuccessful()) {
+                        for(QueryDocumentSnapshot doc : task.getResult()) {
+                            if (doc.exists()) {
+                                Log.d("help", "살려줘");
+                                Post post = doc.toObject(Post.class);
+                                Log.d("help", doc.getId());
+                                Log.d("help", post.getContent());
+                                String postId = doc.getId();
+                                String uid = post.getFrom();
+                                db.collection("users").document(uid).get()
+                                    .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                            if (task.isSuccessful()) {
+                                                User user = task.getResult().toObject(User.class);
+                                                MainItemList item = new MainItemList(uid, user.getUserName(), uid, postId);
+                                                mainAdapter.addItem(item);
+                                            }
+                                        }
+                                    });
+                            }
+                        }
+                    }
+                }
+            });
     }
+
 }

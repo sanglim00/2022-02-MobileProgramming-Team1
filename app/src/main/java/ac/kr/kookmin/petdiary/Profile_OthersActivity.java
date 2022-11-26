@@ -1,12 +1,16 @@
 package ac.kr.kookmin.petdiary;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
@@ -14,18 +18,45 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
+import ac.kr.kookmin.petdiary.models.User;
 
 
 public class Profile_OthersActivity extends AppCompatActivity {
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private FirebaseStorage storage = FirebaseStorage.getInstance();
     boolean issubcribed = false;
+    TextView txt_pf_name;
+    TextView txt_pf_gender;
+    TextView txt_pf_meetDate;
+    TextView txt_pf_one_line_info;
+    TextView txt_pf_id;
+    ImageView img_pf;
 
     BottomNavigationView bottomNavigationView; // footer
 
-    Profile_Post_Others_RecyclerViewAdapter adapter;
+    Profile_Post_RecyclerViewAdapter adapter;
 
     ImageButton openSetting;
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Intent intent = getIntent();
+        setProfileData(intent.getStringExtra("uid"));
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +64,13 @@ public class Profile_OthersActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile_others);
 
         init();
-        getData();
+
+        txt_pf_id = findViewById(R.id.txt_pf_others_id);
+        txt_pf_name = findViewById(R.id.txt_pf_others_name);
+        txt_pf_gender = findViewById(R.id.txt_pf_others_gender);
+        txt_pf_meetDate = findViewById(R.id.txt_pf_others_meetDate);
+        txt_pf_one_line_info = findViewById(R.id.txt_pf_others_one_line_info);
+        img_pf = findViewById(R.id.img_pf_others);
 
         ToggleButton btn_subcribe = findViewById(R.id.btn_pf_others_subcribe); // 구독 버튼
 
@@ -106,18 +143,24 @@ public class Profile_OthersActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(gridLayoutManager);
 
 
-        adapter = new Profile_Post_Others_RecyclerViewAdapter();
+        adapter = new Profile_Post_RecyclerViewAdapter();
         recyclerView.setAdapter(adapter);
     }
 
-    private void getData(){
-        PostItem_Profile_Others data = new PostItem_Profile_Others(R.drawable.heedong1);
-        adapter.addItem(data);
-        adapter.addItem(data);
-        adapter.addItem(data);
-        adapter.addItem(data);
-        adapter.addItem(data);
-
+    private void initPostData(String uid) {
+        db.collection("posts").whereEqualTo("from", uid).get()
+                .addOnCompleteListener(this, new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot doc : task.getResult()) {
+                                if (doc.exists()) {
+                                    adapter.addItem(new PostItem_Profile(doc.getId()));
+                                }
+                            }
+                        }
+                    }
+                });
     }
 
     @Override
@@ -129,6 +172,55 @@ public class Profile_OthersActivity extends AppCompatActivity {
         }
 
         return false;
+    }
+
+    private void setProfileData(String uid) {
+        if (uid == null) return;
+        db.collection("users").document(uid).get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        User userDoc = documentSnapshot.toObject(User.class);
+                        initProfileData(userDoc, uid);
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+
+                    }
+                });
+    }
+
+    private void initProfileData(User user, String uid) {
+        String comment = user.getComment();
+        txt_pf_id.setText(user.getUserName());
+        txt_pf_name.setText(user.getPetName());
+        txt_pf_gender.setText(user.getGender());
+        txt_pf_meetDate.setText(user.getPetBirth());
+        txt_pf_one_line_info.setText(comment == null || comment.equals("") ? "한 줄 소개가 없습니다." : user.getComment());
+
+        StorageReference profile = storage.getReference().child("profiles/" + uid);
+
+        profile.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+            @Override
+            public void onComplete(@NonNull Task<Uri> task) {
+                if (task.isSuccessful()) {
+                    if (Profile_OthersActivity.this.isFinishing())
+                        return;
+                    Glide.with(Profile_OthersActivity.this)
+                            .load(task.getResult())
+                            .into(img_pf);
+                    if (adapter.getItemCount() == 0) initPostData(uid);
+                } else {
+                    if (Profile_OthersActivity.this.isFinishing())
+                        return;
+                    Glide.with(Profile_OthersActivity.this)
+                            .load(R.drawable.default_profile)
+                            .into(img_pf);
+                }
+            }
+        });
     }
 
 }

@@ -158,7 +158,7 @@ public class WritingActivity extends AppCompatActivity {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 User user = documentSnapshot.toObject(User.class);
-                Post post = new Post(mAuth.getCurrentUser().getUid(), "", postContents.getText().toString(), true, user.getPetType());
+                Post post = new Post(mAuth.getCurrentUser().getUid(), postContents.getText().toString(), true, user.getPetType());
                 db.collection("posts").add(post)
                         .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                             @Override

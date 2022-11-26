@@ -19,7 +19,7 @@
             android:id="@+id/recycler_ID_pic"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@drawable/ddaeng"
+            android:src="@drawable/grey_default"
             app:civ_border_color="#FF000000"
             app:civ_border_width="2dp"
             android:layout_gravity="center|left"/>
@@ -33,7 +33,7 @@
             android:gravity="left"
             android:clickable="true"
 
-            android:text="my._.ddaengsun"
+            android:text=""
             android:textColor="@color/black"
             android:textSize="16dp"
             android:textStyle="bold" />
@@ -50,7 +50,7 @@
         android:adjustViewBounds="true"
         android:scaleType="fitCenter"
         android:layout_below="@id/recycler_ID"
-        android:src="@drawable/ddaeng2"></ImageView>
+        android:src="@drawable/grey_default"></ImageView>
 
     <GridLayout
         android:layout_width="match_parent"

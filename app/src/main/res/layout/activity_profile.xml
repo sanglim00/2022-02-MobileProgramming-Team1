@@ -38,7 +38,6 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="center"
-                    android:text="h_gunn"
                     android:textColor="@color/black"
                     android:textSize="24sp" />
 
@@ -52,9 +51,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_gravity="right"
-                    android:background="@color/white"
+                    android:background="@android:color/transparent"
                     android:src="@drawable/icon_profile_setting"
-                    tools:ignore="TouchTargetSizeCheck" />
+                    tools:ignore="SpeakableTextPresentCheck" />
             </LinearLayout>
 
             <LinearLayout
