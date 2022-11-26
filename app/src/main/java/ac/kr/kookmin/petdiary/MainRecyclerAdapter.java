@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -71,6 +72,12 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
                 public void onClick(View view) {
                     if (profile_img.isPressed()) {
                         Intent intent;
+                        int     pos;
+                        String  uid; // 현재 클릭한 post의 uid값입니다.
+
+                        pos = getAdapterPosition();
+                        uid = mainList.get(pos).getUid();
+                        Toast.makeText(itemView.getContext(), uid, Toast.LENGTH_SHORT).show();
                         intent = new Intent(view.getContext(), ProfileActivity.class);
                         view.getContext().startActivity(intent);
                     }
