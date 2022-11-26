@@ -100,7 +100,7 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
                 public void onClick(View view) {
                     Intent intent;
                     if (content_img.isPressed()) {
-                        intent = new Intent(view.getContext(), NotiActivity.class);
+                        intent = new Intent(view.getContext(), PostDetailActivity.class);
                         view.getContext().startActivity(intent);
                     }
                 }
