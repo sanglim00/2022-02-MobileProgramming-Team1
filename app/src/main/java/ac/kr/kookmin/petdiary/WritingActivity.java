@@ -5,7 +5,10 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -32,6 +35,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.InputStream;
 
 import ac.kr.kookmin.petdiary.models.Post;
@@ -45,6 +49,8 @@ public class WritingActivity extends AppCompatActivity {
     Button uploadImgBtn;
     EditText postContents;
     CheckBox Download;
+
+    File file;
 
     boolean isImageSelected = false;    // 이미지 유무 여부
     boolean permitToDownload = false;   // 사진 다운로드 허용 여부
@@ -63,6 +69,9 @@ public class WritingActivity extends AppCompatActivity {
                 UploadImg();
             }
         });
+
+        File sdcard = Environment.getExternalStorageDirectory();
+        file = new File(sdcard, "capture.jpg");
 
         postContents = findViewById(R.id.et_postContents);
         Download = findViewById(R.id.ck_download);
@@ -103,8 +112,8 @@ public class WritingActivity extends AppCompatActivity {
 
 
     public void TakePhoto() {
-
-
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(intent, 1);
     }
     public void TakeAlbum() {
         Intent intent = new Intent();
@@ -116,10 +125,17 @@ public class WritingActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        // 앨범에서 선택 시
         if(requestCode == 0 && requestCode == 0) {
             // load: 가져올 이미지, override: 이미지 크기 조정, into: 이미지를 출력할 객체
             Glide.with(getApplicationContext()).load(data.getData()).override(360, 360).into(uploadImg);
             isImageSelected = true;
+        }
+        // 카메라 구동하여 선택 시
+        else if (requestCode == 1 && requestCode == 1) {
+            Bundle extras = data.getExtras(); // Bundle로 데이터를 입력
+            Bitmap imageBitmap = (Bitmap) extras.get("data"); // Bitmap으로 컨버전
+            uploadImg.setImageBitmap(imageBitmap);  // 이미지뷰에 Bitmap으로 이미지를 입력
         }
     }
 
