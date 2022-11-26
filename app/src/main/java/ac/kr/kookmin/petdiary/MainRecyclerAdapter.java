@@ -1,5 +1,6 @@
 package ac.kr.kookmin.petdiary;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,7 +57,6 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
         CircleImageView profile_img;
         TextView        username;
         ImageView       content_img;
-        TextView        content;
         ImageButton     like_btn;
 
         public ViewHolder(@NonNull View itemView) {
@@ -64,31 +64,42 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
             profile_img = (CircleImageView) itemView.findViewById(R.id.recycler_ID_pic);
             username = (TextView) itemView.findViewById(R.id.recycler_ID_text);
             content_img = (ImageView) itemView.findViewById(R.id.recycler_content_pic);
-            content = (TextView) itemView.findViewById(R.id.recycler_content_text);
             like_btn = (ImageButton) itemView.findViewById(R.id.recycler_like_btn);
+            profile_img.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (profile_img.isPressed()) {
+                        Intent intent;
+                        intent = new Intent(view.getContext(), ProfileActivity.class);
+                        view.getContext().startActivity(intent);
+                    }
+                }
+            });
             like_btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    like_btn.setSelected(!like_btn.isSelected());
                     if (like_btn.isSelected()) {
                         like_btn.setImageResource(R.drawable.img_like_active);
                     }
                     else {
                         like_btn.setImageResource(R.drawable.img_like_unactive);
                     }
-                    like_btn.setSelected(!like_btn.isSelected());
-
-//                    int pos = getAdapterPosition();
-//                    if (pos != RecyclerView.NO_POSITION) {
-//                        if (mListener != null) {
-//                            mListener.onLikeBtnClick(view, pos);
-//                        }
-//                    }
+                }
+            });
+            content_img.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent;
+                    if (content_img.isPressed()) {
+                        intent = new Intent(view.getContext(), NotiActivity.class);
+                        view.getContext().startActivity(intent);
+                    }
                 }
             });
         }
         void onBind(MainItemList item) {
             username.setText(item.getUsername());
-            content.setText(item.getContent());
         }
     }
 }

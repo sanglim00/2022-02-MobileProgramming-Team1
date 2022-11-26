@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -35,8 +36,8 @@ public class MainActivity extends AppCompatActivity {
         }
         mainAdapter.setMainList(mainItems);
 
-
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setSelectedItemId(R.id.action_one);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -47,7 +48,6 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.action_two:
                         intent = new Intent(getApplicationContext(), SearchActivity.class);
                         startActivity(intent);
-                        finish();
                         return true;
                     case R.id.action_three:
                         intent = new Intent(getApplicationContext(), WritingActivity.class);
@@ -56,12 +56,10 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.action_four:
                         intent = new Intent(getApplicationContext(), NotiActivity.class);
                         startActivity(intent);
-                        finish();
                         return true;
                     case R.id.action_five:
                         intent = new Intent(getApplicationContext(), ProfileActivity.class);
                         startActivity(intent);
-                        finish();
                         return true;
                 }
                 return false;

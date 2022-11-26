@@ -7,6 +7,8 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -37,7 +39,7 @@
             android:name=".SignUpActivity"
             android:label="Sign Up" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".PostDetailActivity"
             android:label="PetDiary"
             android:exported="true">
             <intent-filter>
@@ -76,8 +78,14 @@
         <activity
             android:name=".calendarActivity"
             android:label="calendar"/>
-        <activity android:name=".DetailPostActivity"
-            android:label="DetailPost"/>
+        <!--<activity android:name=".PostDetailActivity"
+            android:label="DetailPost"/>-->
+        <service android:name=".services.PetDiaryFCMService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

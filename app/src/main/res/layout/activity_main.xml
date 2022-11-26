@@ -20,25 +20,107 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <RadioGroup
+        android:id="@+id/main_radioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="@+id/Logo"
+        app:layout_constraintStart_toStartOf="@+id/Logo"
+        app:layout_constraintTop_toBottomOf="@+id/Logo">
+
+        <RadioButton
+            android:id="@+id/btn_petType1"
+            android:layout_width="70dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="5dp"
+            android:background="@drawable/radio_btn_color"
+            android:button="@null"
+            android:gravity="center"
+            android:text="DOG"
+            android:textColor="@drawable/radio_btn_text"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <RadioButton
+            android:id="@+id/btn_petType2"
+            android:layout_width="70dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="5dp"
+            android:background="@drawable/radio_btn_color"
+            android:button="@null"
+            android:gravity="center"
+            android:text="CAT"
+            android:textColor="@drawable/radio_btn_text"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <RadioButton
+            android:id="@+id/btn_petType3"
+            android:layout_width="70dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="5dp"
+            android:background="@drawable/radio_btn_color"
+            android:button="@null"
+            android:gravity="center"
+            android:text="FISH"
+            android:textColor="@drawable/radio_btn_text"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <RadioButton
+            android:id="@+id/btn_petType4"
+            android:layout_width="70dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="5dp"
+            android:background="@drawable/radio_btn_color"
+            android:button="@null"
+            android:gravity="center"
+            android:text="PIG"
+            android:textColor="@drawable/radio_btn_text"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <RadioButton
+            android:id="@+id/btn_petType5"
+            android:layout_width="70dp"
+            android:layout_height="40dp"
+            android:background="@drawable/radio_btn_color"
+            android:button="@null"
+            android:gravity="center"
+            android:text="+"
+            android:textColor="@drawable/radio_btn_text"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            tools:ignore="TouchTargetSizeCheck" />
+    </RadioGroup>
+
+
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/mainRecycler"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:id="@+id/mainRecycler"
-        android:layout_marginTop="40dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/main_radioGroup" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:itemBackground="@color/white"
         app:itemIconTint="@color/black"
         app:itemTextColor="@color/FCC73F"
         app:layout_behavior="tech.thdev.app.view.BottomNavigationBehavior"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/menu" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

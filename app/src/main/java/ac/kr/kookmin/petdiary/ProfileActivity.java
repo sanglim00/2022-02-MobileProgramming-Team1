@@ -36,6 +36,8 @@ public class ProfileActivity extends AppCompatActivity {
 
     Profile_Post_RecyclerViewAdapter adapter;
 
+    ImageButton openSetting;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,8 +55,17 @@ public class ProfileActivity extends AppCompatActivity {
         ImageButton imgBtn_setting = findViewById(R.id.imgBtn_setting); // 환경설정 버튼
         Button btn_edit_profile = findViewById(R.id.btn_pf_edit_profile); // 프로필 편집
 
+        openSetting = findViewById(R.id.imgBtn_setting);
+        openSetting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), SettingActivity.class);
+                startActivity(intent);
+            }
+        });
 
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation); // footer
+        bottomNavigationView.setSelectedItemId(R.id.action_five);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {

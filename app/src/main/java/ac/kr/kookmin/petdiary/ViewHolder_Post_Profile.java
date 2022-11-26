@@ -20,6 +20,7 @@ public class ViewHolder_Post_Profile extends RecyclerView.ViewHolder{
     }
 
     public void onBind(PostItem_Profile data){
+
         img_post.setImageResource(data.getImage());
     }
 

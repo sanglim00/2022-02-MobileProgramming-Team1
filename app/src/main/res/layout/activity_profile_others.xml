@@ -49,15 +49,16 @@
                     android:layout_width="0dp"
                     android:layout_height="1dp"
                     android:layout_weight="1"/>
+
                 <ImageButton
                     android:id="@+id/imgBtn_setting"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_gravity="right"
-                    android:src="@drawable/icon_profile_setting"
-                    android:background="@color/white"
                     android:layout_marginBottom="5dp"
-                    />
+                    android:background="@color/white"
+                    android:src="@drawable/icon_profile_setting"
+                    tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
             </LinearLayout>
 
             <LinearLayout
@@ -83,11 +84,11 @@
                     android:layout_gravity="center"
                     android:layout_marginTop="5dp"
                     android:background="@drawable/togbtn_subcribe"
-                    android:textColor="@color/white"
                     android:checked="false"
+                    android:textColor="@color/white"
                     android:textOff="구독"
                     android:textOn="구독중"
-                    />
+                    tools:ignore="TouchTargetSizeCheck" />
 
                 <TextView
                     android:id="@+id/txt_pf_others_one_line_info"

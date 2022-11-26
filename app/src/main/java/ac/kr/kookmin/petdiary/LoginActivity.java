@@ -1,9 +1,12 @@
 package ac.kr.kookmin.petdiary;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
+import android.view.KeyEvent;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -11,16 +14,24 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.regex.Pattern;
 
+import ac.kr.kookmin.petdiary.models.User;
+
 public class LoginActivity extends AppCompatActivity {
+    private long backpressedTime = 0;
     private FirebaseAuth mAuth;
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
     TextInputEditText loginEmail, loginPW;
     Button login, sign;
     String showTxt, loginEmailTxt, loginPWTxt;
@@ -36,6 +47,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onStart();
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser != null){
+            fcmTokenRegister(currentUser.getUid());
             Intent intentSign = new Intent(getApplication(), MainActivity.class);
             startActivity(intentSign);
             finish();
@@ -55,6 +67,16 @@ public class LoginActivity extends AppCompatActivity {
         sign = findViewById(R.id.btn_signup);
         showTxt = "";
         loginCheckEmail = true;
+
+        // 이메일 엔터 방지
+        loginEmail.setOnKeyListener((v, keyCode, event) -> {
+            return KeyEvent.KEYCODE_ENTER == keyCode;
+        });
+
+        // 비밀번호 엔터 방지
+        loginPW.setOnKeyListener((v, keyCode, event) -> {
+            return KeyEvent.KEYCODE_ENTER == keyCode;
+        });
 
         // 로그인 버튼 클릭
         login.setOnClickListener(view -> {
@@ -98,10 +120,10 @@ public class LoginActivity extends AppCompatActivity {
                         // Sign in success, update UI with the signed-in user's information
                         Log.d("200", "signInWithEmail:success");
                         FirebaseUser user = mAuth.getCurrentUser();
+                        fcmTokenRegister(user.getUid());
                         toastMsg = "로그인에 성공하였습니다!";
                         Toast.makeText(getApplicationContext(), toastMsg, Toast.LENGTH_SHORT).show();
                         Intent intentSign = new Intent(getApplication(), MainActivity.class);
-                        intentSign.putExtra("uid", user.getUid());
                         startActivity(intentSign);
                         finish();
                     } else {
@@ -111,5 +133,42 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 }
             });
+    }
+
+    // 백버튼 두번 클릭시 앱 종료
+    @Override
+    public void onBackPressed() {
+        if (System.currentTimeMillis() > backpressedTime + 2000) {
+            backpressedTime = System.currentTimeMillis();
+            Toast.makeText(this, "뒤로가기 버튼을 한번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show();
+        } else if (System.currentTimeMillis() <= backpressedTime + 2000) {
+            finish();
+        }
+    }
+
+    private void fcmTokenRegister(String uid) {
+        final User[] user = new User[1];
+        db.collection("users").document(uid).get()
+            .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                @Override
+                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                    user[0] = documentSnapshot.toObject(User.class);
+                    String fcmToken = "";
+                    SharedPreferences preferences = getSharedPreferences("fcmToken", Activity.MODE_PRIVATE);
+                    if (preferences != null && preferences.contains("fcmToken"))
+                        fcmToken = preferences.getString("fcmToken", "");
+
+                    if (fcmToken.length() != 0 && user[0].getFcmToken() != null && fcmToken.equals(user[0].getFcmToken())) return;
+                    user[0].setFcmToken(fcmToken);
+                    db.collection("users").document(uid).set(user[0])
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.e("500", "Failed Save New FCM Token", e);
+                            }
+                        });
+                }
+            });
+
     }
 }

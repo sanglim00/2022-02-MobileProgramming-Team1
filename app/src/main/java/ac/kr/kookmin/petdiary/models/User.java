@@ -10,11 +10,16 @@ public class User {
     private String petType;
     private String gender;
     private String petBirth;
-    private String thumbnail;
     private String comment;
-    private ArrayList<String> follow;
+    private ArrayList<String> following;
+    private ArrayList<String> follower;
+    private String fcmToken;
 
-    public User(String uid, String email, String userName, String phone, String petName, String petType, String gender, String petBirth, String thumbnail) {
+    public User() {
+
+    }
+
+    public User(String email, String userName, String phone, String petName, String petType, String gender, String petBirth) {
         this.email = email;
         this.userName = userName;
         this.phone = phone;
@@ -22,7 +27,6 @@ public class User {
         this.petType = petType;
         this.gender = gender;
         this.petBirth = petBirth;
-        this.thumbnail = thumbnail;
     }
 
     public String getEmail() {
@@ -73,14 +77,6 @@ public class User {
         this.petBirth = petBirth;
     }
 
-    public String getThumbnail() {
-        return thumbnail;
-    }
-
-    public void setThumbnail(String thumbnail) {
-        this.thumbnail = thumbnail;
-    }
-
     public String getComment() {
         return comment;
     }
@@ -89,12 +85,20 @@ public class User {
         this.comment = comment;
     }
 
-    public ArrayList<String> getFollow() {
-        return follow;
+    public ArrayList<String> getFollowing() {
+        return following;
     }
 
-    public void setFollow(ArrayList<String> follow) {
-        this.follow = follow;
+    public void setFollowing(ArrayList<String> following) {
+        this.following = following;
+    }
+
+    public ArrayList<String> getFollower() {
+        return follower;
+    }
+
+    public void setFollower(ArrayList<String> follower) {
+        this.follower = follower;
     }
 
     public String getGender() {
@@ -103,5 +107,13 @@ public class User {
 
     public void setGender(String gender) {
         this.gender = gender;
+    }
+
+    public String getFcmToken() {
+        return fcmToken;
+    }
+
+    public void setFcmToken(String fcmToken) {
+        this.fcmToken = fcmToken;
     }
 }

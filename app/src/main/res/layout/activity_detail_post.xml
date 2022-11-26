@@ -6,7 +6,13 @@
     android:orientation="vertical">
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:fillViewport="true"
+
+        android:layout_marginTop="0dp"
+        android:layout_weight="1"
+
+        >
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -32,10 +38,9 @@
                 android:paddingStart="12dp"
                 android:paddingEnd="20dp"
                 android:layout_marginTop="3dp"
-                android:layout_marginBottom="3dp"
                 >
                 <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/recycler_ID_pic"
+                    android:id="@+id/img_profile_detail_post"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:src="@drawable/ddaeng"
@@ -45,7 +50,7 @@
                     android:layout_gravity="center|left"/>
                 />
                 <TextView
-                    android:id="@+id/txt_pf_id"
+                    android:id="@+id/txt_id_detail_post"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="h_gunn"
@@ -64,6 +69,7 @@
                 android:layout_marginRight="20dp"
                 >
                 <ImageView
+                    android:id="@+id/img_detail_post"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:src="@drawable/heedong1"
@@ -72,7 +78,7 @@
                     />
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="30dp"
                     android:layout_marginTop="12dp"
                     android:orientation="horizontal"
                     android:weightSum="8">
@@ -82,19 +88,19 @@
                         android:layout_weight="1"
                         android:layout_gravity="center"
                         android:orientation="horizontal">
-                        <ImageButton
-                            android:id="@+id/btn_like_post"
+                        <ImageView
+                            android:id="@+id/imgbtn_like_detail_post"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:adjustViewBounds="true"
-                            android:src="@drawable/btn_like_post_off"
-                            android:background="@drawable/btn_like_post_off"
+                            android:src="@drawable/selector_btn_like_detail_post"
                             android:scaleType="fitCenter"
                             android:layout_gravity="right"
                             android:layout_marginStart="5dp"
                             android:layout_marginEnd="5dp"
                             />
                         <TextView
+                            android:id="@+id/txt_like_detail_post"
                             android:layout_width="50dp"
                             android:layout_height="wrap_content"
                             android:text="1320"
@@ -110,7 +116,8 @@
                         android:layout_weight="1"
                         android:layout_gravity="center"
                         android:orientation="horizontal">
-                        <ImageButton
+                        <ImageView
+                            android:id="@+id/imgbtn_comment_detail_post"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:adjustViewBounds="true"
@@ -119,6 +126,7 @@
                             android:layout_marginStart="5dp"
                             />
                         <TextView
+                            android:id="@+id/txt_comment_detail_post"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="3dp"
@@ -133,13 +141,15 @@
                         android:layout_weight="6"/>
                     <LinearLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_gravity="center"
                         android:orientation="horizontal">
                         <ImageButton
+                            android:id="@+id/imgbtn_download_img_detail_post"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:adjustViewBounds="true"
+                            android:scaleType="fitCenter"
                             android:src="@drawable/btn_download_img"
                             android:background="@android:color/transparent"
                             android:layout_marginStart="5dp"
@@ -156,6 +166,7 @@
                     android:layout_marginBottom="5dp"
                     />
                 <TextView
+                    android:id="@+id/txt_content_detail_post"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:text="국회는 국가의 예산안을 심의·확정한다. 대통령은 국가의 독립·영토의 보전·국가의 계속성과 헌법을 수호할 책무를 진다."
@@ -178,6 +189,22 @@
 
         </LinearLayout>
     </ScrollView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:orientation="vertical">
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottom_navigation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:itemBackground="@color/white"
+            app:itemIconTint="@color/black"
+            app:itemTextColor="@color/FCC73F"
+            app:layout_behavior="tech.thdev.app.view.BottomNavigationBehavior"
+            app:menu="@menu/menu" />
+    </LinearLayout>
 
 
 

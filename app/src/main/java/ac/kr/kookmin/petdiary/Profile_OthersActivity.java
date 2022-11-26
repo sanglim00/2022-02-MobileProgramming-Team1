@@ -3,7 +3,9 @@ package ac.kr.kookmin.petdiary;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.CompoundButton;
+import android.widget.ImageButton;
 import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
@@ -21,6 +23,8 @@ public class Profile_OthersActivity extends AppCompatActivity {
 
     Profile_Post_Others_RecyclerViewAdapter adapter;
 
+    ImageButton openSetting;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,8 +36,18 @@ public class Profile_OthersActivity extends AppCompatActivity {
 
         ToggleButton btn_subcribe = findViewById(R.id.btn_pf_others_subcribe); // 구독 버튼
 
+        openSetting = findViewById(R.id.imgBtn_setting);
+        openSetting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), SettingActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation); // footer
+        bottomNavigationView.setSelectedItemId(R.id.action_five);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
