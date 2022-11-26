@@ -101,7 +101,6 @@ public class Profile_OthersActivity extends AppCompatActivity {
     private void init(){
         RecyclerView recyclerView = findViewById(R.id.post_recyclerView_others);
 
-
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(gridLayoutManager);
 
