@@ -7,7 +7,11 @@ public class Post {
     private boolean acceptDown;
     private String petType;
 
-    public Post(String from, String image, String content, boolean acceptDown, String petType) {
+    public Post() {
+
+    }
+
+    public Post(String from, String content, boolean acceptDown, String petType) {
         this.from = from;
         this.content = content;
         this.acceptDown = acceptDown;
@@ -44,5 +48,13 @@ public class Post {
 
     public void setAcceptDown(boolean acceptDown) {
         this.acceptDown = acceptDown;
+    }
+
+    public String getPetType() {
+        return petType;
+    }
+
+    public void setPetType(String petType) {
+        this.petType = petType;
     }
 }

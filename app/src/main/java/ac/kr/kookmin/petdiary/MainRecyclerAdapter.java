@@ -1,6 +1,9 @@
 package ac.kr.kookmin.petdiary;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +15,12 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
@@ -21,8 +29,9 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapter.ViewHolder> {
 
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    private FirebaseStorage storage = FirebaseStorage.getInstance();
 
-    private ArrayList<MainItemList> mainList;
+    private ArrayList<MainItemList> mainList = new ArrayList<>();
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -43,6 +52,16 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
 
     public void setMainList(ArrayList<MainItemList> list) {
         this.mainList = list;
+        notifyDataSetChanged();
+    }
+
+    public void clearMainList() {
+        mainList.clear();
+        notifyDataSetChanged();
+    }
+
+    public void addItem(MainItemList item) {
+        mainList.add(item);
         notifyDataSetChanged();
     }
 // 아직 사용 안함
@@ -87,6 +106,7 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
                             view.getContext().startActivity(intent);
                         } else {
                             intent = new Intent(view.getContext(), Profile_OthersActivity.class);
+                            intent.putExtra("uid", uid);
                             view.getContext().startActivity(intent);
                         }
                     }
@@ -107,6 +127,7 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
                         view.getContext().startActivity(intent);
                     } else {
                         intent = new Intent(view.getContext(), Profile_OthersActivity.class);
+                        intent.putExtra("uid", uid);
                         view.getContext().startActivity(intent);
                     }
                 }
@@ -136,6 +157,32 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
         }
         void onBind(MainItemList item) {
             username.setText(item.getUsername());
+
+            Context ctx = this.itemView.getContext();
+            StorageReference post = storage.getReference().child("images/" + item.getUser_content_img_src());
+            StorageReference profile = storage.getReference().child("profiles/" + item.getUser_icon_img_src());
+
+            post.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                @Override
+                public void onComplete(@NonNull Task<Uri> postTask) {
+                    if (postTask.isSuccessful()) {
+                        profile.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Uri> profileTask) {
+                                if (profileTask.isSuccessful()) {
+                                    if (((Activity) ctx).isFinishing()) return;
+                                    Glide.with(ctx)
+                                            .load(postTask.getResult())
+                                            .into(content_img);
+                                    Glide.with(ctx)
+                                            .load(profileTask.getResult())
+                                            .into(profile_img);
+                                }
+                            }
+                        });
+                    }
+                }
+            });
         }
     }
 }
