@@ -29,31 +29,33 @@
             android:text="E-MAIL"
             android:textSize="13sp" />
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_loginEmail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColorHint="#dcdcdc"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/tit_loginEmail"
                 android:layout_width="370dp"
                 android:layout_height="55dp"
                 android:hint="이메일을 입력해주세요."
-                android:background="@drawable/login_signup_border"
-                android:layout_marginBottom="15dp" />
+                android:label="Email" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
             android:id="@+id/tv_password"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
             android:text="PASSWORD"
             android:textSize="13sp" />
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_loginPassword"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColorHint="#dcdcdc"
-            app:passwordToggleEnabled="true"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -61,8 +63,7 @@
                 android:layout_width="370dp"
                 android:layout_height="55dp"
                 android:hint="비밀번호를 입력해주세요."
-                android:inputType="textPassword"
-                android:background="@drawable/login_signup_border" />
+                android:inputType="textPassword" />
         </com.google.android.material.textfield.TextInputLayout>
 
     </LinearLayout>
