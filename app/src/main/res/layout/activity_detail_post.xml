@@ -189,22 +189,6 @@
 
         </LinearLayout>
     </ScrollView>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-
-        android:orientation="vertical">
-
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/bottom_navigation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:itemBackground="@color/white"
-            app:itemIconTint="@color/black"
-            app:itemTextColor="@color/FCC73F"
-            app:layout_behavior="tech.thdev.app.view.BottomNavigationBehavior"
-            app:menu="@menu/menu" />
-    </LinearLayout>
 
 
 

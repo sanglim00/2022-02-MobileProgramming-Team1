@@ -47,7 +47,7 @@ public class PostDetailActivity extends AppCompatActivity {
 
     ImageButton imgbtn_download_img_detail_post; // 이미지 다운로드 버튼
 
-    boolean isLiked = false;
+    boolean isLiked = false; // 좋아요 여부
 
     TextView txt_id_detail_post; // 프로필 id
     TextView txt_like_detail_post; // 좋아요 수
@@ -56,7 +56,6 @@ public class PostDetailActivity extends AppCompatActivity {
 
     RecyclerView comment_recycler; // 댓글 RecyclerView
 
-    BottomNavigationView bottomNavigationView; // footer
     Comment_RecyclerViewAdapter adapter;
     int str_like;
 
@@ -106,43 +105,6 @@ public class PostDetailActivity extends AppCompatActivity {
                 saveImageToGallery();
             }
         });
-
-
-
-
-        bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation); // footer
-        bottomNavigationView.setSelectedItemId(R.id.action_five);
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                Intent intent;
-                switch (item.getItemId()) {
-                    case R.id.action_one:
-                        intent = new Intent(getApplicationContext(), MainActivity.class);
-                        startActivity(intent);
-                        finish();
-                        return true;
-                    case R.id.action_two:
-                        intent = new Intent(getApplicationContext(), SearchActivity.class);
-                        startActivity(intent);
-                        finish();
-                        return true;
-                    case R.id.action_three:
-                        intent = new Intent(getApplicationContext(), WritingActivity.class);
-                        startActivity(intent);
-                        return true;
-                    case R.id.action_four:
-                        intent = new Intent(getApplicationContext(), NotiActivity.class);
-                        startActivity(intent);
-                        finish();
-                        return true;
-                    case R.id.action_five:
-                        return true;
-                }
-                return false;
-            }
-        });
-
 
 
 
