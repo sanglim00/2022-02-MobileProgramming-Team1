@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         mainView.setAdapter(mainAdapter);
         mainView.setLayoutManager(new LinearLayoutManager(this));
 
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 3; i++) {
             mainItems.add(new MainItemList("test_username", "테스트용입니다.", "", ""));
         }
         mainAdapter.setMainList(mainItems);

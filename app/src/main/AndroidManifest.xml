@@ -76,7 +76,8 @@
         <activity
             android:name=".calendarActivity"
             android:label="calendar"/>
-
+        <activity android:name=".DetailPostActivity"
+            android:label="DetailPost"/>
     </application>
 
 </manifest>
