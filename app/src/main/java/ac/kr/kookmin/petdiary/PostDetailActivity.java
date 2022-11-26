@@ -12,6 +12,8 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -43,21 +45,25 @@ public class PostDetailActivity extends AppCompatActivity {
     ImageView img_profile_detail_post; // 프로필 이미지
     ImageView img_detail_post; // 게시글 이미지
     ImageView imgbtn_like_detail_post; // 좋아요 버튼
-    ImageView imgbtn_comment_detail_post; // 댓글 버튼
 
     ImageButton imgbtn_download_img_detail_post; // 이미지 다운로드 버튼
 
-    boolean isLiked = false; // 좋아요 여부
 
     TextView txt_id_detail_post; // 프로필 id
     TextView txt_like_detail_post; // 좋아요 수
-    TextView txt_comment_detail_post; // 댓글 수
     TextView txt_content_detail_post; // 게시글 내용
 
     RecyclerView comment_recycler; // 댓글 RecyclerView
 
+    View comment_view;
+
+    Button btn_addComment;
+
+    EditText et_Comment;
+
     Comment_RecyclerViewAdapter adapter;
     int str_like;
+    boolean isLiked = false; // 좋아요 여부
 
 
 
@@ -74,15 +80,16 @@ public class PostDetailActivity extends AppCompatActivity {
         img_detail_post = findViewById(R.id.img_detail_post);
 
         imgbtn_like_detail_post = findViewById(R.id.imgbtn_like_detail_post);
-        imgbtn_comment_detail_post = findViewById(R.id.imgbtn_comment_detail_post);
         imgbtn_download_img_detail_post = findViewById(R.id.imgbtn_download_img_detail_post);
 
         txt_id_detail_post = findViewById(R.id.txt_id_detail_post);
         txt_like_detail_post = findViewById(R.id.txt_like_detail_post); // 좋아요 수
         str_like = Integer.parseInt(txt_like_detail_post.getText().toString()); // 좋아요 수 : parseInt
-        txt_comment_detail_post = findViewById(R.id.txt_comment_detail_post); // 댓글 수
-        txt_comment_detail_post.setText(Integer.toString(itemCount)); // 댓글 수 반영
         txt_content_detail_post = findViewById(R.id.txt_content_detail_post);
+
+        comment_view = findViewById(R.id.comment_post_detail);
+        btn_addComment = findViewById(R.id.btn_add_comment);
+        et_Comment = findViewById(R.id.et_comment);
 
 
 
