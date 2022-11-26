@@ -4,16 +4,16 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     >
+
     <androidx.constraintlayout.utils.widget.ImageFilterButton
         android:id="@+id/img_button_post"
         android:layout_width="130dp"
         android:layout_height="135dp"
+        android:layout_gravity="center_vertical"
         android:layout_margin="0.6dp"
         android:adjustViewBounds="true"
         android:scaleType="centerCrop"
-        android:layout_gravity="center_vertical"
-        android:src="@drawable/ddaeng2"
-        />
+        android:src="@drawable/grey_default" />
 
 
 </LinearLayout>

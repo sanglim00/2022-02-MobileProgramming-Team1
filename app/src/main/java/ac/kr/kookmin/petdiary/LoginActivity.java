@@ -47,10 +47,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onStart();
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser != null){
-            fcmTokenRegister(currentUser.getUid());
-            Intent intentSign = new Intent(getApplication(), MainActivity.class);
-            startActivity(intentSign);
-            finish();
+            fcmTokenRegisterAndStartMain(currentUser.getUid());
         }
     }
 
@@ -120,12 +117,7 @@ public class LoginActivity extends AppCompatActivity {
                         // Sign in success, update UI with the signed-in user's information
                         Log.d("200", "signInWithEmail:success");
                         FirebaseUser user = mAuth.getCurrentUser();
-                        fcmTokenRegister(user.getUid());
-                        toastMsg = "로그인에 성공하였습니다!";
-                        Toast.makeText(getApplicationContext(), toastMsg, Toast.LENGTH_SHORT).show();
-                        Intent intentSign = new Intent(getApplication(), MainActivity.class);
-                        startActivity(intentSign);
-                        finish();
+                        fcmTokenRegisterAndStartMain(user.getUid());
                     } else {
                         // If sign in fails, display a message to the user.
                         Log.w("404", "signInWithEmail:failure", task.getException());
@@ -146,7 +138,7 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    private void fcmTokenRegister(String uid) {
+    private void fcmTokenRegisterAndStartMain(String uid) {
         final User[] user = new User[1];
         db.collection("users").document(uid).get()
             .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
@@ -157,16 +149,26 @@ public class LoginActivity extends AppCompatActivity {
                     SharedPreferences preferences = getSharedPreferences("fcmToken", Activity.MODE_PRIVATE);
                     if (preferences != null && preferences.contains("fcmToken"))
                         fcmToken = preferences.getString("fcmToken", "");
-
-                    if (fcmToken.length() != 0 && user[0].getFcmToken() != null && fcmToken.equals(user[0].getFcmToken())) return;
-                    user[0].setFcmToken(fcmToken);
-                    db.collection("users").document(uid).set(user[0])
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Log.e("500", "Failed Save New FCM Token", e);
-                            }
-                        });
+                    if (user[0] == null) {
+                        mAuth.signOut();
+                        Toast.makeText(LoginActivity.this, "사용자 정보를 확인할 수 없습니다. 관리자에게 문의하세요.", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    if (fcmToken.length() != 0 && user[0].getFcmToken() != null && fcmToken.equals(user[0].getFcmToken())) {
+                        Log.d("200", "fcm_token passed");
+                    } else {
+                        user[0].setFcmToken(fcmToken);
+                        db.collection("users").document(uid).set(user[0])
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Log.e("500", "Failed Save New FCM Token", e);
+                                    }
+                                });
+                    }
+                    Intent intentSign = new Intent(getApplication(), MainActivity.class);
+                    startActivity(intentSign);
+                    finish();
                 }
             });
 

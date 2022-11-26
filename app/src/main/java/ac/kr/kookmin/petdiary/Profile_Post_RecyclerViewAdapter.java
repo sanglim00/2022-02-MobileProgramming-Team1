@@ -34,5 +34,7 @@ public class Profile_Post_RecyclerViewAdapter extends RecyclerView.Adapter<Recyc
     void addItem(PostItem_Profile data) {
         // 외부에서 item을 추가시킬 함수입니다.
         listData.add(data);
+        notifyDataSetChanged();
     }
+
 }
