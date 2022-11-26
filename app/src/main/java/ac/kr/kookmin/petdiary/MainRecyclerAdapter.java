@@ -92,6 +92,25 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
                     }
                 }
             });
+            username.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent;
+                    int     pos;
+                    String  uid; // 현재 클릭한 post의 uid값입니다.
+
+                    pos = getAdapterPosition();
+                    uid = mainList.get(pos).getUid();
+                    String userUid = mAuth.getCurrentUser().getUid();
+                    if (uid != null && userUid != null && uid.equals(userUid)) {
+                        intent = new Intent(view.getContext(), ProfileActivity.class);
+                        view.getContext().startActivity(intent);
+                    } else {
+                        intent = new Intent(view.getContext(), Profile_OthersActivity.class);
+                        view.getContext().startActivity(intent);
+                    }
+                }
+            });
             like_btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
