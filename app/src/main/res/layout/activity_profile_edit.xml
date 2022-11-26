@@ -24,72 +24,67 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             >
+
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:orientation="horizontal"
+                android:layout_height="50dp"
                 android:background="@drawable/layer_profile_header"
-                android:paddingStart="10dp"
-                android:paddingEnd="20dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="5dp"
-                >
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
+
                 <TextView
                     android:id="@+id/txt_pf_id"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="h_gunn"
-                    android:textColor="@color/black"
-                    android:textSize="30dp"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="center"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginBottom="5dp"/>
+                    android:textColor="@color/black"
+                    android:textSize="24dp" />
+
                 <View
                     android:layout_width="0dp"
                     android:layout_height="1dp"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1" />
+
                 <ImageButton
                     android:id="@+id/imgBtn_setting"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_gravity="right"
-                    android:src="@drawable/icon_profile_setting"
                     android:background="@android:color/transparent"
-                    android:layout_marginBottom="5dp"
-                    />
+                    android:src="@drawable/icon_profile_setting" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_marginTop="40dp"
-                >
+                android:paddingTop="20dp">
+
                 <FrameLayout
 
                     android:layout_width="180sp"
                     android:layout_height="180sp"
-                    android:layout_gravity="center"
-                    >
+                    android:layout_gravity="center">
+
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/img_pf"
                         android:layout_width="180dp"
                         android:layout_height="180dp"
                         android:layout_gravity="center"
-                        android:src="@drawable/ddaeng2"
-                        />
+                        android:src="@drawable/grey_default" />
+
                     <ImageButton
                         android:id="@+id/imgBtn_pf_edit_editimage"
                         android:layout_width="35sp"
                         android:layout_height="35sp"
-                        android:src="@drawable/icon_edit_myprofile"
-                        android:background="@android:color/transparent"
-                        android:adjustViewBounds="true"
-                        android:scaleType="fitCenter"
-                        app:tint="@color/FCC73F"
                         android:layout_gravity="right|bottom"
-                        />
+                        android:adjustViewBounds="true"
+                        android:background="@android:color/transparent"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/icon_edit_myprofile"
+                        app:tint="@color/FCC73F" />
 
                 </FrameLayout>
 
@@ -99,137 +94,129 @@
                     android:layout_width="wrap_content"
                     android:layout_height="37dp"
                     android:layout_gravity="center"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="10dp"
                     android:background="@drawable/btn_background_edit_profile"
-                    android:textColor="@color/white"
-                    android:text="완료" />
+                    android:text="완료"
+                    android:textColor="@color/white" />
 
                 <EditText
                     android:id="@+id/et_pf_edit_one_line_info"
                     android:layout_width="wrap_content"
-                    android:layout_height="50sp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="10dp"
                     android:gravity="center"
                     android:hint="한줄 소개"
-                    android:textSize="20dp"
                     android:textColor="@color/black"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="5dp"
-                    />
+                    android:textSize="18sp" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="30sp"
-                >
+                android:padding="10dp">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="이름"
-                    android:textSize="20sp"
                     android:textColor="@color/black"
-                    />
+                    android:textSize="20sp" />
+
                 <EditText
                     android:id="@+id/et_pf_edit_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="이름"
-                    android:layout_marginStart="10sp"
-                    android:layout_marginEnd="30sp"
-                    />
+                    android:hint="이름" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingStart="20dp"
-                android:paddingEnd="20dp"
-                >
+                android:orientation="vertical">
+
                 <TableLayout
-                    android:layout_marginTop="10sp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10sp"
                     android:orientation="horizontal"
                     android:stretchColumns="*"
 
                     >
+
                     <TableRow
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:weightSum="2"
-                        >
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="성별"
-                            android:gravity="center"
-                            android:textColor="@color/black"
-                            android:textSize="20sp"
-                            android:layout_weight="1"
-                            />
+                        android:weightSum="2">
 
                         <TextView
-                            android:gravity="center"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="성별"
+                            android:textColor="@color/black"
+                            android:textSize="20sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
                             android:text="만난 날짜"
                             android:textColor="@color/black"
-                            android:textSize="20sp"
-                            android:layout_weight="1"
-                            />
+                            android:textSize="20sp" />
 
                     </TableRow>
+
                     <TableRow
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:weightSum="2"
-                        >
+                        android:weightSum="2">
 
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="horizontal"
                             android:layout_gravity="center"
-                            >
+                            android:layout_weight="1"
+                            android:orientation="horizontal">
+
                             <Spinner
                                 android:id="@+id/spiner_pf_gender"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                />
+                                android:layout_height="wrap_content" />
                         </LinearLayout>
+
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal"
                             android:layout_weight="1"
-                            android:weightSum="5"
-                            >
+                            android:orientation="horizontal"
+                            android:weightSum="5">
+
                             <TextView
                                 android:id="@+id/txt_pf_edit_meetDate"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:hint="만난 날짜"
-                                android:gravity="center"
-                                android:textSize="18sp"
                                 android:layout_weight="4"
-                                />
+                                android:gravity="center"
+                                android:hint="만난 날짜"
+                                android:textSize="18sp" />
+
                             <ImageButton
                                 android:id="@+id/imgBtn_pf_calendar"
                                 android:layout_width="30sp"
                                 android:layout_height="30sp"
-                                android:layout_weight="1"
-                                android:src="@drawable/icon_edit_profile_calendar"
-                                android:background="@android:color/transparent"
-                                android:adjustViewBounds="true"
-                                android:scaleType="fitCenter"
-                                app:tint="@color/FCC73F"
                                 android:layout_gravity="center"
-                                />
+                                android:layout_weight="1"
+                                android:adjustViewBounds="true"
+                                android:background="@android:color/transparent"
+                                android:scaleType="fitCenter"
+                                android:src="@drawable/icon_edit_profile_calendar"
+                                app:tint="@color/FCC73F" />
                         </LinearLayout>
-
 
 
                     </TableRow>
