@@ -108,6 +108,7 @@ public class Profile_EditActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 Intent intent;
+                finish();
                 switch (item.getItemId()) {
                     case R.id.action_one:
                         intent = new Intent(getApplicationContext(), MainActivity.class);
