@@ -2,6 +2,7 @@ package ac.kr.kookmin.petdiary;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CompoundButton;
@@ -117,6 +118,17 @@ public class Profile_OthersActivity extends AppCompatActivity {
         adapter.addItem(data);
         adapter.addItem(data);
 
+    }
+
+    @Override
+    public boolean onKeyDown(int keycode, KeyEvent event) {
+        bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        if( keycode == KeyEvent.KEYCODE_BACK) {
+            bottomNavigationView.setSelectedItemId(R.id.action_one);
+            return true;
+        }
+
+        return false;
     }
 
 }

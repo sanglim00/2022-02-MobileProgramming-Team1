@@ -2,6 +2,7 @@ package ac.kr.kookmin.petdiary;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
@@ -77,5 +78,16 @@ public class SearchActivity extends AppCompatActivity {
                 return false;
             }
         });
+    }
+
+    @Override
+    public boolean onKeyDown(int keycode, KeyEvent event) {
+        bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        if( keycode == KeyEvent.KEYCODE_BACK) {
+            bottomNavigationView.setSelectedItemId(R.id.action_one);
+            return true;
+        }
+
+        return false;
     }
 }
