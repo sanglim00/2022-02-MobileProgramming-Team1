@@ -149,7 +149,12 @@ public class MainActivity extends AppCompatActivity {
     public void RecyclerItemUpdate(ArrayList<MainItemList> mainItems) {
         mainItems.clear();
         for (int i = 0; i < 20; i++) {
-            mainItems.add(new MainItemList(current_tag, "", ""));
+            if (i % 2 == 0) {
+                mainItems.add(new MainItemList("RJU8XrceFQa6JXhjhzPdKOXH6Ur1", current_tag, "", ""));
+            }
+            else {
+                mainItems.add(new MainItemList("asdfasdfasdf", "other", "", ""));
+            }
         }
         mainAdapter.setMainList(mainItems);
     }
