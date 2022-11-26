@@ -307,13 +307,8 @@ public class SignUpActivity extends AppCompatActivity {
                     joinPWBox.requestFocus();
                     joinFocus = true;
                 }
-            } else {
-                joinPWBox.setError(null);
-                joinFocus = false;
-            }
-
-            // 비밀번호 유효성 검사
-            if (!Msymbol.find() || !Malpha.find()) {
+            } else if (!Msymbol.find() || !Malpha.find()) {
+                // 비밀번호 유효성 검사
                 joinCheckPW = false;
                 showTxt = "비밀번호에 숫자, 특수문자, 대소문자가 포함되어야합니다.";
                 joinPWBox.setError(showTxt);
