@@ -9,6 +9,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -19,6 +22,9 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView mainView;
     MainRecyclerAdapter mainAdapter;
     BottomNavigationView bottomNavigationView;
+    private RadioGroup  radio_tags;
+    private RadioButton radio_tag_btn;
+    private String      current_tag = "DOG";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,12 +33,14 @@ public class MainActivity extends AppCompatActivity {
 
         ArrayList<MainItemList> mainItems = new ArrayList<>();
         mainView = (RecyclerView) findViewById(R.id.mainRecycler);
+        radio_tag_btn = (RadioButton) findViewById(R.id.btn_main_petType1);
+        radio_tag_btn.setChecked(true);
         mainAdapter = new MainRecyclerAdapter();
         mainView.setAdapter(mainAdapter);
         mainView.setLayoutManager(new LinearLayoutManager(this));
-
+        RadioSelectListener();
         for (int i = 0; i < 20; i++) {
-            mainItems.add(new MainItemList("test_username", "테스트용입니다.", "", ""));
+            mainItems.add(new MainItemList(current_tag, "", ""));
         }
         mainAdapter.setMainList(mainItems);
 
@@ -63,6 +71,35 @@ public class MainActivity extends AppCompatActivity {
                         return true;
                 }
                 return false;
+            }
+        });
+    }
+
+    public void RadioSelectListener() {
+        radio_tags = (RadioGroup) findViewById(R.id.main_radioGroup);
+        radio_tags.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                switch (i) {
+                    case R.id.btn_main_petType1:
+                        current_tag = "DOG";
+                        Toast.makeText(MainActivity.this, current_tag, Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.btn_main_petType2:
+                        current_tag = "CAT";
+                        Toast.makeText(MainActivity.this, current_tag, Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.btn_main_petType3:
+                        current_tag = "FISH";
+                        Toast.makeText(MainActivity.this, current_tag, Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.btn_main_petType4:
+                        current_tag = "PIG";
+                        Toast.makeText(MainActivity.this, current_tag, Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.btn_main_petType_extra:
+                        break;
+                }
             }
         });
     }

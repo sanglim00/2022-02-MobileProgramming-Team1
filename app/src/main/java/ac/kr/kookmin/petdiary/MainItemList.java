@@ -5,7 +5,7 @@ public class MainItemList {
     private String user_icon_img_src;
     private String user_content_img_src;
 
-    public MainItemList(String username, String content, String user_icon_img_src, String user_content_img_src) {
+    public MainItemList(String username, String user_icon_img_src, String user_content_img_src) {
         this.username = username;
         this.user_icon_img_src = user_icon_img_src;
         this.user_content_img_src = user_content_img_src;
