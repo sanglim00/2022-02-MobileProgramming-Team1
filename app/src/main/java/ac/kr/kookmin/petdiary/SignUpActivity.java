@@ -2,7 +2,6 @@ package ac.kr.kookmin.petdiary;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -10,7 +9,6 @@ import android.os.Bundle;
 import android.text.InputFilter;
 import android.util.Log;
 import android.util.Patterns;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -20,6 +18,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -32,6 +31,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -39,6 +39,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.io.FileNotFoundException;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -49,14 +50,18 @@ public class SignUpActivity extends AppCompatActivity {
     CircleImageView joinProfile;
     ImageButton joinPfEdit;
     CalendarView joinMeetDate;
+    TextView joinPrivacy,joinPrivacyTxt;
+    TextInputLayout joinEmailBox, joinPWBox, joinPWChkBox, joinIDBox, joinPhoneBox, joinPetNameBox,
+            joinTypeBox, joinGenderBox, joinDateBox, joinPrivacyBox;
     TextInputEditText joinEmail, joinPW, joinPWChk, joinID, joinPhone, joinPetName;
     Button dog, cat, fish, pig, plus, completion, back;
     RadioButton accept;
     public String showTxt, joinEmailTxt, joinPWTxt, joinPWChkTxt, joinIDTxt, joinPhoneTxt,
             joinPetNameTxt, joinPetType, joinGender, joinDate;
-    String[] items = {"성별을 선택해주세요", "남 (♂)", "여 (♀)", "공개 안 함"};
-    public boolean joinCheckEmail, joinCheckPW, joinCheckPhone, joinBtnCheck, joinCheckGender, joinCheckDate;
+    String[] items = {"성별을 선택해주세요.", "남 (♂)", "여 (♀)", "공개 안 함"};
+    public boolean joinCheckEmail, joinCheckPW, joinCheckPhone, joinBtnCheck, joinCheckGender, joinCheckDate, joinFocus;
     private final int CALL_GALLERY = 0;
+    private int control;
     private Bitmap bit;
     private BitmapFactory.Options bitOption;
     boolean image_changed = false;
@@ -77,6 +82,18 @@ public class SignUpActivity extends AppCompatActivity {
         joinProfile = findViewById(R.id.iv_profile);
         joinPfEdit = findViewById(R.id.imgBtn_pf_edit_editimage);
         joinMeetDate = findViewById(R.id.cv_meetDate);
+        joinPrivacy = findViewById(R.id.tv_privacyUsage);
+        joinPrivacyTxt = findViewById(R.id.tv_privacyUsageText);
+        joinEmailBox = findViewById(R.id.til_joinEmail);
+        joinPWBox = findViewById(R.id.til_joinPassword);
+        joinPWChkBox = findViewById(R.id.til_joinPasswordCheck);
+        joinIDBox = findViewById(R.id.til_joinID);
+        joinPhoneBox = findViewById(R.id.til_joinPhone);
+        joinPetNameBox = findViewById(R.id.til_joinPetName);
+        joinTypeBox = findViewById(R.id.til_joinPetType);
+        joinGenderBox = findViewById(R.id.til_joinPetGender);
+        joinDateBox = findViewById(R.id.til_joinMeetDate);
+        joinPrivacyBox = findViewById(R.id.til_joinPrivacy);
         joinEmail = findViewById(R.id.tit_email);
         joinPW = findViewById(R.id.tit_password);
         joinPWChk = findViewById(R.id.tit_passwordCheck);
@@ -99,6 +116,8 @@ public class SignUpActivity extends AppCompatActivity {
         joinBtnCheck = false;
         joinCheckGender = false;
         joinCheckDate = false;
+        joinFocus = false;
+        joinDateBox.setFocusable(true);
 
         // 프로필 사진 변경 버튼
         joinPfEdit.setOnClickListener(view -> {
@@ -106,47 +125,17 @@ public class SignUpActivity extends AppCompatActivity {
             alert.setTitle("Profile Image Add");
             alert.setMessage("프로필 사진을 추가(변경)하시겠습니까?");
             alert.setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int whichButton) { //확인 버튼을 클릭했을때
+                public void onClick(DialogInterface dialog, int whichButton) {
                     Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
                     intent.setType("image/*");
                     startActivityForResult(intent, CALL_GALLERY);
                 }
             });
             alert.setNegativeButton("취소",new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int whichButton) { //취소 버튼을 클ㅣ
+                public void onClick(DialogInterface dialog, int whichButton) {
                 }
             });
             alert.show();
-        });
-
-        // 이메일 엔터 방지
-        joinEmail.setOnKeyListener((v, keyCode, event) -> {
-            return KeyEvent.KEYCODE_ENTER == keyCode;
-        });
-
-        // 비밀번호 엔터 방지
-        joinPW.setOnKeyListener((v, keyCode, event) -> {
-            return KeyEvent.KEYCODE_ENTER == keyCode;
-        });
-
-        // 비밀번호 확인 엔터 방지
-        joinPWChk.setOnKeyListener((v, keyCode, event) -> {
-            return KeyEvent.KEYCODE_ENTER == keyCode;
-        });
-
-        // 아이디 엔터 방지
-        joinID.setOnKeyListener((v, keyCode, event) -> {
-            return KeyEvent.KEYCODE_ENTER == keyCode;
-        });
-
-        // 전화번호 엔터 방지
-        joinPhone.setOnKeyListener((v, keyCode, event) -> {
-            return KeyEvent.KEYCODE_ENTER == keyCode;
-        });
-
-        // 반려동물 이름 엔터 방지
-        joinPetName.setOnKeyListener((v, keyCode, event) -> {
-            return KeyEvent.KEYCODE_ENTER == keyCode;
         });
 
         // pet type 저장
@@ -171,41 +160,38 @@ public class SignUpActivity extends AppCompatActivity {
             joinBtnCheck = true;
             AlertDialog.Builder alert = new AlertDialog.Builder(this);
             alert.setTitle("Pet Type Add");
-            alert.setMessage("추가할 Pet Type를 적어주세요");
+            alert.setMessage("추가할 Pet Type를 적어주세요.");
             final EditText petType = new EditText(this);
             InputFilter[] FilterArray = new InputFilter[1];
             FilterArray[0] = new InputFilter.LengthFilter(8); //글자수 제한
             petType.setFilters(FilterArray);
             alert.setView(petType);
-            alert.setPositiveButton("확인", (dialog, whichButton) -> { //확인 버튼을 클릭했을때
+            alert.setPositiveButton("확인", (dialog, whichButton) -> {
                 String input = petType.getText().toString();
                 plus.setText(input);
                 joinPetType = input;
-                SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
-                SharedPreferences.Editor editor = pref.edit();
-                editor.putString("nickname", input);
-                editor.commit();
             });
             alert.setNegativeButton("취소",new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int whichButton) { //취소 버튼을 클ㅣ
+                public void onClick(DialogInterface dialog, int whichButton) {
                 }
             });
             alert.show();
         });
 
         // 반려동물 성별 스피너
-        ArrayAdapter<String> adapter  = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, items);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, items);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-                if (items[position] == "성별을 선택해주세요") {
-
-                }
                 joinGender = items[position];
-                joinCheckGender = true;
+                if (Objects.equals(joinGender, "성별을 선택해주세요.")) {
+                    joinCheckGender = false;
+                } else {
+                    joinCheckGender = true;
+                }
             }
 
             @Override
@@ -220,6 +206,16 @@ public class SignUpActivity extends AppCompatActivity {
             joinDate = String.format("%d/%d/%02d", year, month + 1, dayOfMonth);
         });
 
+        // 개인정보 이용 동의 토글 함수
+        joinPrivacy.setOnClickListener(view -> {
+            control += 1;
+            if (view==joinPrivacy && control%2==1) {
+                joinPrivacyTxt.setVisibility(View.VISIBLE);
+            } else {
+                joinPrivacyTxt.setVisibility(View.GONE);
+            }
+        });
+
         // 회원가입 완료하기 버튼 클릭 함수
         completion.setOnClickListener(view -> {
 
@@ -232,23 +228,47 @@ public class SignUpActivity extends AppCompatActivity {
             joinPhoneTxt = joinPhone.getText().toString();
             joinPetNameTxt = joinPetName.getText().toString();
 
-
             // 모든 항목이 채워져 있는지 확인
-            if (!(hasTxt(joinEmail) && hasTxt(joinPW) && hasTxt(joinPWChk) && hasTxt(joinID) && hasTxt(joinPhone) && hasTxt(joinPetName))) {
+            if (!(hasTxt(joinEmail) && hasTxt(joinPW) && hasTxt(joinPWChk) && hasTxt(joinID)
+                    && hasTxt(joinPhone) && hasTxt(joinPetName) && joinBtnCheck && joinCheckGender
+                    && joinCheckDate)) {
                 showTxt = "모든 항목을 채워주세요.";
-            } else if (!joinBtnCheck) {
-                showTxt = "반려동물 종류를 선택해주세요";
-            } else if (!joinCheckGender) {
-                showTxt = "성별을 선택해주세요";
-            } else if (!joinCheckDate) {
-                showTxt = "만난 날짜를 선택해주세요";
-            } else if (!accept.isChecked()) {
-                showTxt = "개인정보 이용약관 동의가 필요합니다";
+                joinEmailBox.setError(showTxt);
+                joinPWBox.setError(showTxt);
+                joinPWChkBox.setError(showTxt);
+                joinIDBox.setError(showTxt);
+                joinPhoneBox.setError(showTxt);
+                joinPetNameBox.setError(showTxt);
+                joinTypeBox.setError(showTxt);
+                joinGenderBox.setError(showTxt);
+                joinDateBox.setError(showTxt);
+                joinEmailBox.requestFocus();
+                joinFocus = true;
+                return;
+            } else {
+                joinEmailBox.setError(null);
+                joinPWBox.setError(null);
+                joinPWChkBox.setError(null);
+                joinIDBox.setError(null);
+                joinPhoneBox.setError(null);
+                joinPetNameBox.setError(null);
+                joinTypeBox.setError(null);
+                joinGenderBox.setError(null);
+                joinDateBox.setError(null);
+                joinFocus = false;
             }
 
-            if (!showTxt.equals("")) {
-                Toast.makeText(this, showTxt, Toast.LENGTH_SHORT).show();
+            if (!accept.isChecked()) {
+                showTxt = "개인정보 이용약관 동의가 필요합니다.";
+                joinPrivacyBox.setError(showTxt);
+                if (!joinFocus) {
+                    joinPrivacyBox.requestFocus();
+                    joinFocus = true;
+                }
                 return;
+            } else {
+                joinPrivacyBox.setError(null);
+                joinFocus = false;
             }
 
             // 이메일 유효성 검사
@@ -267,35 +287,73 @@ public class SignUpActivity extends AppCompatActivity {
 
             if (!pattern.matcher(joinEmailTxt).matches()){
                 joinCheckEmail = false;
-                showTxt = "올바른 이메일을 입력해주세요";
+                showTxt = "올바른 이메일을 입력해주세요.";
+                joinEmailBox.setError(showTxt);
+                if (!joinFocus) {
+                    joinEmailBox.requestFocus();
+                    joinFocus = true;
+                }
+            } else {
+                joinEmailBox.setError(null);
+                joinFocus = false;
             }
 
             // 비밀번호 5글자 이상 입력되었는지 확인
-            else if (joinPWTxt.length() < 5) {
+            if (joinPWTxt.length() < 5) {
                 joinCheckPW = false;
-                showTxt = "비밀번호는 5글자 이상 입력해주세요";
+                showTxt = "비밀번호는 5글자 이상 입력해주세요.";
+                joinPWBox.setError(showTxt);
+                if (!joinFocus) {
+                    joinPWBox.requestFocus();
+                    joinFocus = true;
+                }
+            } else {
+                joinPWBox.setError(null);
+                joinFocus = false;
             }
 
             // 비밀번호 유효성 검사
-            else if (!Msymbol.find() || !Malpha.find()) {
+            if (!Msymbol.find() || !Malpha.find()) {
                 joinCheckPW = false;
-                showTxt = "비밀번호에 숫자, 특수문자, 대소문자가 포함되어야합니다";
-            }
-            // 비밀번호와 비밀번호 확인 일치여부 확인
-            else if (!joinPWTxt.equals(joinPWChkTxt)){
+                showTxt = "비밀번호에 숫자, 특수문자, 대소문자가 포함되어야합니다.";
+                joinPWBox.setError(showTxt);
+                joinPWBox.requestFocus();
+                if (!joinFocus) {
+                    joinPWBox.requestFocus();
+                    joinFocus = true;
+                }
+            } else if (!joinPWTxt.equals(joinPWChkTxt)){
+                // 비밀번호와 비밀번호 확인 일치여부 확인
                 joinCheckPW = false;
-                showTxt = "두 비밀번호가 다릅니다";
+                showTxt = "두 비밀번호가 다릅니다.";
+                joinPWBox.setError(showTxt);
+                joinPWChkBox.setError(showTxt);
+                if (!joinFocus) {
+                    joinPWBox.requestFocus();
+                    joinFocus = true;
+                }
+            } else {
+                joinPWBox.setError(null);
+                joinPWChkBox.setError(null);
+                joinFocus = false;
             }
 
             // 전화번호 유효성 검사
-            else if (!Pattern.matches("^01(?:0|1|[6-9])-(?:\\d{3}|\\d{4})-\\d{4}$", joinPhoneTxt)) {
+            if (!Pattern.matches("^01(?:0|1|[6-9])(?:\\d{3}|\\d{4})\\d{4}$", joinPhoneTxt)) {
                 joinCheckPhone = false;
-                showTxt = "올바른 전화번호를 입력해주세요";
+                showTxt = "올바른 전화번호를 입력해주세요.";
+                joinPhoneBox.setError(showTxt);
+                if (!joinFocus) {
+                    joinPhoneBox.requestFocus();
+                    joinFocus = true;
+                }
+            } else {
+                joinPhoneBox.setError(null);
+                joinFocus = false;
             }
 
             if (!showTxt.equals("")) {
-                Toast.makeText(this, showTxt, Toast.LENGTH_SHORT).show();
-                return;
+               return;
             }
 
             // 회원가입 성공시

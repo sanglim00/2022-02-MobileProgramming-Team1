@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
-import android.view.KeyEvent;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -18,6 +17,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -32,6 +32,7 @@ public class LoginActivity extends AppCompatActivity {
     private long backpressedTime = 0;
     private FirebaseAuth mAuth;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    TextInputLayout loginEmailBox,loginPWBox;
     TextInputEditText loginEmail, loginPW;
     Button login, sign;
     String showTxt, loginEmailTxt, loginPWTxt;
@@ -59,21 +60,13 @@ public class LoginActivity extends AppCompatActivity {
         // 변수 초기화
         mAuth = FirebaseAuth.getInstance();
         loginEmail = findViewById(R.id.tit_loginEmail);
+        loginEmailBox = findViewById(R.id.til_loginEmail);
+        loginPWBox = findViewById(R.id.til_loginPassword);
         loginPW = findViewById(R.id.tit_loginPassword);
         login = findViewById(R.id.btn_login);
         sign = findViewById(R.id.btn_signup);
         showTxt = "";
         loginCheckEmail = true;
-
-        // 이메일 엔터 방지
-        loginEmail.setOnKeyListener((v, keyCode, event) -> {
-            return KeyEvent.KEYCODE_ENTER == keyCode;
-        });
-
-        // 비밀번호 엔터 방지
-        loginPW.setOnKeyListener((v, keyCode, event) -> {
-            return KeyEvent.KEYCODE_ENTER == keyCode;
-        });
 
         // 로그인 버튼 클릭
         login.setOnClickListener(view -> {
@@ -85,15 +78,21 @@ public class LoginActivity extends AppCompatActivity {
             // 모든 항목 입력되었는지 확인
             if (!(hasTxt(loginEmail) && hasTxt(loginPW))) {
                 showTxt = "모든 항목을 채워주세요";
-                Toast.makeText(getApplicationContext(), showTxt, Toast.LENGTH_SHORT).show();
+                loginEmailBox.setError(showTxt);
+                loginPWBox.setError(showTxt);
                 return;
+            } else {
+                loginEmailBox.setError(null);
+                loginPWBox.setError(null);
             }
 
             // 이메일 유효성 검사
-            else if (!pattern.matcher(loginEmailTxt).matches()) {
+            if (!pattern.matcher(loginEmailTxt).matches()) {
                 showTxt = "올바른 이메일을 입력해주세요";
-                Toast.makeText(getApplicationContext(), showTxt, Toast.LENGTH_SHORT).show();
+                loginEmailBox.setError(showTxt);
                 return;
+            } else {
+                loginEmailBox.setError(null);
             }
 
             // 모든 조건이 충족되었을 경우
@@ -121,7 +120,8 @@ public class LoginActivity extends AppCompatActivity {
                     } else {
                         // If sign in fails, display a message to the user.
                         Log.w("404", "signInWithEmail:failure", task.getException());
-                        Toast.makeText(getApplicationContext(), toastMsg, Toast.LENGTH_SHORT).show();
+                        loginEmailBox.setError(toastMsg);
+                        loginPWBox.setError(toastMsg);
                     }
                 }
             });

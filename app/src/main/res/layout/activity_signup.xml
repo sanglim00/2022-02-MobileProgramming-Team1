@@ -46,15 +46,14 @@
                         android:background="@android:color/transparent"
                         android:scaleType="fitCenter"
                         android:src="@drawable/icon_edit_myprofile"
-                        app:tint="@color/FCC73F"
-                        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+                        app:tint="@color/FCC73F" />
                 </FrameLayout>
                 <!--                <ImageView-->
                 <!--                    android:id="@+id/iv_profile"-->
                 <!--                    android:layout_width="150dp"-->
                 <!--                    android:layout_height="150dp"-->
                 <!--                    android:layout_marginTop="50dp"-->
-                <!--                    android:layout_marginBottom="15dp"></ImageView>-->
+                <!--                    android:layout_marginTop="15dp"></ImageView>-->
 
             </LinearLayout>
 
@@ -88,9 +87,9 @@
                         android:text="E-MAIL"
                         android:textSize="13sp" />
                     <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/til_joinEmail"
                         android:layout_width="370dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="15dp"
                         android:textColorHint="#dcdcdc"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
                         <com.google.android.material.textfield.TextInputEditText
@@ -98,20 +97,20 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:hint="이메일을 입력해주세요."
-                            android:inputType="text"
-                            android:background="@drawable/login_signup_border" />
+                            android:inputType="text" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <TextView
                         android:id="@+id/tv_password"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
                         android:text="PASSWORD"
                         android:textSize="13sp" />
                     <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/til_joinPassword"
                         android:layout_width="370dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="15dp"
                         android:textColorHint="#dcdcdc"
                         app:passwordToggleEnabled="true"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
@@ -119,7 +118,6 @@
                             android:id="@+id/tit_password"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="@drawable/login_signup_border"
                             android:hint="비밀번호를 입력해주세요."
                             android:inputType="textPassword" />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -128,12 +126,13 @@
                         android:id="@+id/tv_passwordCheck"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
                         android:text="PASSWORD CHECK"
                         android:textSize="13sp" />
                     <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/til_joinPasswordCheck"
                         android:layout_width="370dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="15dp"
                         android:textColorHint="#dcdcdc"
                         app:passwordToggleEnabled="true"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
@@ -142,20 +141,20 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:hint="비밀번호를 한 번 더 입력해주세요."
-                            android:inputType="textPassword"
-                            android:background="@drawable/login_signup_border" />
+                            android:inputType="textPassword" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <TextView
                         android:id="@+id/tv_id"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
                         android:text="ID"
                         android:textSize="13sp" />
                     <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/til_joinID"
                         android:layout_width="370dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="15dp"
                         android:textColorHint="#dcdcdc"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
                         <com.google.android.material.textfield.TextInputEditText
@@ -163,17 +162,18 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:hint="아이디를 입력해주세요."
-                            android:inputType="text"
-                            android:background="@drawable/login_signup_border" />
+                            android:inputType="text" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <TextView
                         android:id="@+id/tv_phone"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
                         android:text="PHONE"
                         android:textSize="13sp" />
                     <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/til_joinPhone"
                         android:layout_width="370dp"
                         android:layout_height="wrap_content"
                         android:textColorHint="#dcdcdc"
@@ -183,8 +183,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:hint="전화번호를 입력해주세요."
-                            android:inputType="text"
-                            android:background="@drawable/login_signup_border" />
+                            android:inputType="text" />
                     </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
             </LinearLayout>
@@ -219,9 +218,9 @@
                         android:text="NAME"
                         android:textSize="13sp" />
                     <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/til_joinPetName"
                         android:layout_width="370dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="15dp"
                         android:textColorHint="#dcdcdc"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
                         <com.google.android.material.textfield.TextInputEditText
@@ -229,111 +228,121 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:hint="이름을 입력해주세요."
-                            android:inputType="text"
-                            android:background="@drawable/login_signup_border" />
+                            android:inputType="text" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <TextView
                         android:id="@+id/tv_petType"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
                         android:text="PET TYPE" />
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/til_joinPetType"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <RadioGroup
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <RadioButton
+                                android:id="@+id/btn_petType1"
+                                android:layout_width="70dp"
+                                android:layout_height="50dp"
+                                android:gravity="center"
+                                android:layout_marginEnd="5dp"
+                                android:background="@drawable/radio_btn_color"
+                                android:text="DOG"
+                                android:textColor="@drawable/radio_btn_text"
+                                android:textSize="15sp"
+                                android:textStyle="bold"
+                                android:button="@null" />
 
-                    <RadioGroup
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="2dp"
-                        android:layout_marginBottom="15dp"
-                        android:orientation="horizontal">
+                            <RadioButton
+                                android:id="@+id/btn_petType2"
+                                android:layout_width="70dp"
+                                android:layout_height="50dp"
+                                android:gravity="center"
+                                android:layout_marginEnd="5dp"
+                                android:background="@drawable/radio_btn_color"
+                                android:text="CAT"
+                                android:textColor="@drawable/radio_btn_text"
+                                android:textSize="15sp"
+                                android:textStyle="bold"
+                                android:button="@null" />
 
-                        <RadioButton
-                            android:id="@+id/btn_petType1"
-                            android:layout_width="70dp"
-                            android:layout_height="40dp"
-                            android:layout_marginEnd="5dp"
-                            android:background="@drawable/radio_btn_color"
-                            android:button="@null"
-                            android:gravity="center"
-                            android:text="DOG"
-                            android:textColor="@drawable/radio_btn_text"
-                            android:textSize="15sp"
-                            android:textStyle="bold" />
+                            <RadioButton
+                                android:id="@+id/btn_petType3"
+                                android:layout_width="70dp"
+                                android:layout_height="50dp"
+                                android:gravity="center"
+                                android:layout_marginEnd="5dp"
+                                android:background="@drawable/radio_btn_color"
+                                android:text="FISH"
+                                android:textColor="@drawable/radio_btn_text"
+                                android:textSize="15sp"
+                                android:textStyle="bold"
+                                android:button="@null" />
 
-                        <RadioButton
-                            android:id="@+id/btn_petType2"
-                            android:layout_width="70dp"
-                            android:layout_height="40dp"
-                            android:layout_marginEnd="5dp"
-                            android:background="@drawable/radio_btn_color"
-                            android:button="@null"
-                            android:gravity="center"
-                            android:text="CAT"
-                            android:textColor="@drawable/radio_btn_text"
-                            android:textSize="15sp"
-                            android:textStyle="bold"
-                            tools:ignore="TouchTargetSizeCheck" />
+                            <RadioButton
+                                android:id="@+id/btn_petType4"
+                                android:layout_width="70dp"
+                                android:layout_height="50dp"
+                                android:gravity="center"
+                                android:layout_marginEnd="5dp"
+                                android:background="@drawable/radio_btn_color"
+                                android:text="PIG"
+                                android:textColor="@drawable/radio_btn_text"
+                                android:textSize="15sp"
+                                android:textStyle="bold"
+                                android:button="@null" />
 
-                        <RadioButton
-                            android:id="@+id/btn_petType3"
-                            android:layout_width="70dp"
-                            android:layout_height="40dp"
-                            android:layout_marginEnd="5dp"
-                            android:background="@drawable/radio_btn_color"
-                            android:button="@null"
-                            android:gravity="center"
-                            android:text="FISH"
-                            android:textColor="@drawable/radio_btn_text"
-                            android:textSize="15sp"
-                            android:textStyle="bold"
-                            tools:ignore="TouchTargetSizeCheck" />
+                            <RadioButton
+                                android:id="@+id/btn_petType5"
+                                android:layout_width="70dp"
+                                android:layout_height="50dp"
+                                android:gravity="center"
+                                android:background="@drawable/radio_btn_color"
+                                android:text="+"
+                                android:textColor="@drawable/radio_btn_text"
+                                android:textSize="15sp"
+                                android:textStyle="bold"
+                                android:button="@null" />
+                        </RadioGroup>
+                    </com.google.android.material.textfield.TextInputLayout>
 
-                        <RadioButton
-                            android:id="@+id/btn_petType4"
-                            android:layout_width="70dp"
-                            android:layout_height="40dp"
-                            android:layout_marginEnd="5dp"
-                            android:background="@drawable/radio_btn_color"
-                            android:button="@null"
-                            android:gravity="center"
-                            android:text="PIG"
-                            android:textColor="@drawable/radio_btn_text"
-                            android:textSize="15sp"
-                            android:textStyle="bold" />
-
-                        <RadioButton
-                            android:id="@+id/btn_petType5"
-                            android:layout_width="70dp"
-                            android:layout_height="40dp"
-                            android:background="@drawable/radio_btn_color"
-                            android:button="@null"
-                            android:gravity="center"
-                            android:text="+"
-                            android:textColor="@drawable/radio_btn_text"
-                            android:textSize="15sp"
-                            android:textStyle="bold" />
-                    </RadioGroup>
 
                     <TextView
                         android:id="@+id/tv_petGender"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="GENDER"
-                        android:layout_marginBottom="5dp" />
-                    <Spinner
-                        android:id="@+id/spinner_petGender"
+                        android:layout_marginTop="15dp" />
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/til_joinPetGender"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="15dp" />
+                        android:layout_height="wrap_content">
+                        <Spinner
+                            android:id="@+id/spinner_petGender"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                    </com.google.android.material.textfield.TextInputLayout>
 
                     <TextView
                         android:id="@+id/tv_meetDate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
                         android:text="MEET DATE" />
-                    <CalendarView
-                        android:id="@+id/cv_meetDate"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/til_joinMeetDate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <CalendarView
+                            android:id="@+id/cv_meetDate"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
             </LinearLayout>
 
@@ -348,20 +357,24 @@
                     android:id="@+id/tv_privacyUsage"
                     android:layout_width="370dp"
                     android:layout_height="wrap_content"
-                    android:text="개인정보 이용 동의"
+                    android:text="개인정보 이용 동의                                    ▽"
                     android:textColor="@color/black"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     android:paddingBottom="10dp"
                     style="@style/Hyperlink" />
 
-                <TextView
-                    android:id="@+id/tv_privacyUsageText"
-                    android:layout_width="370dp"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_joinPrivacy"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:scrollbars="vertical"
-                    android:text="-개인정보 수집 및 이용 동의-\n
+                    android:layout_marginTop="20dp">
+                    <TextView
+                        android:id="@+id/tv_privacyUsageText"
+                        android:layout_width="370dp"
+                        android:layout_height="wrap_content"
+                        android:scrollbars="vertical"
+                        android:text="-개인정보 수집 및 이용 동의-\n
 주식회사 모프 팀1(이하 “회사” 또는 서비스명인 “반려일지”라 함)는 이용자의 개인정보보호를 매우 중요시하며, 『개인정보보호법』, 『정보통신망이용촉진 및 정보보호에 관한 법률』 등 개인정보보호규정 및 정보통신부가 제정한 『개인정보보호지침』을 준수하고 있습니다.
 회사는 원활한 서비스 제공을 위해 이용자로부터 아래와 같이 개인정보 수집 및 이용동의를 받고자합니다. 내용을 자세히 읽으신 후 동의하시면 원래 화면으로 돌아가 해당 화면의 안내에 따라 버튼을 눌러 주시기 바랍니다. 자세한 내용은 회사의 개인정보처리방침을 참조하여 주시기 바랍니다.\n
 -개인정보 수집 항목-\n
@@ -370,35 +383,37 @@
 회원 탈퇴 시까지 (관련 법령에 따라 보존할 필요가 있는 경우는 해당 보존 기간)\n
 -동의를 거부할 권리 및 동의를 거부할 경우의 불이익-\n
 ‍위의 개인정보 수집 및 이용에 대한 동의를 거부할 권리가 있으나 동의를 거부할 경우 ‘반려일지’ 서비스 제공에 제한 등 불이익을 받을 수 있습니다."
-                    android:textStyle="bold" />
-
-                <RadioGroup
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="right"
-                    tools:ignore="RtlHardcoded">
-
-                    <RadioButton
-                        android:id="@+id/btn_accept"
-                        android:layout_width="wrap_content"
+                        android:textStyle="bold"
+                        android:visibility="gone"/>
+                    <RadioGroup
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="0dp"
-                        android:text="동의"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
+                        android:orientation="horizontal"
+                        android:layout_marginTop="15dp"
+                        android:gravity="right"
+                        tools:ignore="RtlHardcoded">
 
-                    <RadioButton
-                        android:id="@+id/btn_decline"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginTop="0dp"
-                        android:layout_marginRight="10dp"
-                        android:text="거절"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
-                </RadioGroup>
+                        <RadioButton
+                            android:id="@+id/btn_accept"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="0dp"
+                            android:text="동의"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <RadioButton
+                            android:id="@+id/btn_decline"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="0dp"
+                            android:layout_marginRight="10dp"
+                            android:text="거절"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+                    </RadioGroup>
+                </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
 
             <LinearLayout
