@@ -39,7 +39,7 @@
             android:name=".SignUpActivity"
             android:label="Sign Up" />
         <activity
-            android:name=".PostDetailActivity"
+            android:name=".LoginActivity"
             android:label="PetDiary"
             android:exported="true">
             <intent-filter>
@@ -78,8 +78,8 @@
         <activity
             android:name=".calendarActivity"
             android:label="calendar"/>
-        <!--<activity android:name=".PostDetailActivity"
-            android:label="DetailPost"/>-->
+        <activity android:name=".PostDetailActivity"
+            android:label="DetailPost"/>
         <service android:name=".services.PetDiaryFCMService"
             android:exported="false">
             <intent-filter>

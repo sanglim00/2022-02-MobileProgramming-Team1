@@ -40,7 +40,7 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
         this.mainList = list;
         notifyDataSetChanged();
     }
-
+// 아직 사용 안함
     interface OnItemClickListener {
         void onItemClick(View v, int position);
         void onLikeBtnClick(View v, int position);
@@ -51,6 +51,7 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
     public void setOnItemClickListener(OnItemClickListener listener) {
         this.mListener = listener;
     }
+//
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 

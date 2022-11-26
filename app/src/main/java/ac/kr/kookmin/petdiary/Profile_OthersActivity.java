@@ -52,16 +52,15 @@ public class Profile_OthersActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 Intent intent;
+                finish();
                 switch (item.getItemId()) {
                     case R.id.action_one:
                         intent = new Intent(getApplicationContext(), MainActivity.class);
                         startActivity(intent);
-                        finish();
                         return true;
                     case R.id.action_two:
                         intent = new Intent(getApplicationContext(), SearchActivity.class);
                         startActivity(intent);
-                        finish();
                         return true;
                     case R.id.action_three:
                         intent = new Intent(getApplicationContext(), WritingActivity.class);
@@ -70,12 +69,10 @@ public class Profile_OthersActivity extends AppCompatActivity {
                     case R.id.action_four:
                         intent = new Intent(getApplicationContext(), NotiActivity.class);
                         startActivity(intent);
-                        finish();
                         return true;
                     case R.id.action_five:
                         intent = new Intent(getApplicationContext(), ProfileActivity.class);
                         startActivity(intent);
-                        finish();
                         return true;
                 }
                 return false;

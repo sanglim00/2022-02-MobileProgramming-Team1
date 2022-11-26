@@ -5,7 +5,10 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,15 +29,18 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.InputStream;
 
 import ac.kr.kookmin.petdiary.models.Post;
+import ac.kr.kookmin.petdiary.models.User;
 
 
 public class WritingActivity extends AppCompatActivity {
@@ -45,6 +51,8 @@ public class WritingActivity extends AppCompatActivity {
     Button uploadImgBtn;
     EditText postContents;
     CheckBox Download;
+
+    File file;
 
     boolean isImageSelected = false;    // 이미지 유무 여부
     boolean permitToDownload = false;   // 사진 다운로드 허용 여부
@@ -63,6 +71,9 @@ public class WritingActivity extends AppCompatActivity {
                 UploadImg();
             }
         });
+
+        File sdcard = Environment.getExternalStorageDirectory();
+        file = new File(sdcard, "capture.jpg");
 
         postContents = findViewById(R.id.et_postContents);
         Download = findViewById(R.id.ck_download);
@@ -103,8 +114,8 @@ public class WritingActivity extends AppCompatActivity {
 
 
     public void TakePhoto() {
-
-
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(intent, 1);
     }
     public void TakeAlbum() {
         Intent intent = new Intent();
@@ -116,10 +127,21 @@ public class WritingActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        // 앨범에서 선택 시
         if(requestCode == 0 && requestCode == 0) {
             // load: 가져올 이미지, override: 이미지 크기 조정, into: 이미지를 출력할 객체
             Glide.with(getApplicationContext()).load(data.getData()).override(360, 360).into(uploadImg);
             isImageSelected = true;
+        }
+        // 카메라 구동하여 선택 시
+        else if (requestCode == 1 && requestCode == 1) {
+            Bundle extras = data.getExtras(); // Bundle로 데이터를 입력
+            Bitmap imageBitmap = (Bitmap) extras.get("data"); // Bitmap으로 컨버전
+            uploadImg.setImageBitmap(imageBitmap);  // 이미지뷰에 Bitmap으로 이미지를 입력
+            isImageSelected = true;
+        }
+        else {
+            isImageSelected = false;
         }
     }
 
@@ -131,45 +153,52 @@ public class WritingActivity extends AppCompatActivity {
             Toast.makeText(this, "내용을 입력해주세요.", Toast.LENGTH_SHORT).show();
             return;
         }
-        Post post = new Post(mAuth.getCurrentUser().getUid(), "", postContents.getText().toString(), true);
-        db.collection("posts").add(post)
-            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                @Override
-                public void onSuccess(DocumentReference documentReference) {
-                    Log.d("201", "Post DocumentSnapshot Id: " + documentReference.getId());
+        db.collection("users").document(mAuth.getCurrentUser().getUid()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                User user = documentSnapshot.toObject(User.class);
+                Post post = new Post(mAuth.getCurrentUser().getUid(), "", postContents.getText().toString(), true, user.getPetType());
+                db.collection("posts").add(post)
+                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                            @Override
+                            public void onSuccess(DocumentReference documentReference) {
+                                Log.d("201", "Post DocumentSnapshot Id: " + documentReference.getId());
 
-                    StorageReference storeageRef = FirebaseStorage.getInstance().getReference();
-                    StorageReference imageRef = storeageRef.child("images/" + documentReference.getId());
-                    uploadImg.setDrawingCacheEnabled(true);
-                    uploadImg.buildDrawingCache();
-                    Bitmap bitmap = ((BitmapDrawable) uploadImg.getDrawable()).getBitmap();
-                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-                    byte[] data = baos.toByteArray();
+                                StorageReference storageRef = FirebaseStorage.getInstance().getReference();
+                                StorageReference imageRef = storageRef.child("images/" + documentReference.getId());
+                                uploadImg.setDrawingCacheEnabled(true);
+                                uploadImg.buildDrawingCache();
+                                Bitmap bitmap = ((BitmapDrawable) uploadImg.getDrawable()).getBitmap();
+                                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                                byte[] data = baos.toByteArray();
 
-                    UploadTask uploadTask = imageRef.putBytes(data);
-                    uploadTask.addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            // 사진 업로드 실패 시,
-                        }
-                    }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            // 사진 업로드 성공 시,
-                            Toast.makeText(WritingActivity.this, "업로드가 완료되었습니다!", Toast.LENGTH_SHORT).show();
-                            finish();
-                        }
-                    });
-                }
-            })
-            .addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Log.w("500", "Error Adding Post Document", e);
-                    Toast.makeText(WritingActivity.this, "게시물 올리기에 실패했습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
-                }
-            });
+                                UploadTask uploadTask = imageRef.putBytes(data);
+                                uploadTask.addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        // 사진 업로드 실패 시,
+                                    }
+                                }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                    @Override
+                                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                        // 사진 업로드 성공 시,
+                                        Toast.makeText(WritingActivity.this, "업로드가 완료되었습니다!", Toast.LENGTH_SHORT).show();
+                                        finish();
+                                    }
+                                });
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.w("500", "Error Adding Post Document", e);
+                                Toast.makeText(WritingActivity.this, "게시물 올리기에 실패했습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+            }
+        });
+
 
     }
 

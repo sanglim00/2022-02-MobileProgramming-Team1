@@ -1,6 +1,7 @@
 package ac.kr.kookmin.petdiary;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -8,6 +9,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,6 +29,7 @@ import java.io.FileNotFoundException;
 
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.core.app.ActivityCompat;
@@ -108,16 +111,15 @@ public class Profile_EditActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 Intent intent;
+                finish();
                 switch (item.getItemId()) {
                     case R.id.action_one:
                         intent = new Intent(getApplicationContext(), MainActivity.class);
                         startActivity(intent);
-                        finish();
                         return true;
                     case R.id.action_two:
                         intent = new Intent(getApplicationContext(), SearchActivity.class);
                         startActivity(intent);
-                        finish();
                         return true;
                     case R.id.action_three:
                         intent = new Intent(getApplicationContext(), WritingActivity.class);
@@ -126,7 +128,6 @@ public class Profile_EditActivity extends AppCompatActivity {
                     case R.id.action_four:
                         intent = new Intent(getApplicationContext(), NotiActivity.class);
                         startActivity(intent);
-                        finish();
                         return true;
                     case R.id.action_five:
                         return true;
@@ -140,10 +141,7 @@ public class Profile_EditActivity extends AppCompatActivity {
         imgBtn_edit_editimage.setOnClickListener(new View.OnClickListener(){ // 프로필 사진 변경 버튼
             @Override
             public void onClick(View v){
-                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-                intent.setType("image/*");
-
-                startActivityForResult(intent, CALL_GALLERY);
+                UploadImg();
             }
         });
 
@@ -284,7 +282,12 @@ public class Profile_EditActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                     break;
-
+                case 1 :    // 카메라 촬영 시
+                    Bundle extras = data.getExtras(); // Bundle로 데이터를 입력
+                    Bitmap imageBitmap = (Bitmap) extras.get("data"); // Bitmap으로 컨버전
+                    img_pf.setImageBitmap(imageBitmap);  // 이미지뷰에 Bitmap으로 이미지를 입력
+                    image_changed = true;
+                    break;
                 case 102:
                     boolean getcomplete_date = data.getBooleanExtra("complete_date", false);
                     if(getcomplete_date){
@@ -293,7 +296,6 @@ public class Profile_EditActivity extends AppCompatActivity {
                     }
                     break;
             }
-
         }
 
     }
@@ -310,6 +312,38 @@ public class Profile_EditActivity extends AppCompatActivity {
         return false;
     }
 
+    // 이미지 업로드 방법 선택을 위한 Dialog
+    private void UploadImg() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("이미지 업로드").setMessage("아래 버튼을 클릭하여 이미지를 업로드 해주세요.");
+        builder.setPositiveButton("사진촬영", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                TakePhoto();
+            }
+        });
+        builder.setNegativeButton("앨범선택", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which){
+                TakeAlbum();
+            }
+        });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+
+    }
+    // 사진 촬영 후 업로드 시
+    public void TakePhoto() {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(intent, 1);
+    }
+    // 앨범에서 사진 선택 시
+    public void TakeAlbum() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(intent, 0);
+    }
 
 
 }
