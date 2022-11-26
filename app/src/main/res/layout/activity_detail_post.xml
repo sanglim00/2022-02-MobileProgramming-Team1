@@ -31,184 +31,165 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/box_shadow"
                 android:orientation="horizontal"
-                android:paddingStart="12dp"
-                android:paddingEnd="20dp"
-                android:layout_marginTop="3dp"
-                >
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="10dp">
+
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/img_profile_detail_post"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:src="@drawable/ddaeng"
+                    android:layout_gravity="center|left"
+                    android:layout_marginRight="10dp"
                     android:clickable="true"
+                    android:src="@drawable/ddaeng"
                     app:civ_border_color="#FF000000"
-                    app:civ_border_width="2dp"
-                    android:layout_gravity="center|left"/>
+                    app:civ_border_width="2dp" />
                 />
+
                 <TextView
                     android:id="@+id/txt_id_detail_post"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:text="h_gunn"
                     android:textColor="@color/black"
-                    android:textSize="20dp"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="20dp"
-                    />
+                    android:textSize="20sp" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_marginTop="12dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                >
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
+
                 <ImageView
                     android:id="@+id/img_detail_post"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/heedong1"
+
                     android:adjustViewBounds="true"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:src="@drawable/heedong1" />
 
-                    />
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:layout_marginTop="12dp"
-                    android:orientation="horizontal"
-                    android:weightSum="8">
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:layout_gravity="center"
-                        android:orientation="horizontal">
-                        <ImageView
-                            android:id="@+id/imgbtn_like_detail_post"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:adjustViewBounds="true"
-                            android:src="@drawable/selector_btn_like_detail_post"
-                            android:scaleType="fitCenter"
-                            android:layout_gravity="right"
-                            android:layout_marginStart="5dp"
-                            android:layout_marginEnd="5dp"
-                            />
-                        <TextView
-                            android:id="@+id/txt_like_detail_post"
-                            android:layout_width="50dp"
-                            android:layout_height="wrap_content"
-                            android:text="1320"
-                            android:layout_marginStart="3dp"
-                            android:textStyle="bold"
-                            android:textSize="20dp"
-                            android:layout_gravity="center"
-                            />
-                    </LinearLayout>
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:layout_gravity="center"
-                        android:orientation="horizontal">
-                    </LinearLayout>
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="1dp"
-                        android:layout_weight="6"/>
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center"
-                        android:orientation="horizontal">
-                        <ImageButton
-                            android:id="@+id/imgbtn_download_img_detail_post"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:adjustViewBounds="true"
-                            android:scaleType="fitCenter"
-                            android:src="@drawable/btn_download_img"
-                            android:background="@android:color/transparent"
-                            android:layout_marginStart="5dp"
-                            />
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="3px"
-                    android:background="#c7c7c7"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp"
-                    />
-                <TextView
-                    android:id="@+id/txt_content_detail_post"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:text="국회는 국가의 예산안을 심의·확정한다. 대통령은 국가의 독립·영토의 보전·국가의 계속성과 헌법을 수호할 책무를 진다."
-                    android:textColor="@color/black"/>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    >
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/comment_recycler"
-                        android:layout_width="match_parent"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        />
+                        android:layout_gravity="center"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/imgbtn_like_detail_post"
+                            android:layout_width="30dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="right"
+                            android:layout_marginRight="5sp"
+                            android:adjustViewBounds="true"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/selector_btn_like_detail_post" />
+
+                        <TextView
+                            android:id="@+id/txt_like_detail_post"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="1320"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="right"
+                        android:orientation="horizontal">
+
+                        <ImageButton
+                            android:id="@+id/imgbtn_download_img_detail_post"
+                            android:layout_width="30dp"
+                            android:layout_height="match_parent"
+                            android:adjustViewBounds="true"
+                            android:background="@android:color/transparent"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/btn_download_img" />
+                    </LinearLayout>
 
                 </LinearLayout>
+
+                <TextView
+                    android:id="@+id/txt_content_detail_post"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="국회는 국가의 예산안을 심의·확정한다. 대통령은 국가의 독립·영토의 보전·국가의 계속성과 헌법을 수호할 책무를 진다."
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/comment_recycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp" />
 
             </LinearLayout>
 
 
         </LinearLayout>
     </ScrollView>
+
     <LinearLayout
         android:id="@+id/comment_post_detail"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:orientation="horizontal"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="5dp"
-        android:layout_gravity="bottom">
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:orientation="horizontal">
+
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:orientation="horizontal"
             android:layout_weight="1"
-            android:weightSum="4"
-            >
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingLeft="10dp"
+            android:paddingTop="5dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="5dp"
+            android:weightSum="4">
+
             <EditText
                 android:id="@+id/et_comment"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="3"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginRight="10dp"
+                android:layout_weight="3"
                 android:background="@drawable/box_comment"
-                android:padding="10dp"
-                />
+                android:padding="4dp" />
 
             <Button
                 android:id="@+id/btn_add_comment"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
-                android:layout_margin="10dp"
                 android:layout_weight="1"
-                android:text="등록"
-                />
+                android:text="등록" />
 
 
         </LinearLayout>
-
 
 
     </LinearLayout>
