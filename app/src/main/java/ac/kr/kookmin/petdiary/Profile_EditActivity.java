@@ -162,6 +162,7 @@ public class Profile_EditActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent_calendar = new Intent(Profile_EditActivity.this, calendarActivity.class);
+                intent_calendar.putExtra("current_date", et_edit_meetDate.getText().toString());
                 startActivityForResult(intent_calendar,102);
             }
         });
