@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     private MainRecyclerAdapter mainAdapter;
     private RadioGroup  radio_tags;
     private RadioButton radio_tag_btn;
+    private RadioButton extraBtn;
     private String      current_tag = "dog";
 
     RadioGroup footer;
@@ -62,12 +63,19 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<MainItemList> mainItems = new ArrayList<>();
         mainView = (RecyclerView) findViewById(R.id.mainRecycler);
         radio_tag_btn = (RadioButton) findViewById(R.id.btn_main_petType1);
+        extraBtn = (RadioButton) findViewById(R.id.btn_main_petType_extra);
         radio_tag_btn.setChecked(true);
         mainAdapter = new MainRecyclerAdapter();
         mainView.setAdapter(mainAdapter);
         mainView.setLayoutManager(new LinearLayoutManager(this));
         RadioSelectListener(mainItems);
         RecyclerItemUpdate();
+        extraBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setExtraTag();
+            }
+        });
 
         RadioButton menu = findViewById(R.id.menu_main);
         menu.setChecked(true);
@@ -124,12 +132,23 @@ public class MainActivity extends AppCompatActivity {
                         RecyclerItemUpdate();
                         break;
                     case R.id.btn_main_petType_extra:
-                        setExtraTag();
                         break;
                 }
             }
         });
     }
+
+//    public void extraBtnEvent() {
+//        RadioButton extraBtn;
+//
+//        extraBtn = (RadioButton) findViewById(R.id.btn_main_petType_extra);
+//        extraBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                setExtraTag();
+//            }
+//        });
+//    }
 
     public void setExtraTag() {
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
