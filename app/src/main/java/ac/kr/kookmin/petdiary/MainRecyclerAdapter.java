@@ -169,16 +169,22 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
                 @Override
                 public void onComplete(@NonNull Task<Uri> postTask) {
                     if (postTask.isSuccessful()) {
+                        if (((Activity) ctx). isFinishing()) return;
+                        Glide.with(ctx)
+                                .load(postTask.getResult())
+                                .into(content_img);
                         profile.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
                             @Override
                             public void onComplete(@NonNull Task<Uri> profileTask) {
                                 if (profileTask.isSuccessful()) {
                                     if (((Activity) ctx).isFinishing()) return;
                                     Glide.with(ctx)
-                                            .load(postTask.getResult())
-                                            .into(content_img);
-                                    Glide.with(ctx)
                                             .load(profileTask.getResult())
+                                            .into(profile_img);
+                                } else {
+                                    if (((Activity) ctx).isFinishing()) return;
+                                    Glide.with(ctx)
+                                            .load(R.drawable.default_profile)
                                             .into(profile_img);
                                 }
                             }

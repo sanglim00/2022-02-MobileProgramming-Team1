@@ -181,6 +181,7 @@ public class Profile_OthersActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         User userDoc = documentSnapshot.toObject(User.class);
+                        adapter.setUserName(userDoc.getUserName());
                         initProfileData(userDoc, uid);
                     }
                 })
@@ -211,7 +212,6 @@ public class Profile_OthersActivity extends AppCompatActivity {
                     Glide.with(Profile_OthersActivity.this)
                             .load(task.getResult())
                             .into(img_pf);
-                    if (adapter.getItemCount() == 0) initPostData(uid);
                 } else {
                     if (Profile_OthersActivity.this.isFinishing())
                         return;
@@ -219,6 +219,7 @@ public class Profile_OthersActivity extends AppCompatActivity {
                             .load(R.drawable.default_profile)
                             .into(img_pf);
                 }
+                if (adapter.getItemCount() == 0) initPostData(uid);
             }
         });
     }

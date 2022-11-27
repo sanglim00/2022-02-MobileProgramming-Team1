@@ -11,6 +11,8 @@ import java.util.ArrayList;
 
 public class Profile_Post_RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
+    private String userName = "";
+
     // adapter에 들어갈 list 입니다.
     private ArrayList<PostItem_Profile> listData = new ArrayList<>();
 
@@ -23,7 +25,7 @@ public class Profile_Post_RecyclerViewAdapter extends RecyclerView.Adapter<Recyc
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        ((ViewHolder_Post_Profile)holder).onBind(listData.get(position));
+        ((ViewHolder_Post_Profile)holder).onBind(listData.get(position), userName);
     }
 
     @Override
@@ -35,6 +37,10 @@ public class Profile_Post_RecyclerViewAdapter extends RecyclerView.Adapter<Recyc
         // 외부에서 item을 추가시킬 함수입니다.
         listData.add(data);
         notifyDataSetChanged();
+    }
+
+    void setUserName(String userName) {
+        this.userName = userName;
     }
 
 }
