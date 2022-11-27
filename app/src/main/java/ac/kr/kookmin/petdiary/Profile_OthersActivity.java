@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
@@ -45,7 +47,8 @@ public class Profile_OthersActivity extends AppCompatActivity {
     TextView txt_pf_id;
     ImageView img_pf;
 
-    BottomNavigationView bottomNavigationView; // footer
+    RadioGroup footer;
+
 
     Profile_Post_RecyclerViewAdapter adapter;
 
@@ -84,42 +87,6 @@ public class Profile_OthersActivity extends AppCompatActivity {
         });
 
 
-        bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation); // footer
-        bottomNavigationView.setSelectedItemId(R.id.action_five);
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                Intent intent;
-                if(item.getItemId() != R.id.action_five) finish();
-                switch (item.getItemId()) {
-                    case R.id.action_one:
-                        intent = new Intent(getApplicationContext(), MainActivity.class);
-                        startActivity(intent);
-                        return true;
-                    case R.id.action_two:
-                        intent = new Intent(getApplicationContext(), SearchActivity.class);
-                        startActivity(intent);
-                        return true;
-                    case R.id.action_three:
-                        intent = new Intent(getApplicationContext(), WritingActivity.class);
-                        startActivity(intent);
-                        return true;
-                    case R.id.action_four:
-                        intent = new Intent(getApplicationContext(), NotiActivity.class);
-                        startActivity(intent);
-                        return true;
-                    case R.id.action_five:
-                        intent = new Intent(getApplicationContext(), ProfileActivity.class);
-                        startActivity(intent);
-                        return true;
-                }
-                return false;
-            }
-        });
-
-
-
-
         btn_subcribe.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() { // 구독 버튼
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean ischecked) {
@@ -132,8 +99,38 @@ public class Profile_OthersActivity extends AppCompatActivity {
             }
         });
 
+        RadioButton menu = findViewById(R.id.menu_user);
+        menu.setChecked(true);
+        footer = findViewById(R.id.footer_menu);
+        footer.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                Intent intent;
+                RadioButton menu = radioGroup.findViewById(i);
+                if(!menu.getText().equals("유저")) finish();
 
 
+                if(menu.getText().equals("메인")) {
+                    intent = new Intent(getApplicationContext(), MainActivity.class);
+                    startActivity(intent);
+                }
+                else if(menu.getText().equals("검색")) {
+                    intent = new Intent(getApplicationContext(), SearchActivity.class);
+                    startActivity(intent);
+                }
+                else if(menu.getText().equals("작성")) {
+                    intent = new Intent(getApplicationContext(), WritingActivity.class);
+                    startActivity(intent);
+                }
+                else if(menu.getText().equals("알림")) {
+                    intent = new Intent(getApplicationContext(), NotiActivity.class);
+                    startActivity(intent);
+                }
+
+                menu = findViewById(R.id.menu_user);
+                menu.setChecked(true);
+            }
+        });
 
     }
     private void init(){
@@ -163,16 +160,6 @@ public class Profile_OthersActivity extends AppCompatActivity {
                 });
     }
 
-    @Override
-    public boolean onKeyDown(int keycode, KeyEvent event) {
-        bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
-        if( keycode == KeyEvent.KEYCODE_BACK) {
-            bottomNavigationView.setSelectedItemId(R.id.action_one);
-            return true;
-        }
-
-        return false;
-    }
 
     private void setProfileData(String uid) {
         if (uid == null) return;
