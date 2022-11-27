@@ -221,12 +221,12 @@ public class SignUpActivity extends AppCompatActivity {
 
             showTxt = "";
             // 문자열 추출
-            joinEmailTxt = joinEmail.getText().toString();
-            joinPWTxt = joinPW.getText().toString();
-            joinPWChkTxt = joinPWChk.getText().toString();
-            joinIDTxt = joinID.getText().toString();
-            joinPhoneTxt = joinPhone.getText().toString();
-            joinPetNameTxt = joinPetName.getText().toString();
+            joinEmailTxt = joinEmail.getText().toString().replaceAll("\\s", "");
+            joinPWTxt = joinPW.getText().toString().replaceAll("\\s", "");
+            joinPWChkTxt = joinPWChk.getText().toString().replaceAll("\\s", "");
+            joinIDTxt = joinID.getText().toString().replaceAll("\\s", "");
+            joinPhoneTxt = joinPhone.getText().toString().replaceAll("\\s", "");
+            joinPetNameTxt = joinPetName.getText().toString().replaceAll("\\s", "");
 
             // 모든 항목이 채워져 있는지 확인
             if (!(hasTxt(joinEmail) && hasTxt(joinPW) && hasTxt(joinPWChk) && hasTxt(joinID)
