@@ -6,6 +6,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.text.InputFilter;
 import android.util.Log;
 import android.util.Patterns;
@@ -26,6 +28,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -38,6 +41,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Objects;
 import java.util.regex.Matcher;
@@ -59,18 +63,13 @@ public class SignUpActivity extends AppCompatActivity {
     public String showTxt, joinEmailTxt, joinPWTxt, joinPWChkTxt, joinIDTxt, joinPhoneTxt,
             joinPetNameTxt, joinPetType, joinGender, joinDate;
     String[] items = {"성별을 선택해주세요.", "남 (♂)", "여 (♀)", "공개 안 함"};
-    public boolean joinCheckEmail, joinCheckPW, joinCheckPhone, joinBtnCheck, joinCheckGender, joinCheckDate, joinFocus;
-    private final int CALL_GALLERY = 0;
-    private int control;
-    private Bitmap bit;
-    private BitmapFactory.Options bitOption;
-    boolean image_changed = false;
+    boolean isImageSelected, joinCheckEmail, joinCheckPW, joinCheckPhone, joinBtnCheck, joinCheckGender, joinCheckDate, joinFocus;
+    int control;
     private FirebaseAuth mAuth;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-    private boolean hasTxt(TextInputEditText et){
-        return (et.getText().toString().trim().length() > 0);
-    }
+    File file;
+    private Bitmap bit;
+    private BitmapFactory.Options bitOption;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,14 +109,17 @@ public class SignUpActivity extends AppCompatActivity {
         completion = findViewById(R.id.btn_completion);
         back = findViewById(R.id.btn_back);
         showTxt = "";
-        joinCheckEmail = true;
-        joinCheckPW = true;
-        joinCheckPhone = true;
+        isImageSelected = false;
+        joinCheckEmail = false;
+        joinCheckPW = false;
+        joinCheckPhone = false;
         joinBtnCheck = false;
         joinCheckGender = false;
         joinCheckDate = false;
         joinFocus = false;
         joinDateBox.setFocusable(true);
+        bitOption = new BitmapFactory.Options();
+        bitOption.inSampleSize = 4;
 
         // 프로필 사진 변경 버튼
         joinPfEdit.setOnClickListener(view -> {
@@ -126,9 +128,7 @@ public class SignUpActivity extends AppCompatActivity {
             alert.setMessage("프로필 사진을 추가(변경)하시겠습니까?");
             alert.setPositiveButton("확인", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int whichButton) {
-                    Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-                    intent.setType("image/*");
-                    startActivityForResult(intent, CALL_GALLERY);
+                    uploadImg();
                 }
             });
             alert.setNegativeButton("취소",new DialogInterface.OnClickListener() {
@@ -137,6 +137,9 @@ public class SignUpActivity extends AppCompatActivity {
             });
             alert.show();
         });
+
+        File sdcard = Environment.getExternalStorageDirectory();
+        file = new File(sdcard, "capture.jpg");
 
         // pet type 저장
         dog.setOnClickListener(view -> {
@@ -287,7 +290,6 @@ public class SignUpActivity extends AppCompatActivity {
             Matcher Malpha = Palpha.matcher(joinPWTxt);
 
             if (!pattern.matcher(joinEmailTxt).matches()){
-                joinCheckEmail = false;
                 showTxt = "올바른 이메일을 입력해주세요.";
                 joinEmailBox.setError(showTxt);
                 if (!joinFocus) {
@@ -295,13 +297,13 @@ public class SignUpActivity extends AppCompatActivity {
                     joinFocus = true;
                 }
             } else {
+                joinCheckEmail = true;
                 joinEmailBox.setError(null);
                 joinFocus = false;
             }
 
             // 비밀번호 5글자 이상 입력되었는지 확인
             if (joinPWTxt.length() < 5) {
-                joinCheckPW = false;
                 showTxt = "비밀번호는 5글자 이상 입력해주세요.";
                 joinPWBox.setError(showTxt);
                 if (!joinFocus) {
@@ -310,7 +312,6 @@ public class SignUpActivity extends AppCompatActivity {
                 }
             } else if (!Msymbol.find() || !Malpha.find()) {
                 // 비밀번호 유효성 검사
-                joinCheckPW = false;
                 showTxt = "비밀번호에 숫자, 특수문자, 대소문자가 포함되어야합니다.";
                 joinPWBox.setError(showTxt);
                 joinPWBox.requestFocus();
@@ -320,7 +321,6 @@ public class SignUpActivity extends AppCompatActivity {
                 }
             } else if (!joinPWTxt.equals(joinPWChkTxt)){
                 // 비밀번호와 비밀번호 확인 일치여부 확인
-                joinCheckPW = false;
                 showTxt = "두 비밀번호가 다릅니다.";
                 joinPWBox.setError(showTxt);
                 joinPWChkBox.setError(showTxt);
@@ -329,6 +329,7 @@ public class SignUpActivity extends AppCompatActivity {
                     joinFocus = true;
                 }
             } else {
+                joinCheckPW = true;
                 joinPWBox.setError(null);
                 joinPWChkBox.setError(null);
                 joinFocus = false;
@@ -336,7 +337,6 @@ public class SignUpActivity extends AppCompatActivity {
 
             // 전화번호 유효성 검사
             if (!Pattern.matches("^01(?:0|1|[6-9])(?:\\d{3}|\\d{4})\\d{4}$", joinPhoneTxt)) {
-                joinCheckPhone = false;
                 showTxt = "올바른 전화번호를 입력해주세요.";
                 joinPhoneBox.setError(showTxt);
                 if (!joinFocus) {
@@ -344,6 +344,7 @@ public class SignUpActivity extends AppCompatActivity {
                     joinFocus = true;
                 }
             } else {
+                joinCheckPhone = true;
                 joinPhoneBox.setError(null);
                 joinFocus = false;
             }
@@ -365,24 +366,57 @@ public class SignUpActivity extends AppCompatActivity {
         });
     }
 
+    private boolean hasTxt(TextInputEditText et){
+        return (et.getText().toString().trim().length() > 0);
+    }
+
+    private void uploadImg() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("이미지 업로드").setMessage("아래 버튼을 클릭하여 이미지를 업로드 해주세요.");
+        builder.setPositiveButton("사진촬영", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                takePhoto();
+            }
+        });
+        builder.setNegativeButton("앨범선택", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which){
+                takeAlbum();
+            }
+        });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+
+    public void takePhoto() {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(intent, 1);
+    }
+    public void takeAlbum() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(intent, 0);
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data){
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode == RESULT_OK){
-            switch (requestCode){
-                case CALL_GALLERY: // 프로필 사진 변경
-                    Uri uri = data.getData();
-                    try{
-                        bit = BitmapFactory.decodeStream(
-                                getContentResolver().openInputStream(uri), null, bitOption);
-                        bit = Bitmap.createBitmap(bit);
-                        joinProfile.setImageBitmap(bit);
-                        image_changed = true;
-                    } catch (FileNotFoundException e){
-                        e.printStackTrace();
-                    }
-                    break;
-            }
+        // 앨범에서 선택 시
+        if(requestCode == 0 && resultCode == RESULT_OK) {
+            Glide.with(getApplicationContext()).load(data.getData()).override(360, 360).into(joinProfile);
+            isImageSelected = true;
+        }
+        // 카메라 구동하여 선택 시
+        else if (requestCode == 1 && resultCode == RESULT_OK) {
+            Bundle extras = data.getExtras(); // Bundle로 데이터를 입력
+            Bitmap imageBitmap = (Bitmap) extras.get("data"); // Bitmap으로 컨버전
+            joinProfile.setImageBitmap(imageBitmap);  // 이미지뷰에 Bitmap으로 이미지를 입력
+            isImageSelected = true;
+        }
+        else {
+            isImageSelected = false;
         }
     }
 
