@@ -356,7 +356,7 @@ public class SignUpActivity extends AppCompatActivity {
 
             // 만난 날짜 유효성 검사
             if(!dateCompare(joinDate, now_date)){
-                showTxt = "미래에 만날 아이들은 미래에 등록해주세요.";
+                showTxt = "반려동물과 만난 날짜는 오늘 이후로 설정할 수 없습니다.";
                 joinDateBox.setError(showTxt);
                 if (!joinFocus) {
                     joinDateBox.requestFocus();
