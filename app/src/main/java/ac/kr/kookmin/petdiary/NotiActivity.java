@@ -9,6 +9,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.MenuItem;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -20,7 +22,7 @@ public class NotiActivity extends AppCompatActivity {
 
     RecyclerView notiView;
     NotiRecyclerAdapter notiAdapter;
-    BottomNavigationView bottomNavigationView;
+    RadioGroup footer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,48 +49,38 @@ public class NotiActivity extends AppCompatActivity {
         notiAdapter.setNotiList(notiItems);
 
 
-        bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
-        bottomNavigationView.setSelectedItemId(R.id.action_four);
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+        RadioButton menu = findViewById(R.id.menu_noti);
+        menu.setChecked(true);
+        footer = findViewById(R.id.footer_menu);
+        footer.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
                 Intent intent;
-                if(item.getItemId() != R.id.action_four) finish();
-                switch (item.getItemId()) {
-                    case R.id.action_one:
-                        intent = new Intent(getApplicationContext(), MainActivity.class);
-                        startActivity(intent);
-                        return true;
-                    case R.id.action_two:
-                        intent = new Intent(getApplicationContext(), SearchActivity.class);
-                        startActivity(intent);
-                        return true;
-                    case R.id.action_three:
-                        intent = new Intent(getApplicationContext(), WritingActivity.class);
-                        startActivity(intent);
-                        return true;
-                    case R.id.action_four:
-                        return true;
-                    case R.id.action_five:
-                        intent = new Intent(getApplicationContext(), ProfileActivity.class);
-                        startActivity(intent);
-                        return true;
+                RadioButton menu = radioGroup.findViewById(i);
+                if(!menu.getText().equals("알림")) finish();
+
+                if(menu.getText().equals("메인")) {
+                    intent = new Intent(getApplicationContext(), MainActivity.class);
+                    startActivity(intent);
                 }
-                return false;
+                else if(menu.getText().equals("검색")) {
+                    intent = new Intent(getApplicationContext(), SearchActivity.class);
+                    startActivity(intent);
+                }
+                else if(menu.getText().equals("작성")) {
+                    intent = new Intent(getApplicationContext(), WritingActivity.class);
+                    startActivity(intent);
+                }
+                else if(menu.getText().equals("유저")) {
+                    intent = new Intent(getApplicationContext(), ProfileActivity.class);
+                    startActivity(intent);
+                }
+
+                menu = findViewById(R.id.menu_noti);
+                menu.setChecked(true);
             }
         });
-    }
-
-
-    @Override
-    public boolean onKeyDown(int keycode, KeyEvent event) {
-        bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
-        if( keycode == KeyEvent.KEYCODE_BACK) {
-            bottomNavigationView.setSelectedItemId(R.id.action_one);
-            return true;
-        }
-
-        return false;
     }
 
 
