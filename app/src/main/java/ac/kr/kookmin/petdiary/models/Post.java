@@ -1,11 +1,15 @@
 package ac.kr.kookmin.petdiary.models;
 
+import java.util.ArrayList;
+
 public class Post {
     private String from;
     private String content;
     private int likes = 0;
     private boolean acceptDown;
     private String petType;
+    private ArrayList<String> likeUid = new ArrayList<>();
+    private ArrayList<Comment> comments = new ArrayList<>();
 
     public Post() {
 
@@ -56,5 +60,13 @@ public class Post {
 
     public void setPetType(String petType) {
         this.petType = petType;
+    }
+
+    public ArrayList<String> getLikeUid() {
+        return likeUid;
+    }
+
+    public void setLikeUid(ArrayList<String> likeUid) {
+        this.likeUid = likeUid;
     }
 }
