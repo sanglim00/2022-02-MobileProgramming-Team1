@@ -267,6 +267,7 @@ public class SignUpActivity extends AppCompatActivity {
                 joinFocus = false;
             }
 
+            // 개인정보 동의 여부 확인
             if (!accept.isChecked()) {
                 showTxt = "개인정보 이용약관 동의가 필요합니다.";
                 joinPrivacyBox.setError(showTxt);
@@ -280,7 +281,7 @@ public class SignUpActivity extends AppCompatActivity {
                 joinFocus = false;
             }
 
-            // 이메일 유효성 검사
+            // 이메일 유효성 검사(이메일 형식 맞는지 확인)
             Pattern pattern = Patterns.EMAIL_ADDRESS;
 
             // 비밀번호 유효성 검사(숫자, 특수문자가 포함)
@@ -294,6 +295,7 @@ public class SignUpActivity extends AppCompatActivity {
             Matcher Msymbol = Psymbol.matcher(joinPWTxt);
             Matcher Malpha = Palpha.matcher(joinPWTxt);
 
+            // 비밀번호 유효성 검사
             if (!pattern.matcher(joinEmailTxt).matches()){
                 showTxt = "올바른 이메일을 입력해주세요.";
                 joinEmailBox.setError(showTxt);
@@ -368,6 +370,7 @@ public class SignUpActivity extends AppCompatActivity {
                 joinFocus = false;
             }
 
+            // 위의 조건들 중 하나 이상에 걸렸을 경우
             if (!showTxt.equals("")) {
                return;
             }
@@ -385,10 +388,12 @@ public class SignUpActivity extends AppCompatActivity {
         });
     }
 
+    // 비어있는 문자열인지 확인하는 함수
     private boolean hasTxt(TextInputEditText et){
         return (et.getText().toString().trim().length() > 0);
     }
 
+    // 프로필 사진 업로드시 작동하는 함수
     private void uploadImg() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("이미지 업로드").setMessage("아래 버튼을 클릭하여 이미지를 업로드 해주세요.");
@@ -408,10 +413,13 @@ public class SignUpActivity extends AppCompatActivity {
         alertDialog.show();
     }
 
+    // 사진 촬영 함수
     public void takePhoto() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(intent, 1);
     }
+
+    // 앨범 사진 선택 함수
     public void takeAlbum() {
         Intent intent = new Intent();
         intent.setType("image/*");
@@ -419,6 +427,7 @@ public class SignUpActivity extends AppCompatActivity {
         startActivityForResult(intent, 0);
     }
 
+    // 프로필 사진 업로드 함수
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data){
         super.onActivityResult(requestCode, resultCode, data);
@@ -439,7 +448,8 @@ public class SignUpActivity extends AppCompatActivity {
         }
     }
 
-    public boolean dateCompare(String str1, Date now_date){ // 비교할 날짜 (diaryTextView.getText()), 현재 날짜
+    // 날짜 비교 함수
+    public boolean dateCompare(String str1, Date now_date){ // 비교할 날짜, 현재 날짜
         SimpleDateFormat dateFormat1 = new SimpleDateFormat("yyyy-MM-dd");
         String now_str = dateFormat1.format(now_date); // date to String (format 조정)
         Date date = null;
@@ -460,6 +470,7 @@ public class SignUpActivity extends AppCompatActivity {
         }
     }
 
+    // 회원가입 함수
     private void signUp(String email, String pw, User user) {
         // 같은 계정으로 가입되어 있는게 있는지 체크
         db.collection("users").whereEqualTo("email", email).get()
@@ -492,6 +503,7 @@ public class SignUpActivity extends AppCompatActivity {
 
     }
 
+    // 계정 생성 함수
     private void pushAccount(String email, String pw, User user) {
         mAuth.createUserWithEmailAndPassword(email, pw)
             .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
