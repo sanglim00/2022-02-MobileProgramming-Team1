@@ -33,6 +33,7 @@ import ac.kr.kookmin.petdiary.models.Post;
 import ac.kr.kookmin.petdiary.models.User;
 
 public class MainActivity extends AppCompatActivity {
+    private long backpressedTime = 0;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     RecyclerView mainView;
     private MainRecyclerAdapter mainAdapter;
@@ -41,6 +42,17 @@ public class MainActivity extends AppCompatActivity {
     private String      current_tag = "dog";
 
     RadioGroup footer;
+
+    // 백버튼 두번 클릭시 앱 종료
+    @Override
+    public void onBackPressed() {
+        if (System.currentTimeMillis() > backpressedTime + 2000) {
+            backpressedTime = System.currentTimeMillis();
+            Toast.makeText(this, "뒤로가기 버튼을 한번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show();
+        } else if (System.currentTimeMillis() <= backpressedTime + 2000) {
+            finish();
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
