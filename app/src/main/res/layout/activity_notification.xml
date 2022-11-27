@@ -25,21 +25,65 @@
         android:id="@+id/notiRecyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
+        app:layout_constraintBottom_toTopOf="@+id/footer_menu"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/logo" />
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_navigation"
+    <RadioGroup
+        android:id="@+id/footer_menu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:itemBackground="@color/white"
-        app:itemIconTint="@color/black"
-        app:itemTextColor="@color/FCC73F"
-        app:layout_behavior="tech.thdev.app.view.BottomNavigationBehavior"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:menu="@menu/menu"
-        tools:layout_editor_absoluteX="4dp" />
+        android:backgroundTint="@color/white"
+        android:orientation="horizontal"
+        android:paddingLeft="10dp"
+        android:weightSum="5"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <RadioButton
+            android:id="@+id/menu_main"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:button="@drawable/main"
+            android:gravity="center"
+            android:text="메인" />
+
+        <RadioButton
+            android:id="@+id/menu_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:button="@drawable/search"
+            android:gravity="center"
+            android:text="검색" />
+
+        <RadioButton
+            android:id="@+id/menu_write"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:button="@drawable/writing"
+            android:gravity="center"
+            android:text="작성" />
+
+        <RadioButton
+            android:id="@+id/menu_noti"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:button="@drawable/noti"
+            android:gravity="center"
+            android:text="알림" />
+
+        <RadioButton
+            android:id="@+id/menu_user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:button="@drawable/user"
+            android:gravity="center"
+            android:text="유저" />
+    </RadioGroup>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

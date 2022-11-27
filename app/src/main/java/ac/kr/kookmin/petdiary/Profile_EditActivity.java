@@ -18,6 +18,8 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Button;
@@ -58,11 +60,12 @@ public class Profile_EditActivity extends AppCompatActivity {
     private Bitmap bit;
     private BitmapFactory.Options bitOption;
     boolean image_changed = false;
-    BottomNavigationView bottomNavigationView;
     String txt_gender = "";
     String uid;
 
     ImageButton openSetting;
+
+    RadioGroup footer;
 
 
     @Override
@@ -116,38 +119,6 @@ public class Profile_EditActivity extends AppCompatActivity {
 
 
 
-        bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation); // footer
-        bottomNavigationView.setSelectedItemId(R.id.action_five);
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                Intent intent;
-                if(item.getItemId() != R.id.action_five) finish();
-                switch (item.getItemId()) {
-                    case R.id.action_one:
-                        intent = new Intent(getApplicationContext(), MainActivity.class);
-                        startActivity(intent);
-                        return true;
-                    case R.id.action_two:
-                        intent = new Intent(getApplicationContext(), SearchActivity.class);
-                        startActivity(intent);
-                        return true;
-                    case R.id.action_three:
-                        intent = new Intent(getApplicationContext(), WritingActivity.class);
-                        startActivity(intent);
-                        return true;
-                    case R.id.action_four:
-                        intent = new Intent(getApplicationContext(), NotiActivity.class);
-                        startActivity(intent);
-                        return true;
-                    case R.id.action_five:
-                        return true;
-                }
-                return false;
-            }
-        });
-
-
 
         imgBtn_edit_editimage.setOnClickListener(new View.OnClickListener(){ // 프로필 사진 변경 버튼
             @Override
@@ -162,6 +133,7 @@ public class Profile_EditActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent_calendar = new Intent(Profile_EditActivity.this, calendarActivity.class);
+                intent_calendar.putExtra("current_date", et_edit_meetDate.getText().toString());
                 startActivityForResult(intent_calendar,102);
             }
         });
@@ -231,13 +203,43 @@ public class Profile_EditActivity extends AppCompatActivity {
         });
 
 
-
-
         imgBtn_setting.setOnClickListener(new View.OnClickListener() { // 환경설정 버튼 onclick
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Profile_EditActivity.this, SettingActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        RadioButton menu = findViewById(R.id.menu_user);
+        menu.setChecked(true);
+        footer = findViewById(R.id.footer_menu);
+        footer.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                Intent intent;
+                RadioButton menu = radioGroup.findViewById(i);
+                if(!menu.getText().equals("유저")) finish();
+
+                if(menu.getText().equals("메인")) {
+                    intent = new Intent(getApplicationContext(), MainActivity.class);
+                    startActivity(intent);
+                }
+                else if(menu.getText().equals("검색")) {
+                    intent = new Intent(getApplicationContext(), SearchActivity.class);
+                    startActivity(intent);
+                }
+                else if(menu.getText().equals("작성")) {
+                    intent = new Intent(getApplicationContext(), WritingActivity.class);
+                    startActivity(intent);
+                }
+                else if(menu.getText().equals("알림")) {
+                    intent = new Intent(getApplicationContext(), NotiActivity.class);
+                    startActivity(intent);
+                }
+
+                menu = findViewById(R.id.menu_user);
+                menu.setChecked(true);
             }
         });
 

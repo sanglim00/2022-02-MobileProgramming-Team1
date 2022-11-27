@@ -4,6 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,8 +23,7 @@ public class SearchActivity extends AppCompatActivity {
     // 검색 결과 유저를 recycleerview로 보여주기 위함
     RecyclerView searchView;
     SearchRecyclerAdapter searchAdapter;
-    // 푸터
-    BottomNavigationView bottomNavigationView;
+    RadioGroup footer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,49 +48,36 @@ public class SearchActivity extends AppCompatActivity {
         }
         searchAdapter.setSearchList(searchItems);
 
-        // 푸터 메뉴 클릭 시 이벤트
-        bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
-        // 클릭 시 현재 페이지인 푸터를 active 하게
-        bottomNavigationView.setSelectedItemId(R.id.action_two);
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+        RadioButton menu = findViewById(R.id.menu_search);
+        menu.setChecked(true);
+        footer = findViewById(R.id.footer_menu);
+        footer.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
                 Intent intent;
-                if(item.getItemId() != R.id.action_two) finish();
-                switch (item.getItemId()) {
-                    case R.id.action_one:
-                        intent = new Intent(getApplicationContext(), MainActivity.class);
-                        startActivity(intent);
-                        return true;
-                    case R.id.action_two:
-                        // 현재 페이지는 클릭되지 않도록
-                        return true;
-                    case R.id.action_three:
-                        intent = new Intent(getApplicationContext(), WritingActivity.class);
-                        startActivity(intent);
-                        return true;
-                    case R.id.action_four:
-                        intent = new Intent(getApplicationContext(), NotiActivity.class);
-                        startActivity(intent);
-                        return true;
-                    case R.id.action_five:
-                        intent = new Intent(getApplicationContext(), ProfileActivity.class);
-                        startActivity(intent);
-                        return true;
+                RadioButton menu = radioGroup.findViewById(i);
+                if(!menu.getText().equals("검색")) finish();
+
+                if(menu.getText().equals("메인")) {
+                    intent = new Intent(getApplicationContext(), MainActivity.class);
+                    startActivity(intent);
                 }
-                return false;
+                else if(menu.getText().equals("작성")) {
+                    intent = new Intent(getApplicationContext(), WritingActivity.class);
+                    startActivity(intent);
+                }
+                else if(menu.getText().equals("알림")) {
+                    intent = new Intent(getApplicationContext(), NotiActivity.class);
+                    startActivity(intent);
+                }
+                else if(menu.getText().equals("유저")) {
+                    intent = new Intent(getApplicationContext(), ProfileActivity.class);
+                    startActivity(intent);
+                }
+                menu = findViewById(R.id.menu_search);
+                menu.setChecked(true);
             }
         });
     }
 
-    @Override
-    public boolean onKeyDown(int keycode, KeyEvent event) {
-        bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
-        if( keycode == KeyEvent.KEYCODE_BACK) {
-            bottomNavigationView.setSelectedItemId(R.id.action_one);
-            return true;
-        }
-
-        return false;
-    }
 }
