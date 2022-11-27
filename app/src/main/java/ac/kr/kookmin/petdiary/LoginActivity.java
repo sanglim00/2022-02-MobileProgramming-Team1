@@ -70,8 +70,8 @@ public class LoginActivity extends AppCompatActivity {
 
         // 로그인 버튼 클릭
         login.setOnClickListener(view -> {
-            loginEmailTxt = loginEmail.getText().toString();
-            loginPWTxt = loginPW.getText().toString();
+            loginEmailTxt = loginEmail.getText().toString().replaceAll("\\s", "");
+            loginPWTxt = loginPW.getText().toString().replaceAll("\\s", "");
 
             Pattern pattern = Patterns.EMAIL_ADDRESS;
 

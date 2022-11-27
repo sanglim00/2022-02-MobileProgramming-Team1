@@ -169,7 +169,8 @@ public class SignUpActivity extends AppCompatActivity {
             alert.setPositiveButton("확인", (dialog, whichButton) -> {
                 String input = petType.getText().toString();
                 plus.setText(input);
-                joinPetType = input;
+                joinPetType = input.toLowerCase();
+                Toast.makeText(SignUpActivity.this, joinPetType, Toast.LENGTH_SHORT).show();
             });
             alert.setNegativeButton("취소",new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int whichButton) {
@@ -221,12 +222,12 @@ public class SignUpActivity extends AppCompatActivity {
 
             showTxt = "";
             // 문자열 추출
-            joinEmailTxt = joinEmail.getText().toString();
-            joinPWTxt = joinPW.getText().toString();
-            joinPWChkTxt = joinPWChk.getText().toString();
-            joinIDTxt = joinID.getText().toString();
-            joinPhoneTxt = joinPhone.getText().toString();
-            joinPetNameTxt = joinPetName.getText().toString();
+            joinEmailTxt = joinEmail.getText().toString().replaceAll("\\s", "");
+            joinPWTxt = joinPW.getText().toString().replaceAll("\\s", "");
+            joinPWChkTxt = joinPWChk.getText().toString().replaceAll("\\s", "");
+            joinIDTxt = joinID.getText().toString().replaceAll("\\s", "");
+            joinPhoneTxt = joinPhone.getText().toString().replaceAll("\\s", "");
+            joinPetNameTxt = joinPetName.getText().toString().replaceAll("\\s", "");
 
             // 모든 항목이 채워져 있는지 확인
             if (!(hasTxt(joinEmail) && hasTxt(joinPW) && hasTxt(joinPWChk) && hasTxt(joinID)
@@ -307,13 +308,8 @@ public class SignUpActivity extends AppCompatActivity {
                     joinPWBox.requestFocus();
                     joinFocus = true;
                 }
-            } else {
-                joinPWBox.setError(null);
-                joinFocus = false;
-            }
-
-            // 비밀번호 유효성 검사
-            if (!Msymbol.find() || !Malpha.find()) {
+            } else if (!Msymbol.find() || !Malpha.find()) {
+                // 비밀번호 유효성 검사
                 joinCheckPW = false;
                 showTxt = "비밀번호에 숫자, 특수문자, 대소문자가 포함되어야합니다.";
                 joinPWBox.setError(showTxt);
