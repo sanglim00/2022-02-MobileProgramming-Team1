@@ -86,18 +86,20 @@
                         android:layout_height="wrap_content"
                         android:text="E-MAIL"
                         android:textSize="13sp" />
+
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/til_joinEmail"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="370dp"
                         android:layout_height="wrap_content"
-                        android:textColorHint="#dcdcdc"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                        android:textColorHint="#dcdcdc">
+
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/tit_email"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:hint="이메일을 입력해주세요."
-                            android:inputType="text" />
+                            android:inputType="textEmailAddress" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <TextView
@@ -107,13 +109,15 @@
                         android:layout_marginTop="15dp"
                         android:text="PASSWORD"
                         android:textSize="13sp" />
+
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/til_joinPassword"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="370dp"
                         android:layout_height="wrap_content"
                         android:textColorHint="#dcdcdc"
-                        app:passwordToggleEnabled="true"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                        app:passwordToggleEnabled="true">
+
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/tit_password"
                             android:layout_width="match_parent"
@@ -129,13 +133,15 @@
                         android:layout_marginTop="15dp"
                         android:text="PASSWORD CHECK"
                         android:textSize="13sp" />
+
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/til_joinPasswordCheck"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="370dp"
                         android:layout_height="wrap_content"
                         android:textColorHint="#dcdcdc"
-                        app:passwordToggleEnabled="true"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                        app:passwordToggleEnabled="true">
+
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/tit_passwordCheck"
                             android:layout_width="match_parent"
@@ -151,12 +157,14 @@
                         android:layout_marginTop="15dp"
                         android:text="ID"
                         android:textSize="13sp" />
+
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/til_joinID"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="370dp"
                         android:layout_height="wrap_content"
-                        android:textColorHint="#dcdcdc"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                        android:textColorHint="#dcdcdc">
+
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/tit_id"
                             android:layout_width="match_parent"
@@ -172,18 +180,20 @@
                         android:layout_marginTop="15dp"
                         android:text="PHONE"
                         android:textSize="13sp" />
+
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/til_joinPhone"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="370dp"
                         android:layout_height="wrap_content"
-                        android:textColorHint="#dcdcdc"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                        android:textColorHint="#dcdcdc">
+
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/tit_phone"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:hint="전화번호를 입력해주세요."
-                            android:inputType="text" />
+                            android:inputType="text|phone" />
                     </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
             </LinearLayout>
