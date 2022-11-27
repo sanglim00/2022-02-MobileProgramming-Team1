@@ -147,9 +147,12 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
             content_img.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    int pos = getAdapterPosition();
                     Intent intent;
                     if (content_img.isPressed()) {
                         intent = new Intent(view.getContext(), PostDetailActivity.class);
+                        intent.putExtra("postId", mainList.get(pos).getUser_content_img_src());
+                        intent.putExtra("userId", mainList.get(pos).getUsername());
                         view.getContext().startActivity(intent);
                     }
                 }
