@@ -67,7 +67,7 @@ public class calendarActivity extends AppCompatActivity {
                     finish();
                 }
                 else{
-                    Toast.makeText(calendarActivity.this, "미래에 만날 아이들은 미래에 등록해주새요 !", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(calendarActivity.this, "미래에 만날 아이들은 미래에 등록해주세요!", Toast.LENGTH_SHORT).show();
                 }
 
             }

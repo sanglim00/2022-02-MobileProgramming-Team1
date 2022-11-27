@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -41,6 +42,9 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.io.File;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -68,6 +72,7 @@ public class SignUpActivity extends AppCompatActivity {
     File file;
     private Bitmap bit;
     private BitmapFactory.Options bitOption;
+    Date now_date;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,6 +123,8 @@ public class SignUpActivity extends AppCompatActivity {
         joinDateBox.setFocusable(true);
         bitOption = new BitmapFactory.Options();
         bitOption.inSampleSize = 4;
+        long now = System.currentTimeMillis();
+        now_date = new Date(now); // 현재 날짜
 
         // 프로필 사진 변경 버튼
         joinPfEdit.setOnClickListener(view -> {
@@ -205,7 +212,7 @@ public class SignUpActivity extends AppCompatActivity {
         // 만난 날짜 설정 함수
         joinMeetDate.setOnDateChangeListener((view, year, month, dayOfMonth) -> {
             joinCheckDate = true;
-            joinDate = String.format("%d/%d/%02d", year, month + 1, dayOfMonth);
+            joinDate = String.format("%d-%02d-%02d", year, month + 1, dayOfMonth);
         });
 
         // 개인정보 이용 동의 토글 함수
@@ -264,7 +271,7 @@ public class SignUpActivity extends AppCompatActivity {
                 showTxt = "개인정보 이용약관 동의가 필요합니다.";
                 joinPrivacyBox.setError(showTxt);
                 if (!joinFocus) {
-                    joinPrivacyBox.requestFocus();
+                    joinPrivacy.requestFocus();
                     joinFocus = true;
                 }
                 return;
@@ -347,6 +354,20 @@ public class SignUpActivity extends AppCompatActivity {
                 joinFocus = false;
             }
 
+            // 만난 날짜 유효성 검사
+            if(!dateCompare(joinDate, now_date)){
+                showTxt = "미래에 만날 아이들은 미래에 등록해주세요.";
+                joinDateBox.setError(showTxt);
+                if (!joinFocus) {
+                    joinDateBox.requestFocus();
+                    joinFocus = true;
+                }
+            } else {
+                joinCheckDate = true;
+                joinDateBox.setError(null);
+                joinFocus = false;
+            }
+
             if (!showTxt.equals("")) {
                return;
             }
@@ -415,6 +436,27 @@ public class SignUpActivity extends AppCompatActivity {
         }
         else {
             isImageSelected = false;
+        }
+    }
+
+    public boolean dateCompare(String str1, Date now_date){ // 비교할 날짜 (diaryTextView.getText()), 현재 날짜
+        SimpleDateFormat dateFormat1 = new SimpleDateFormat("yyyy-MM-dd");
+        String now_str = dateFormat1.format(now_date); // date to String (format 조정)
+        Date date = null;
+        Date date_now = null;
+        try{
+            date_now = dateFormat1.parse(now_str); // string to date(now, format 조정)
+            date = dateFormat1.parse(str1); // string to date
+        } catch (ParseException e){
+            e.printStackTrace();
+        }
+        int compare = date_now.compareTo(date);
+
+        if (compare < 0) {
+            return false;
+        }
+        else{
+            return true;
         }
     }
 
