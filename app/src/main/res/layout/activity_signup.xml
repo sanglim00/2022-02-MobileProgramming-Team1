@@ -116,7 +116,8 @@
                         android:layout_width="370dp"
                         android:layout_height="wrap_content"
                         android:textColorHint="#dcdcdc"
-                        app:passwordToggleEnabled="true">
+                        app:passwordToggleEnabled="true"
+                        app:errorIconDrawable="@null">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/tit_password"
@@ -140,7 +141,8 @@
                         android:layout_width="370dp"
                         android:layout_height="wrap_content"
                         android:textColorHint="#dcdcdc"
-                        app:passwordToggleEnabled="true">
+                        app:passwordToggleEnabled="true"
+                        app:errorIconDrawable="@null">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/tit_passwordCheck"
