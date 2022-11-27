@@ -47,6 +47,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="10dp"
+        android:paddingBottom="10dp"
         android:adjustViewBounds="true"
         android:scaleType="fitCenter"
         android:layout_below="@id/recycler_ID"
@@ -61,18 +62,18 @@
             android:layout_height="wrap_content"
             android:layout_gravity="left|center"
             android:id="@+id/recycler_like_btn"
-            android:src="@drawable/img_like_unactive"
+            android:src="@drawable/selector_btn_like_detail_post"
             android:background="@color/white"></ImageButton>
 
         <TextView
-            android:id="@+id/recycler_like_num"
+            android:id="@+id/recycler_main_like_text"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:layout_gravity="left|center"
             android:textSize="14dp"
             android:layout_marginLeft="6dp"
             android:textColor="@color/black"
-            android:text="0 people likes this post"
+            android:text="0"
             android:textStyle="bold"
             ></TextView>
 
