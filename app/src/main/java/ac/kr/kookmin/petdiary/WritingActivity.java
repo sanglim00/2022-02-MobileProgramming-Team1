@@ -129,13 +129,13 @@ public class WritingActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         // 앨범에서 선택 시
-        if(requestCode == 0 && requestCode == 0) {
+        if(requestCode == 0 && resultCode == RESULT_OK) {
             // load: 가져올 이미지, override: 이미지 크기 조정, into: 이미지를 출력할 객체
             Glide.with(getApplicationContext()).load(data.getData()).override(360, 360).into(uploadImg);
             isImageSelected = true;
         }
         // 카메라 구동하여 선택 시
-        else if (requestCode == 1 && requestCode == 1) {
+        else if (requestCode == 1 && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras(); // Bundle로 데이터를 입력
             Bitmap imageBitmap = (Bitmap) extras.get("data"); // Bitmap으로 컨버전
             uploadImg.setImageBitmap(imageBitmap);  // 이미지뷰에 Bitmap으로 이미지를 입력
