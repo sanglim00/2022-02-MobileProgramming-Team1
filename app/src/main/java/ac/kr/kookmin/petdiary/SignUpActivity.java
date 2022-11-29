@@ -295,7 +295,7 @@ public class SignUpActivity extends AppCompatActivity {
             Matcher Msymbol = Psymbol.matcher(joinPWTxt);
             Matcher Malpha = Palpha.matcher(joinPWTxt);
 
-            // 비밀번호 유효성 검사
+            // 이메일 유효성 검사
             if (!pattern.matcher(joinEmailTxt).matches()){
                 showTxt = "올바른 이메일을 입력해주세요.";
                 joinEmailBox.setError(showTxt);
