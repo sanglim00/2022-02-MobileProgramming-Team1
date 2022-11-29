@@ -22,6 +22,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -82,14 +84,19 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
         CircleImageView profile_img;
         TextView        username;
         ImageView       content_img;
-        ImageButton     like_btn;
+        ImageView       like_btn;
+        TextView        txt_like_main;
+        int str_like;
+        boolean isLiked = false; // 좋아요 여부
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             profile_img = (CircleImageView) itemView.findViewById(R.id.recycler_ID_pic);
             username = (TextView) itemView.findViewById(R.id.recycler_ID_text);
             content_img = (ImageView) itemView.findViewById(R.id.recycler_content_pic);
-            like_btn = (ImageButton) itemView.findViewById(R.id.recycler_like_btn);
+            txt_like_main = (TextView) itemView.findViewById(R.id.recycler_main_like_text);
+            like_btn = (ImageView) itemView.findViewById(R.id.recycler_like_btn);
+
             profile_img.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -137,11 +144,14 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
                 public void onClick(View view) {
                     like_btn.setSelected(!like_btn.isSelected());
                     if (like_btn.isSelected()) {
-                        like_btn.setImageResource(R.drawable.img_like_active);
+                        like_btn.setImageResource(R.drawable.btn_like_post_on);
                     }
                     else {
-                        like_btn.setImageResource(R.drawable.img_like_unactive);
+                        like_btn.setImageResource(R.drawable.btn_like_post_off);
                     }
+                    isLiked = isLiked == false ? true : false;
+                    str_like = isLiked == false ? str_like - 1 : str_like + 1;
+                    txt_like_main.setText(Integer.toString(str_like));
                 }
             });
             content_img.setOnClickListener(new View.OnClickListener() {

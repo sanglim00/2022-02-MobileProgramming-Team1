@@ -433,7 +433,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_marginTop="60dp">
+                android:layout_marginTop="60dp"
+                android:layout_marginBottom="40dp">
                 <Button
                     android:id="@+id/btn_completion"
                     android:layout_width="370dp"
