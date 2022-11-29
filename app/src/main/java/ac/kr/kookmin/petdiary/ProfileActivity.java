@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -65,6 +66,7 @@ public class ProfileActivity extends AppCompatActivity {
     String comment;
 
     RadioGroup footer;
+    ProgressBar progressBar;
 
     @Override
     protected void onStart() {
@@ -86,6 +88,7 @@ public class ProfileActivity extends AppCompatActivity {
         txt_pf_meetDate = findViewById(R.id.txt_pf_meetDate); // 프로필 layout - 만난 날짜
         txt_pf_one_line_info = findViewById(R.id.txt_pf_one_line_info); // 프로필 layout - 한줄 소개개
         img_pf = findViewById(R.id.img_pf);
+        progressBar = findViewById(R.id.profile_progress_bar);
 
         ImageButton imgBtn_setting = findViewById(R.id.imgBtn_setting); // 환경설정 버튼
         Button btn_edit_profile = findViewById(R.id.btn_pf_edit_profile); // 프로필 편집
@@ -210,6 +213,7 @@ public class ProfileActivity extends AppCompatActivity {
                                     adapter.addItem(new PostItem_Profile(doc.getId()));
                                 }
                             }
+                            progressBar.setVisibility(View.INVISIBLE);
                         }
                     }
                 });

@@ -23,6 +23,7 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -37,6 +38,7 @@ import ac.kr.kookmin.petdiary.models.User;
 public class MainActivity extends AppCompatActivity {
     private long backpressedTime = 0;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     RecyclerView mainView;
     private MainRecyclerAdapter mainAdapter;
     private RadioGroup  radio_tags;
@@ -201,13 +203,16 @@ public class MainActivity extends AppCompatActivity {
                                 Post post = doc.toObject(Post.class);
                                 String postId = doc.getId();
                                 String uid = post.getFrom();
+                                int likes = post.getLikes();
+                                boolean isLiked = post.getLikeUid().contains(mAuth.getCurrentUser().getUid());
+                                Log.d("like test", "" + isLiked);
                                 db.collection("users").document(uid).get()
                                     .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                         @Override
                                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                                             if (task.isSuccessful()) {
                                                 User user = task.getResult().toObject(User.class);
-                                                MainItemList item = new MainItemList(uid, user.getUserName(), uid, postId);
+                                                MainItemList item = new MainItemList(uid, user.getUserName(), uid, postId, likes, isLiked);
                                                 mainAdapter.addItem(item);
                                             }
                                         }

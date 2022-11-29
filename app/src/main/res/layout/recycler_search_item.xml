@@ -13,7 +13,7 @@
         android:id="@+id/profileImg"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:src="@drawable/ddaeng" />
+        android:src="@drawable/grey_default" />
 
     <LinearLayout
         android:layout_width="wrap_content"

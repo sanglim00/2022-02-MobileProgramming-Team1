@@ -118,7 +118,7 @@ public class PostDetailActivity extends AppCompatActivity {
                     public void run() {
                         try {
                             HttpURLConnection conn;
-                            URL url = new URL("http://10.0.2.2:8000/api/post/like");
+                            URL url = new URL("http://20.249.4.187/api/post/like");
 
                             conn = (HttpURLConnection) url.openConnection();
                             conn.setConnectTimeout(100000);
@@ -190,7 +190,7 @@ public class PostDetailActivity extends AppCompatActivity {
                     public void run() {
                         try {
                             HttpURLConnection conn;
-                            URL url = new URL("http://10.0.2.2:8000/api/post/comment");
+                            URL url = new URL("http://20.249.4.187/api/post/comment");
 
                             conn = (HttpURLConnection) url.openConnection();
                             conn.setConnectTimeout(100000);

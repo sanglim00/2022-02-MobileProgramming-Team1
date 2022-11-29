@@ -11,6 +11,7 @@ import android.view.WindowManager;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -55,6 +56,8 @@ public class Profile_OthersActivity extends AppCompatActivity {
 
     ImageButton openSetting;
 
+    ProgressBar progressBar;
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -77,6 +80,8 @@ public class Profile_OthersActivity extends AppCompatActivity {
         txt_pf_meetDate = findViewById(R.id.txt_pf_others_meetDate);
         txt_pf_one_line_info = findViewById(R.id.txt_pf_others_one_line_info);
         img_pf = findViewById(R.id.img_pf_others);
+
+        progressBar = findViewById(R.id.profile_other_progress_bar);
 
         ToggleButton btn_subcribe = findViewById(R.id.btn_pf_others_subcribe); // 구독 버튼
 
@@ -158,6 +163,7 @@ public class Profile_OthersActivity extends AppCompatActivity {
                                     adapter.addItem(new PostItem_Profile(doc.getId()));
                                 }
                             }
+                            progressBar.setVisibility(View.INVISIBLE);
                         }
                     }
                 });

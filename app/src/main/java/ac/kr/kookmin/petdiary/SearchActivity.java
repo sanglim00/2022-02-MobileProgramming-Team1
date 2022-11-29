@@ -5,47 +5,53 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
+import ac.kr.kookmin.petdiary.models.User;
+
 public class SearchActivity extends AppCompatActivity {
 
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+
     // 검색 결과 유저를 recycleerview로 보여주기 위함
+    SearchView search;
     RecyclerView searchView;
     SearchRecyclerAdapter searchAdapter;
     RadioGroup footer;
+    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-
+        search = findViewById(R.id.searchView);
         searchView = (RecyclerView) findViewById(R.id.searchRecyclerView);
 
         searchAdapter = new SearchRecyclerAdapter();
 
         searchView.setAdapter(searchAdapter);
         searchView.setLayoutManager(new LinearLayoutManager(this));
+        search.setSubmitButtonEnabled(true);
 
         ArrayList<SearchItem> searchItems = new ArrayList<>();
-        for(int i = 1; i <= 20; i++){
-            if (i % 3 == 0)
-                searchItems.add(new SearchItem("my._.ddaengsun", "지겨운 견생....", ""));
-            else if (i % 3 == 1)
-                searchItems.add(new SearchItem("__catvely__", "캣타워 사줄 때까지 숨참는 중...", ""));
-            else
-                searchItems.add(new SearchItem("gae_ggum", "개껌조아 너무조아", ""));
-        }
         searchAdapter.setSearchList(searchItems);
 
         RadioButton menu = findViewById(R.id.menu_search);
@@ -76,6 +82,46 @@ public class SearchActivity extends AppCompatActivity {
                 }
                 menu = findViewById(R.id.menu_search);
                 menu.setChecked(true);
+            }
+        });
+
+        progressBar = findViewById(R.id.search_progress_bar);
+
+        search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                searchAdapter.clearSearchItem();
+                searchAdapter.setProgressBar(progressBar);
+                progressBar.setVisibility(View.VISIBLE);
+                db.collection("users").whereGreaterThanOrEqualTo("userName", query).get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    if (task.getResult().size() <= 0) {
+                                        Toast.makeText(SearchActivity.this, "검색결과가 없습니다.", Toast.LENGTH_SHORT).show();
+                                        progressBar.setVisibility(View.INVISIBLE);
+                                        return;
+                                    }
+                                    for(QueryDocumentSnapshot doc : task.getResult()) {
+                                        if (doc.exists()) {
+                                            User user = doc.toObject(User.class);
+                                            String comment = user.getComment();
+                                            SearchItem item = new SearchItem(user.getUserName(), comment == null || comment.length() == 0 ? "한 줄 소개가 없습니다." : comment, doc.getId());
+                                            searchAdapter.addSearchItem(item);
+                                        }
+                                    }
+                                } else {
+                                    progressBar.setVisibility(View.INVISIBLE);
+                                }
+                            }
+                        });
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
             }
         });
     }
