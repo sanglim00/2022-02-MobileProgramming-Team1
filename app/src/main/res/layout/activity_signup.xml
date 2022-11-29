@@ -1,22 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
+    android:orientation="vertical"
     tools:context=".SignUpActivity">
+
+    <ProgressBar
+        android:id="@+id/signup_progress_bar"
+        android:visibility="invisible"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:elevation="5dp"
+        android:indeterminateTint="#FCCE48"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ScrollView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -65,14 +81,14 @@
 
                 <TextView
                     android:id="@+id/tv_personInfo"
+                    style="@style/Hyperlink"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:paddingBottom="10dp"
                     android:text="Person Info"
                     android:textColor="@color/black"
                     android:textSize="20sp"
-                    android:textStyle="bold"
-                    android:paddingBottom="10dp"
-                    style="@style/Hyperlink" />
+                    android:textStyle="bold" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -116,8 +132,8 @@
                         android:layout_width="370dp"
                         android:layout_height="wrap_content"
                         android:textColorHint="#dcdcdc"
-                        app:passwordToggleEnabled="true"
-                        app:errorIconDrawable="@null">
+                        app:errorIconDrawable="@null"
+                        app:passwordToggleEnabled="true">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/tit_password"
@@ -141,8 +157,8 @@
                         android:layout_width="370dp"
                         android:layout_height="wrap_content"
                         android:textColorHint="#dcdcdc"
-                        app:passwordToggleEnabled="true"
-                        app:errorIconDrawable="@null">
+                        app:errorIconDrawable="@null"
+                        app:passwordToggleEnabled="true">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/tit_passwordCheck"
@@ -171,9 +187,9 @@
                             android:id="@+id/tit_id"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:digits="0123456789_.qwertzuiopasdfghjklyxcvbnm"
                             android:hint="아이디를 입력해주세요."
-                            android:inputType="text"
-                            android:digits="0123456789_.qwertzuiopasdfghjklyxcvbnm" />
+                            android:inputType="text" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <TextView
@@ -209,14 +225,14 @@
 
                 <TextView
                     android:id="@+id/tv_petInfo"
+                    style="@style/Hyperlink"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:paddingBottom="10dp"
                     android:text="Pet Info"
                     android:textColor="@color/black"
                     android:textSize="20sp"
-                    android:textStyle="bold"
-                    android:paddingBottom="10dp"
-                    style="@style/Hyperlink" />
+                    android:textStyle="bold" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -230,12 +246,14 @@
                         android:layout_height="wrap_content"
                         android:text="NAME"
                         android:textSize="13sp" />
+
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/til_joinPetName"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="370dp"
                         android:layout_height="wrap_content"
-                        android:textColorHint="#dcdcdc"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                        android:textColorHint="#dcdcdc">
+
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/tit_petName"
                             android:layout_width="match_parent"
@@ -250,77 +268,80 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="15dp"
                         android:text="PET TYPE" />
+
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/til_joinPetType"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
+
                         <RadioGroup
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal">
+
                             <RadioButton
                                 android:id="@+id/btn_petType1"
                                 android:layout_width="70dp"
                                 android:layout_height="50dp"
-                                android:gravity="center"
                                 android:layout_marginEnd="5dp"
                                 android:background="@drawable/radio_btn_color"
+                                android:button="@null"
+                                android:gravity="center"
                                 android:text="DOG"
                                 android:textColor="@drawable/radio_btn_text"
                                 android:textSize="15sp"
-                                android:textStyle="bold"
-                                android:button="@null" />
+                                android:textStyle="bold" />
 
                             <RadioButton
                                 android:id="@+id/btn_petType2"
                                 android:layout_width="70dp"
                                 android:layout_height="50dp"
-                                android:gravity="center"
                                 android:layout_marginEnd="5dp"
                                 android:background="@drawable/radio_btn_color"
+                                android:button="@null"
+                                android:gravity="center"
                                 android:text="CAT"
                                 android:textColor="@drawable/radio_btn_text"
                                 android:textSize="15sp"
-                                android:textStyle="bold"
-                                android:button="@null" />
+                                android:textStyle="bold" />
 
                             <RadioButton
                                 android:id="@+id/btn_petType3"
                                 android:layout_width="70dp"
                                 android:layout_height="50dp"
-                                android:gravity="center"
                                 android:layout_marginEnd="5dp"
                                 android:background="@drawable/radio_btn_color"
+                                android:button="@null"
+                                android:gravity="center"
                                 android:text="FISH"
                                 android:textColor="@drawable/radio_btn_text"
                                 android:textSize="15sp"
-                                android:textStyle="bold"
-                                android:button="@null" />
+                                android:textStyle="bold" />
 
                             <RadioButton
                                 android:id="@+id/btn_petType4"
                                 android:layout_width="70dp"
                                 android:layout_height="50dp"
-                                android:gravity="center"
                                 android:layout_marginEnd="5dp"
                                 android:background="@drawable/radio_btn_color"
+                                android:button="@null"
+                                android:gravity="center"
                                 android:text="PIG"
                                 android:textColor="@drawable/radio_btn_text"
                                 android:textSize="15sp"
-                                android:textStyle="bold"
-                                android:button="@null" />
+                                android:textStyle="bold" />
 
                             <RadioButton
                                 android:id="@+id/btn_petType5"
                                 android:layout_width="70dp"
                                 android:layout_height="50dp"
-                                android:gravity="center"
                                 android:background="@drawable/radio_btn_color"
+                                android:button="@null"
+                                android:gravity="center"
                                 android:text="+"
                                 android:textColor="@drawable/radio_btn_text"
                                 android:textSize="15sp"
-                                android:textStyle="bold"
-                                android:button="@null" />
+                                android:textStyle="bold" />
                         </RadioGroup>
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -329,12 +350,14 @@
                         android:id="@+id/tv_petGender"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="GENDER"
-                        android:layout_marginTop="15dp" />
+                        android:layout_marginTop="15dp"
+                        android:text="GENDER" />
+
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/til_joinPetGender"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
+
                         <Spinner
                             android:id="@+id/spinner_petGender"
                             android:layout_width="match_parent"
@@ -347,10 +370,12 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="15dp"
                         android:text="MEET DATE" />
+
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/til_joinMeetDate"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
+
                         <CalendarView
                             android:id="@+id/cv_meetDate"
                             android:layout_width="wrap_content"
@@ -362,26 +387,27 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
+                android:layout_marginTop="20dp"
                 android:gravity="center"
-                android:layout_marginTop="20dp">
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/tv_privacyUsage"
+                    style="@style/Hyperlink"
                     android:layout_width="370dp"
                     android:layout_height="wrap_content"
+                    android:paddingBottom="10dp"
                     android:text="개인정보 이용 동의                                    ▽"
                     android:textColor="@color/black"
                     android:textSize="20sp"
-                    android:textStyle="bold"
-                    android:paddingBottom="10dp"
-                    style="@style/Hyperlink" />
+                    android:textStyle="bold" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/til_joinPrivacy"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp">
+
                     <TextView
                         android:id="@+id/tv_privacyUsageText"
                         android:layout_width="370dp"
@@ -397,13 +423,14 @@
 -동의를 거부할 권리 및 동의를 거부할 경우의 불이익-\n
 ‍위의 개인정보 수집 및 이용에 대한 동의를 거부할 권리가 있으나 동의를 거부할 경우 ‘반려일지’ 서비스 제공에 제한 등 불이익을 받을 수 있습니다."
                         android:textStyle="bold"
-                        android:visibility="gone"/>
+                        android:visibility="gone" />
+
                     <RadioGroup
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
                         android:layout_marginTop="15dp"
                         android:gravity="right"
+                        android:orientation="horizontal"
                         tools:ignore="RtlHardcoded">
 
                         <RadioButton
@@ -432,31 +459,32 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
                 android:layout_marginTop="60dp"
-                android:layout_marginBottom="40dp">
+                android:layout_marginBottom="40dp"
+                android:orientation="vertical">
+
                 <Button
                     android:id="@+id/btn_completion"
                     android:layout_width="370dp"
                     android:layout_height="55dp"
+                    android:backgroundTint="#FCC73F"
                     android:text="회원가입 완료하기"
-                    android:textSize="13sp"
-                    android:textStyle="bold"
                     android:textColor="@color/black"
-                    android:backgroundTint="#FCC73F" />
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
 
                 <Button
                     android:id="@+id/btn_back"
                     android:layout_width="370dp"
                     android:layout_height="55dp"
+                    android:backgroundTint="@color/white"
                     android:text="뒤로가기"
+                    android:textColor="@color/black"
                     android:textSize="13sp"
                     android:textStyle="bold"
-                    android:textColor="@color/black"
-                    android:backgroundTint="@color/white"
                     app:strokeColor="#FCC73F"
-                    app:strokeWidth="2dp"/>
+                    app:strokeWidth="2dp" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

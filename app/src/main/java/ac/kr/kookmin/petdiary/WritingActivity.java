@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -58,6 +59,8 @@ public class WritingActivity extends AppCompatActivity {
     boolean isImageSelected = false;    // 이미지 유무 여부
     boolean permitToDownload = false;   // 사진 다운로드 허용 여부
 
+    ProgressBar progressBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,6 +75,8 @@ public class WritingActivity extends AppCompatActivity {
                 UploadImg();
             }
         });
+
+        progressBar = findViewById(R.id.writing_progress_bar);
 
         File sdcard = Environment.getExternalStorageDirectory();
         file = new File(sdcard, "capture.jpg");
@@ -147,6 +152,7 @@ public class WritingActivity extends AppCompatActivity {
     }
 
     public void UploadPost(View view) {
+        progressBar.setVisibility(View.VISIBLE);
         if (!isImageSelected) {
             Toast.makeText(this, "이미지를 선택해주세요.", Toast.LENGTH_SHORT).show();
             return;
@@ -178,12 +184,14 @@ public class WritingActivity extends AppCompatActivity {
                                 uploadTask.addOnFailureListener(new OnFailureListener() {
                                     @Override
                                     public void onFailure(@NonNull Exception e) {
+                                        progressBar.setVisibility(View.INVISIBLE);
                                         // 사진 업로드 실패 시,
                                     }
                                 }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                                     @Override
                                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                                         // 사진 업로드 성공 시,
+                                        progressBar.setVisibility(View.INVISIBLE);
                                         Toast.makeText(WritingActivity.this, "업로드가 완료되었습니다!", Toast.LENGTH_SHORT).show();
                                         finish();
                                     }

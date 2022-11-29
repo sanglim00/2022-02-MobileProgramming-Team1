@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -18,6 +19,7 @@ import android.widget.CalendarView;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -40,7 +42,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -73,6 +79,7 @@ public class SignUpActivity extends AppCompatActivity {
     private Bitmap bit;
     private BitmapFactory.Options bitOption;
     Date now_date;
+    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,6 +132,7 @@ public class SignUpActivity extends AppCompatActivity {
         bitOption.inSampleSize = 4;
         long now = System.currentTimeMillis();
         now_date = new Date(now); // 현재 날짜
+        progressBar = findViewById(R.id.signup_progress_bar);
 
         // 프로필 사진 변경 버튼
         joinPfEdit.setOnClickListener(view -> {
@@ -226,7 +234,6 @@ public class SignUpActivity extends AppCompatActivity {
 
         // 회원가입 완료하기 버튼 클릭 함수
         completion.setOnClickListener(view -> {
-
             showTxt = "";
             // 문자열 추출
             joinEmailTxt = joinEmail.getText().toString().replaceAll("\\s", "");
@@ -471,6 +478,7 @@ public class SignUpActivity extends AppCompatActivity {
 
     // 회원가입 함수
     private void signUp(String email, String pw, User user) {
+        progressBar.setVisibility(View.VISIBLE);
         // 같은 계정으로 가입되어 있는게 있는지 체크
         db.collection("users").whereEqualTo("email", email).get()
             .addOnCompleteListener(this, new OnCompleteListener<QuerySnapshot>() {
@@ -480,6 +488,7 @@ public class SignUpActivity extends AppCompatActivity {
                         for (QueryDocumentSnapshot doc : task.getResult()) {
                             if (doc.exists()) {
                                 Toast.makeText(SignUpActivity.this, "이미 회원가입 된 유저입니다. 로그인 해주세요.", Toast.LENGTH_SHORT).show();
+                                progressBar.setVisibility(View.INVISIBLE);
                                 return;
                             }
                         }
@@ -490,6 +499,7 @@ public class SignUpActivity extends AppCompatActivity {
                                     for (QueryDocumentSnapshot doc : task.getResult()) {
                                         if (doc.exists()) {
                                             Toast.makeText(SignUpActivity.this, "이미 존재하는 아이디입니다. 다른 아이디를 사용해주세요.", Toast.LENGTH_SHORT).show();
+                                            progressBar.setVisibility(View.INVISIBLE);
                                             return;
                                         }
                                     }
@@ -515,24 +525,55 @@ public class SignUpActivity extends AppCompatActivity {
                                     @Override
                                     public void onSuccess(Void unused) {
                                         Log.d("201", "User DocumentSnapshot Id: " + mAuth.getCurrentUser().getUid());
-                                        Toast.makeText(SignUpActivity.this, "회원가입에 성공하였습니다.", Toast.LENGTH_SHORT).show();
-                                        Intent intentSign = new Intent(getApplication(), LoginActivity.class);
-                                        startActivity(intentSign);
-                                        finish();
+                                        if(isImageSelected) uploadProfile(mAuth.getCurrentUser().getUid());
+                                        else {
+                                            progressBar.setVisibility(View.INVISIBLE);
+                                            Toast.makeText(SignUpActivity.this, "회원가입에 성공하였습니다.", Toast.LENGTH_SHORT).show();
+                                            Intent intentSign = new Intent(getApplication(), LoginActivity.class);
+                                            startActivity(intentSign);
+                                            finish();
+                                        }
                                     }
                                 })
                                 .addOnFailureListener(new OnFailureListener() {
                                     @Override
                                     public void onFailure(@NonNull Exception e) {
+                                        progressBar.setVisibility(View.INVISIBLE);
                                         Log.w("500", "Error Adding User Document", e);
                                     }
                                 });
                     } else {
                         // 실패 시,
                         Toast.makeText(SignUpActivity.this, "회원가입에 실패하였습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
+                        progressBar.setVisibility(View.INVISIBLE);
                     }
                 }
             });
+    }
+
+    private void uploadProfile(String uid) {
+        StorageReference profile = FirebaseStorage.getInstance().getReference().child("profiles/" + uid);
+        joinProfile.setDrawingCacheEnabled(true);
+        joinProfile.buildDrawingCache();
+        Bitmap bitmap = ((BitmapDrawable) joinProfile.getDrawable()).getBitmap();
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] data = baos.toByteArray();
+        profile.putBytes(data).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(SignUpActivity.this, "프로필 사진 업로드에 실패하였습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
+                progressBar.setVisibility(View.INVISIBLE);
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                Toast.makeText(SignUpActivity.this, "회원가입에 성공하였습니다.", Toast.LENGTH_SHORT).show();
+                Intent intentSign = new Intent(getApplication(), LoginActivity.class);
+                startActivity(intentSign);
+                finish();
+            }
+        });
     }
 
 }

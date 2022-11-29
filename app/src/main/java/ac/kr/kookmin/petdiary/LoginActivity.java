@@ -6,7 +6,9 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
+import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -37,6 +39,7 @@ public class LoginActivity extends AppCompatActivity {
     Button login, sign;
     String showTxt, loginEmailTxt, loginPWTxt;
     public boolean loginCheckEmail;
+    ProgressBar progressBar;
 
     // 이메일, 비밀번호 입력되었는지 확인
     private boolean hasTxt(TextInputEditText et){
@@ -58,9 +61,11 @@ public class LoginActivity extends AppCompatActivity {
         sign = findViewById(R.id.btn_signup);
         showTxt = "";
         loginCheckEmail = true;
+        progressBar = findViewById(R.id.login_progress_bar);
 
         // 로그인 버튼 클릭
         login.setOnClickListener(view -> {
+            progressBar.setVisibility(View.VISIBLE);
             loginEmailTxt = loginEmail.getText().toString().replaceAll("\\s", "");
             loginPWTxt = loginPW.getText().toString().replaceAll("\\s", "");
 
@@ -114,6 +119,7 @@ public class LoginActivity extends AppCompatActivity {
                         loginEmailBox.setError(toastMsg);
                         loginPWBox.setError(toastMsg);
                     }
+                    progressBar.setVisibility(View.INVISIBLE);
                 }
             });
     }

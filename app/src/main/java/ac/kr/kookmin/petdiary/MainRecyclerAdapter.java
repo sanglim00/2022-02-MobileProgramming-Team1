@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.AsyncTask;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,8 +25,12 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import org.json.JSONObject;
 import org.w3c.dom.Text;
 
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -154,16 +160,59 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
             like_btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    like_btn.setSelected(!like_btn.isSelected());
-                    if (like_btn.isSelected()) {
-                        like_btn.setImageResource(R.drawable.btn_like_post_on);
-                    }
-                    else {
-                        like_btn.setImageResource(R.drawable.btn_like_post_off);
-                    }
+                    int pos = getAdapterPosition();
+                    view.setActivated(!view.isActivated());
                     isLiked = isLiked == false ? true : false;
                     str_like = isLiked == false ? str_like - 1 : str_like + 1;
                     txt_like_main.setText(Integer.toString(str_like));
+
+                    AsyncTask.execute(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                HttpURLConnection conn;
+                                URL url = new URL("http://20.249.4.187/api/post/like");
+
+                                conn = (HttpURLConnection) url.openConnection();
+                                conn.setConnectTimeout(100000);
+                                conn.setReadTimeout(100000);
+
+                                conn.setRequestMethod("POST");
+
+                                // 타입설정
+                                conn.setRequestProperty("Content-Type", "application/json");
+                                conn.setRequestProperty("Accept", "application/json");
+
+                                // OutputStream으로 Post 데이터를 넘겨주겠다는 옵션
+                                conn.setDoOutput(true);
+
+                                // InputStream으로 서버로 부터 응답을 받겠다는 옵션
+                                conn.setDoInput(true);
+
+                                // 서버로 전달할 Json객체 생성
+                                JSONObject json = new JSONObject();
+
+                                // Json객체에 유저의 name, phone, address 값 세팅
+                                // Json의 파라미터는 Key, Value 형식
+                                json.put("uid", mAuth.getCurrentUser().getUid());
+                                json.put("postId", mainList.get(pos).getUser_content_img_src());
+
+                                // Request Body에 데이터를 담기위한 OutputStream 객체 생성
+                                OutputStream outputStream;
+                                outputStream = conn.getOutputStream();
+                                outputStream.write(json.toString().getBytes());
+                                outputStream.flush();
+
+                                // 실제 서버로 Request 요청 하는 부분 (응답 코드를 받음, 200은 성공, 나머지 에러)
+                                int response = conn.getResponseCode();
+
+                                conn.disconnect();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+
                 }
             });
             content_img.setOnClickListener(new View.OnClickListener() {
@@ -182,7 +231,11 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
         }
         void onBind(MainItemList item) {
             username.setText(item.getUsername());
-
+            isLiked = item.isLiked();
+            Log.d("like test2", "" + isLiked);
+            str_like = item.getLikes();
+            like_btn.setActivated(isLiked);
+            txt_like_main.setText(Integer.toString(item.getLikes()));
             Context ctx = this.itemView.getContext();
             StorageReference post = storage.getReference().child("images/" + item.getUser_content_img_src());
             StorageReference profile = storage.getReference().child("profiles/" + item.getUser_icon_img_src());

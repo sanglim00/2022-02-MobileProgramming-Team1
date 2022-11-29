@@ -18,6 +18,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
@@ -67,12 +68,16 @@ public class Profile_EditActivity extends AppCompatActivity {
 
     RadioGroup footer;
 
+    ProgressBar progressBar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_edit);
         checkSelfPermission();
+
+        progressBar = findViewById(R.id.profile_edit_progress_bar);
 
         bitOption = new BitmapFactory.Options();
         bitOption.inSampleSize = 4;
@@ -164,6 +169,7 @@ public class Profile_EditActivity extends AppCompatActivity {
         btn_edit_complete.setOnClickListener(new View.OnClickListener() { // 편집 완료 버튼 onclick
             @Override
             public void onClick(View view) {
+                progressBar.setVisibility(View.VISIBLE);
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
                 String name = et_edit_name.getText().toString();
                 String gender = txt_gender;
@@ -189,6 +195,7 @@ public class Profile_EditActivity extends AppCompatActivity {
                         } else {
                             Intent intent = new Intent();
                             setResult(0, intent);
+                            progressBar.setVisibility(View.INVISIBLE);
                             finish();
                         }
                     }
@@ -196,6 +203,7 @@ public class Profile_EditActivity extends AppCompatActivity {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Toast.makeText(Profile_EditActivity.this, "변경에 실패하였습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
+                        progressBar.setVisibility(View.INVISIBLE);
                     }
                 });
 
@@ -382,12 +390,14 @@ public class Profile_EditActivity extends AppCompatActivity {
             public void onFailure(@NonNull Exception e) {
                 // 사진 업로드 실패 시,
                 Toast.makeText(Profile_EditActivity.this, "프로필 사진 변경에 실패하였습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
+                progressBar.setVisibility(View.INVISIBLE);
             }
         }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 Intent intent = new Intent();
                 setResult(0, intent);
+                progressBar.setVisibility(View.INVISIBLE);
                 finish();
             }
         });
