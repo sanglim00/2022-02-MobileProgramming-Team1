@@ -224,6 +224,7 @@ public class ProfileActivity extends AppCompatActivity {
                 @Override
                 public void onSuccess(DocumentSnapshot documentSnapshot) {
                     User userDoc = documentSnapshot.toObject(User.class);
+                    adapter.setUserName(userDoc.getUserName());
                     initProfileData(userDoc, user.getUid());
                 }
             })

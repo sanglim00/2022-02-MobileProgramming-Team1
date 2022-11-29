@@ -1,6 +1,7 @@
 package ac.kr.kookmin.petdiary;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.view.View;
 import android.widget.ImageButton;
@@ -25,11 +26,9 @@ public class ViewHolder_Post_Profile extends RecyclerView.ViewHolder{
         super(itemView);
         img_post = itemView.findViewById(R.id.img_button_post);
 
-
-
     }
 
-    public void onBind(PostItem_Profile data){
+    public void onBind(PostItem_Profile data, String userName){
         Context ctx = this.itemView.getContext();
         StorageReference post = storage.getReference().child("images/" + data.getImage());
         post.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
@@ -41,6 +40,15 @@ public class ViewHolder_Post_Profile extends RecyclerView.ViewHolder{
                             .load(task.getResult())
                             .into(img_post);
                 }
+            }
+        });
+        img_post.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), PostDetailActivity.class);
+                intent.putExtra("postId", data.image);
+                intent.putExtra("userId", userName);
+                view.getContext().startActivity(intent);
             }
         });
     }

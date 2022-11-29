@@ -53,7 +53,7 @@ public class PetDiaryFCMService extends FirebaseMessagingService {
 
         builder.setContentTitle(title)
                 .setContentText(body)
-                .setSmallIcon(R.drawable.ic_launcher_background);
+                .setSmallIcon(R.mipmap.ic_main);
 
         Notification notification = builder.build();
         notificationManagerCompat.notify(1, notification);

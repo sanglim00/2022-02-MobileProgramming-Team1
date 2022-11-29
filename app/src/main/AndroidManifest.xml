@@ -18,6 +18,7 @@
         android:roundIcon="@mipmap/ic_main_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PetDiary"
+        android:usesCleartextTraffic="true"
 
         tools:targetApi="31"
         android:requestLegacyExternalStorage="true"

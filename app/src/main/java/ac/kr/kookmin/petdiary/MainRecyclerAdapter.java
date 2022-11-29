@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,6 +35,10 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
     private FirebaseStorage storage = FirebaseStorage.getInstance();
 
     private ArrayList<MainItemList> mainList = new ArrayList<>();
+
+    ProgressBar progressBar;
+    RecyclerView recyclerView;
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -58,6 +63,7 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
     }
 
     public void clearMainList() {
+        recyclerView.setVisibility(View.INVISIBLE);
         mainList.clear();
         notifyDataSetChanged();
     }
@@ -66,6 +72,13 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
         mainList.add(item);
         notifyDataSetChanged();
     }
+
+    public void setProgressBar(ProgressBar progressBar) {
+        this.progressBar = progressBar;
+    }
+
+    public void setRecyclerView(RecyclerView recyclerView) { this.recyclerView = recyclerView; }
+
 // 아직 사용 안함
     interface OnItemClickListener {
         void onItemClick(View v, int position);
@@ -77,7 +90,6 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
     public void setOnItemClickListener(OnItemClickListener listener) {
         this.mListener = listener;
     }
-//
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -179,18 +191,26 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
                 @Override
                 public void onComplete(@NonNull Task<Uri> postTask) {
                     if (postTask.isSuccessful()) {
+                        if (((Activity) ctx). isFinishing()) return;
+                        Glide.with(ctx)
+                                .load(postTask.getResult())
+                                .into(content_img);
                         profile.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
                             @Override
                             public void onComplete(@NonNull Task<Uri> profileTask) {
                                 if (profileTask.isSuccessful()) {
                                     if (((Activity) ctx).isFinishing()) return;
                                     Glide.with(ctx)
-                                            .load(postTask.getResult())
-                                            .into(content_img);
-                                    Glide.with(ctx)
                                             .load(profileTask.getResult())
                                             .into(profile_img);
+                                } else {
+                                    if (((Activity) ctx).isFinishing()) return;
+                                    Glide.with(ctx)
+                                            .load(R.drawable.default_profile)
+                                            .into(profile_img);
                                 }
+                                progressBar.setVisibility(View.INVISIBLE);
+                                recyclerView.setVisibility(View.VISIBLE);
                             }
                         });
                     }

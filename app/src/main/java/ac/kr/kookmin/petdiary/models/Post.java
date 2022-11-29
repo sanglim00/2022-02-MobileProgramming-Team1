@@ -69,4 +69,12 @@ public class Post {
     public void setLikeUid(ArrayList<String> likeUid) {
         this.likeUid = likeUid;
     }
+
+    public ArrayList<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(ArrayList<Comment> comments) {
+        this.comments = comments;
+    }
 }

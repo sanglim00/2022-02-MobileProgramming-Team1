@@ -35,6 +35,14 @@ public class Comment_RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVi
     void addItem(Comment_Item data) {
         // 외부에서 item을 추가시킬 함수입니다.
         listData.add(data);
+        notifyDataSetChanged();
+    }
+
+    void changeItem(Comment_Item data) {
+        int lastIndex = this.getItemCount();
+        listData.remove(lastIndex - 1);
+        listData.add(data);
+        notifyDataSetChanged();
     }
 
 
