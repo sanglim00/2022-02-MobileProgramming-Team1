@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -67,21 +68,20 @@ public class PostDetailActivity extends AppCompatActivity {
     View comment_view;
 
     Button btn_addComment;
-
     EditText et_Comment;
 
     Comment_RecyclerViewAdapter adapter;
     int str_like;
     boolean isLiked = false; // 좋아요 여부
 
-
+    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_post);
         init();
-
+        progressBar = (ProgressBar) findViewById(R.id.detail_progress_bar);
         img_profile_detail_post = findViewById(R.id.img_profile_detail_post);
         img_detail_post = findViewById(R.id.img_detail_post);
 
@@ -242,7 +242,7 @@ public class PostDetailActivity extends AppCompatActivity {
     }
 
     private void initPostDetail(String postId, String userId) {
-
+        progressBar.setVisibility(View.VISIBLE);
         if (postId != null && userId != null) {
             db.collection("posts").document(postId).get()
                     .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -283,6 +283,7 @@ public class PostDetailActivity extends AppCompatActivity {
                                                                 .load(R.drawable.default_profile)
                                                                 .into(img_profile_detail_post);
                                                     }
+                                                    progressBar.setVisibility(View.INVISIBLE);
                                                 }
                                             });
                                         }

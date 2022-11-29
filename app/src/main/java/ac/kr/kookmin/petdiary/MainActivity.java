@@ -14,6 +14,7 @@ import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -42,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
     private RadioButton extraBtn;
     private String      current_tag = "dog";
 
+    ProgressBar progressBar;
+
     RadioGroup footer;
 
     // 백버튼 두번 클릭시 앱 종료
@@ -60,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        progressBar = (ProgressBar) findViewById(R.id.detail_progress_bar);
         ArrayList<MainItemList> mainItems = new ArrayList<>();
         mainView = (RecyclerView) findViewById(R.id.mainRecycler);
         radio_tag_btn = (RadioButton) findViewById(R.id.btn_main_petType1);
@@ -175,12 +179,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void RecyclerItemUpdate() {
+        mainView.setVisibility(View.INVISIBLE);
+        progressBar.setVisibility(View.VISIBLE);
+        mainAdapter.setProgressBar(progressBar);
+        mainAdapter.setRecyclerView(mainView);
         mainAdapter.clearMainList();
         db.collection("posts").whereEqualTo("petType", current_tag).get()
             .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
                     if (task.isSuccessful()) {
+                        if (task.getResult().size() <= 0) {
+                            progressBar.setVisibility(View.INVISIBLE);
+                            Toast.makeText(MainActivity.this, "아직까지 작성 된 게시물이 없습니다.", Toast.LENGTH_SHORT).show();
+                        }
                         for(QueryDocumentSnapshot doc : task.getResult()) {
                             if (doc.exists()) {
                                 Log.d("help", "살려줘");
