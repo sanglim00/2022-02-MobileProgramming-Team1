@@ -160,8 +160,8 @@ public class MainActivity extends AppCompatActivity {
     public void setExtraTag() {
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
 
-        alert.setTitle("태그 추가");
-        alert.setMessage("태그를 입력하세요.");
+        alert.setTitle("Pet Type Add");
+        alert.setMessage("추가할 Pet Type를 적어주세요.");
 
         final EditText inputTag = new EditText(this);
         alert.setView(inputTag);
@@ -198,10 +198,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                         for(QueryDocumentSnapshot doc : task.getResult()) {
                             if (doc.exists()) {
-                                Log.d("help", "살려줘");
                                 Post post = doc.toObject(Post.class);
-                                Log.d("help", doc.getId());
-                                Log.d("help", post.getContent());
                                 String postId = doc.getId();
                                 String uid = post.getFrom();
                                 db.collection("users").document(uid).get()
