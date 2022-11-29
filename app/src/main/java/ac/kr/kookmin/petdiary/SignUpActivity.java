@@ -178,7 +178,6 @@ public class SignUpActivity extends AppCompatActivity {
                 String input = petType.getText().toString();
                 plus.setText(input);
                 joinPetType = input.toLowerCase();
-                Toast.makeText(SignUpActivity.this, joinPetType, Toast.LENGTH_SHORT).show();
             });
             alert.setNegativeButton("취소",new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int whichButton) {
