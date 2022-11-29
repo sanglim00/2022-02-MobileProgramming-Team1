@@ -168,7 +168,7 @@ public class SignUpActivity extends AppCompatActivity {
             joinBtnCheck = true;
             AlertDialog.Builder alert = new AlertDialog.Builder(this);
             alert.setTitle("Pet Type Add");
-            alert.setMessage("추가할 Pet Type를 적어주세요.");
+            alert.setMessage("추가할 Pet Type을 적어주세요.");
             final EditText petType = new EditText(this);
             InputFilter[] FilterArray = new InputFilter[1];
             FilterArray[0] = new InputFilter.LengthFilter(8); //글자수 제한
