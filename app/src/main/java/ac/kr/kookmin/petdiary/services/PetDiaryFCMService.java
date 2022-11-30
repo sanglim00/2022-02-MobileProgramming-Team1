@@ -12,8 +12,15 @@ import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
+import com.google.common.reflect.TypeToken;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
+import com.google.gson.Gson;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import ac.kr.kookmin.petdiary.R;
 
@@ -50,6 +57,18 @@ public class PetDiaryFCMService extends FirebaseMessagingService {
 
         String title = message.getNotification().getTitle();
         String body = message.getNotification().getBody();
+        Map<String, String> data = message.getData();
+        SharedPreferences preferences = getSharedPreferences("notification", Activity.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        Gson gson = new Gson();
+        String json = preferences.getString("notifications", "");
+        Type type = new TypeToken<List<ac.kr.kookmin.petdiary.models.Notification>>(){}.getType();
+        List<ac.kr.kookmin.petdiary.models.Notification> notiList = gson.fromJson(json, type);
+        if (notiList == null) notiList = new ArrayList<>();
+        notiList.add(new ac.kr.kookmin.petdiary.models.Notification(title, body, data.get("senderUid"), data.get("postId"), data.get("postId")));
+        String newNoti = gson.toJson(notiList);
+        editor.putString("notifications", newNoti);
+        editor.commit();
 
         builder.setContentTitle(title)
                 .setContentText(body)

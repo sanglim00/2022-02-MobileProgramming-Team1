@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.MenuItem;
@@ -13,8 +15,12 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.common.reflect.TypeToken;
+import com.google.gson.Gson;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.List;
 
 import ac.kr.kookmin.petdiary.models.Notification;
 
@@ -37,18 +43,15 @@ public class NotiActivity extends AppCompatActivity {
         notiView.setLayoutManager(new LinearLayoutManager(this));
 
         ArrayList<Notification> notiItems = new ArrayList<>();
-
-        for(int i = 1; i <= 20; i++){
-            if (i % 3 == 0)
-                notiItems.add(new Notification("좋아요 알림", "h._.gunn님이 회원님의 게시물을 좋아합...", "", "", i + ""));
-            else if (i % 3 == 1)
-                notiItems.add(new Notification("게시물 알림", "h._.gunn님이 회원님의 게시물에 댓글을...", "", "", i + ""));
-            else
-                notiItems.add(new Notification("구독 알림", "h._.gunn님의 새로운 게시물.", "", "", i + ""));
+        SharedPreferences preferences = getSharedPreferences("notification", Activity.MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = preferences.getString("notifications", "");
+        Type type = new TypeToken<List<Notification>>(){}.getType();
+        List<ac.kr.kookmin.petdiary.models.Notification> notiList = gson.fromJson(json, type);
+        if (notiList != null) {
+            notiItems.addAll(notiList);
+            notiAdapter.setNotiList(notiItems);
         }
-        notiAdapter.setNotiList(notiItems);
-
-
 
         RadioButton menu = findViewById(R.id.menu_noti);
         menu.setChecked(true);
