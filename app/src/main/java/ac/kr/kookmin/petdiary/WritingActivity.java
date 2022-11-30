@@ -6,6 +6,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
+import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -22,6 +24,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -38,9 +41,14 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import org.json.JSONObject;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.Date;
 
 import ac.kr.kookmin.petdiary.models.Post;
@@ -193,7 +201,7 @@ public class WritingActivity extends AppCompatActivity {
                                     @Override
                                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                                         // 사진 업로드 성공 시,
-                                        progressBar.setVisibility(View.INVISIBLE);
+                                        pushNotification(mAuth.getCurrentUser().getUid(), documentReference.getId());
                                         Toast.makeText(WritingActivity.this, "업로드가 완료되었습니다!", Toast.LENGTH_SHORT).show();
                                         finish();
                                     }
@@ -211,6 +219,47 @@ public class WritingActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    public void pushNotification(String uid, String postId) {
+        AsyncTask.execute(new Runnable() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public void run() {
+                try {
+                    HttpURLConnection conn;
+                    URL url = new URL("http://20.249.4.187/api/subscribe/new?uid=" + uid + "&postId" + postId);
+
+                    conn = (HttpURLConnection) url.openConnection();
+                    conn.setConnectTimeout(100000);
+                    conn.setReadTimeout(100000);
+
+                    conn.setRequestMethod("GET");
+
+                    // 타입설정
+                    conn.setRequestProperty("Content-Type", "application/json");
+                    conn.setRequestProperty("Accept", "application/json");
+
+                    // OutputStream으로 Post 데이터를 넘겨주겠다는 옵션
+                    conn.setDoOutput(true);
+
+                    // InputStream으로 서버로 부터 응답을 받겠다는 옵션
+                    conn.setDoInput(true);
+
+                    // 실제 서버로 Request 요청 하는 부분 (응답 코드를 받음, 200은 성공, 나머지 에러)
+                    int response = conn.getResponseCode();
+
+                    if (response != 201) {
+                        Toast.makeText(WritingActivity.this, "구독 알림에 실패하였습니다.", Toast.LENGTH_SHORT).show();
+                    }
+                    conn.disconnect();
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                progressBar.setVisibility(View.INVISIBLE);
+            }
+        });
     }
 
 }
