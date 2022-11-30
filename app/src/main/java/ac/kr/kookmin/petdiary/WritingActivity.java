@@ -228,32 +228,22 @@ public class WritingActivity extends AppCompatActivity {
             public void run() {
                 try {
                     HttpURLConnection conn;
-                    URL url = new URL("http://20.249.4.187/api/subscribe/new?uid=" + uid + "&postId" + postId);
-
+                    URL url = new URL("http://20.249.4.187/api/subscribe/new?uid=" + uid + "&postId=" + postId);
+                    Log.d("url", url.toString());
                     conn = (HttpURLConnection) url.openConnection();
                     conn.setConnectTimeout(100000);
                     conn.setReadTimeout(100000);
 
-                    conn.setRequestMethod("GET");
-
                     // 타입설정
                     conn.setRequestProperty("Content-Type", "application/json");
                     conn.setRequestProperty("Accept", "application/json");
-
-                    // OutputStream으로 Post 데이터를 넘겨주겠다는 옵션
-                    conn.setDoOutput(true);
 
                     // InputStream으로 서버로 부터 응답을 받겠다는 옵션
                     conn.setDoInput(true);
 
                     // 실제 서버로 Request 요청 하는 부분 (응답 코드를 받음, 200은 성공, 나머지 에러)
                     int response = conn.getResponseCode();
-
-                    if (response != 201) {
-                        Toast.makeText(WritingActivity.this, "구독 알림에 실패하였습니다.", Toast.LENGTH_SHORT).show();
-                    }
                     conn.disconnect();
-
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

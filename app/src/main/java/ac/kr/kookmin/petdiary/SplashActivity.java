@@ -32,7 +32,10 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_splash);
-        if (mAuth.getCurrentUser() != null) isActive = true;
+        if (mAuth.getCurrentUser() != null) {
+            isActive = true;
+            fcmTokenRegister(mAuth.getCurrentUser().getUid());
+        }
         Handler hd = new Handler();
         hd.postDelayed(new splashhandler(), 3000); // 1초 후에 hd handler 실행  3000ms = 3초
 
@@ -51,7 +54,7 @@ public class SplashActivity extends AppCompatActivity {
         //초반 플래시 화면에서 넘어갈때 뒤로가기 버튼 못누르게 함
     }
 
-    private void fcmTokenRegisterAndStartMain(String uid) {
+    private void fcmTokenRegister(String uid) {
         final User[] user = new User[1];
         db.collection("users").document(uid).get()
                 .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
@@ -79,9 +82,6 @@ public class SplashActivity extends AppCompatActivity {
                                         }
                                     });
                         }
-                        Intent intentSign = new Intent(getApplication(), MainActivity.class);
-                        startActivity(intentSign);
-                        finish();
                     }
                 });
 

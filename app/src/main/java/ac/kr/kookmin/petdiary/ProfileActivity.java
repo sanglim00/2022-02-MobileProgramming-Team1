@@ -260,7 +260,6 @@ public class ProfileActivity extends AppCompatActivity {
                     Glide.with(ProfileActivity.this)
                             .load(task.getResult())
                             .into(img_pf);
-                    if (adapter.getItemCount() == 0) initPostData(uid);
                 } else {
                     if (ProfileActivity.this.isFinishing())
                         return;
@@ -268,6 +267,7 @@ public class ProfileActivity extends AppCompatActivity {
                             .load(R.drawable.default_profile)
                             .into(img_pf);
                 }
+                if (adapter.getItemCount() == 0) initPostData(uid);
             }
         });
 

@@ -41,6 +41,7 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'de.hdodenhof:circleimageview:3.1.0'
     implementation 'com.google.firebase:firebase-storage:20.0.0'
+    implementation 'com.google.code.gson:gson'
     // Core SplashScreen
     implementation 'androidx.core:core-splashscreen:1.0.0-alpha02'
 
