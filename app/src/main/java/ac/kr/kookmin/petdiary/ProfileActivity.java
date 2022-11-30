@@ -38,6 +38,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
@@ -203,7 +204,7 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private void initPostData(String uid) {
-        db.collection("posts").whereEqualTo("from", uid).get()
+        db.collection("posts").whereEqualTo("from", uid).orderBy("time", Query.Direction.DESCENDING).get()
                 .addOnCompleteListener(this, new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {

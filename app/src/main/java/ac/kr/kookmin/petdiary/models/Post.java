@@ -1,5 +1,7 @@
 package ac.kr.kookmin.petdiary.models;
 
+import com.google.firebase.Timestamp;
+
 import java.util.ArrayList;
 
 public class Post {
@@ -10,16 +12,18 @@ public class Post {
     private String petType;
     private ArrayList<String> likeUid = new ArrayList<>();
     private ArrayList<Comment> comments = new ArrayList<>();
+    private Timestamp time;
 
     public Post() {
 
     }
 
-    public Post(String from, String content, boolean acceptDown, String petType) {
+    public Post(String from, String content, boolean acceptDown, String petType, Timestamp time) {
         this.from = from;
         this.content = content;
         this.acceptDown = acceptDown;
         this.petType = petType;
+        this.time = time;
     }
 
     public String getFrom() {
@@ -76,5 +80,13 @@ public class Post {
 
     public void setComments(ArrayList<Comment> comments) {
         this.comments = comments;
+    }
+
+    public Timestamp getTime() {
+        return time;
+    }
+
+    public void setTime(Timestamp time) {
+        this.time = time;
     }
 }

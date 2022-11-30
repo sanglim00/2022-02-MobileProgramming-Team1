@@ -29,6 +29,7 @@ import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -40,6 +41,7 @@ import com.google.firebase.storage.UploadTask;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.InputStream;
+import java.util.Date;
 
 import ac.kr.kookmin.petdiary.models.Post;
 import ac.kr.kookmin.petdiary.models.User;
@@ -164,7 +166,7 @@ public class WritingActivity extends AppCompatActivity {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 User user = documentSnapshot.toObject(User.class);
-                Post post = new Post(mAuth.getCurrentUser().getUid(), postContents.getText().toString(), true, user.getPetType());
+                Post post = new Post(mAuth.getCurrentUser().getUid(), postContents.getText().toString(), true, user.getPetType(), new Timestamp(new Date()));
                 db.collection("posts").add(post)
                         .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                             @Override
