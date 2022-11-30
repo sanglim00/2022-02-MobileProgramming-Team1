@@ -2,6 +2,8 @@ package ac.kr.kookmin.petdiary;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -15,9 +17,11 @@ import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -28,6 +32,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
@@ -36,12 +41,22 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.stream.Collectors;
+
 import ac.kr.kookmin.petdiary.models.User;
 
 
 public class Profile_OthersActivity extends AppCompatActivity {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private FirebaseStorage storage = FirebaseStorage.getInstance();
+    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     boolean issubcribed = false;
     TextView txt_pf_name;
     TextView txt_pf_gender;
@@ -58,6 +73,10 @@ public class Profile_OthersActivity extends AppCompatActivity {
     ImageButton openSetting;
 
     ProgressBar progressBar;
+
+    ToggleButton btn_subcribe;
+
+    String uid;
 
     @Override
     protected void onStart() {
@@ -84,7 +103,7 @@ public class Profile_OthersActivity extends AppCompatActivity {
 
         progressBar = findViewById(R.id.profile_other_progress_bar);
 
-        ToggleButton btn_subcribe = findViewById(R.id.btn_pf_others_subcribe); // 구독 버튼
+        btn_subcribe = findViewById(R.id.btn_pf_others_subcribe); // 구독 버튼
 
         openSetting = findViewById(R.id.imgBtn_setting);
         openSetting.setOnClickListener(new View.OnClickListener() {
@@ -96,15 +115,64 @@ public class Profile_OthersActivity extends AppCompatActivity {
         });
 
 
-        btn_subcribe.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() { // 구독 버튼
+        btn_subcribe.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean ischecked) {
-                if(ischecked){
-                    issubcribed = true;
-                }
-                else{
-                    issubcribed = false;
-                }
+            public void onClick(View view) {
+                Log.d("test", "" + btn_subcribe.isChecked());
+                progressBar.setVisibility(View.VISIBLE);
+                AsyncTask.execute(new Runnable() {
+                    @RequiresApi(api = Build.VERSION_CODES.N)
+                    @Override
+                    public void run() {
+                        try {
+                            HttpURLConnection conn;
+                            URL url = new URL("http://20.249.4.187/api/subscribe");
+
+                            conn = (HttpURLConnection) url.openConnection();
+                            conn.setConnectTimeout(100000);
+                            conn.setReadTimeout(100000);
+
+                            conn.setRequestMethod("POST");
+
+                            // 타입설정
+                            conn.setRequestProperty("Content-Type", "application/json");
+                            conn.setRequestProperty("Accept", "application/json");
+
+                            // OutputStream으로 Post 데이터를 넘겨주겠다는 옵션
+                            conn.setDoOutput(true);
+
+                            // InputStream으로 서버로 부터 응답을 받겠다는 옵션
+                            conn.setDoInput(true);
+
+                            // 서버로 전달할 Json객체 생성
+                            JSONObject json = new JSONObject();
+
+                            // Json객체에 유저의 name, phone, address 값 세팅
+                            // Json의 파라미터는 Key, Value 형식
+                            json.put("uid", mAuth.getCurrentUser().getUid());
+                            json.put("ownerUid", uid);
+
+                            // Request Body에 데이터를 담기위한 OutputStream 객체 생성
+                            OutputStream outputStream;
+                            outputStream = conn.getOutputStream();
+                            outputStream.write(json.toString().getBytes());
+                            outputStream.flush();
+
+                            // 실제 서버로 Request 요청 하는 부분 (응답 코드를 받음, 200은 성공, 나머지 에러)
+                            int response = conn.getResponseCode();
+
+                            if (response != 201) {
+                                Toast.makeText(Profile_OthersActivity.this, "구독에 실패하였습니다.", Toast.LENGTH_SHORT).show();
+                                btn_subcribe.setChecked(false);
+                            }
+                            conn.disconnect();
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        progressBar.setVisibility(View.INVISIBLE);
+                    }
+                });
             }
         });
 
@@ -173,6 +241,7 @@ public class Profile_OthersActivity extends AppCompatActivity {
 
     private void setProfileData(String uid) {
         if (uid == null) return;
+        this.uid = uid;
         db.collection("users").document(uid).get()
                 .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
@@ -197,7 +266,8 @@ public class Profile_OthersActivity extends AppCompatActivity {
         txt_pf_gender.setText(user.getGender());
         txt_pf_meetDate.setText(user.getPetBirth());
         txt_pf_one_line_info.setText(comment == null || comment.equals("") ? "한 줄 소개가 없습니다." : user.getComment());
-
+        issubcribed = user.getFollower() == null ? false : user.getFollower().contains(mAuth.getUid());
+        btn_subcribe.setChecked(issubcribed);
         StorageReference profile = storage.getReference().child("profiles/" + uid);
 
         profile.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
