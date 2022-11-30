@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
     private RadioButton radio_tag_btn;
     private RadioButton extraBtn;
     private String      current_tag = "dog";
+    private int         extra_status = 0;
 
     ProgressBar progressBar;
 
@@ -83,7 +84,10 @@ public class MainActivity extends AppCompatActivity {
         extraBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setExtraTag();
+                if (extra_status > 1)
+                    setExtraTag();
+                else if (extra_status == 1)
+                    extra_status++;
             }
         });
 
@@ -128,20 +132,28 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.btn_main_petType1:
                         current_tag = "dog";
                         RecyclerItemUpdate();
+                        extra_status = 0;
                         break;
                     case R.id.btn_main_petType2:
                         current_tag = "cat";
                         RecyclerItemUpdate();
+                        extra_status = 0;
                         break;
                     case R.id.btn_main_petType3:
                         current_tag = "fish";
                         RecyclerItemUpdate();
+                        extra_status = 0;
                         break;
                     case R.id.btn_main_petType4:
                         current_tag = "pig";
                         RecyclerItemUpdate();
+                        extra_status = 0;
                         break;
                     case R.id.btn_main_petType_extra:
+                        current_tag = extraBtn.getText().toString();
+                        if (current_tag.equals("+"))
+                            extra_status++;
+                        extra_status++;
                         break;
                 }
             }
@@ -164,7 +176,7 @@ public class MainActivity extends AppCompatActivity {
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
 
         alert.setTitle("Pet Type Add");
-        alert.setMessage("추가할 Pet Type를 적어주세요.");
+        alert.setMessage("추가할 Pet Type을 적어주세요.");
 
         final EditText inputTag = new EditText(this);
         alert.setView(inputTag);
@@ -173,6 +185,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                  current_tag = inputTag.getText().toString().toLowerCase();
+                 extraBtn.setText(current_tag);
                  RecyclerItemUpdate();
             }
         });
