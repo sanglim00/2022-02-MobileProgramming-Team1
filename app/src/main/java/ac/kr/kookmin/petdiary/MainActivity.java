@@ -26,6 +26,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -189,7 +190,7 @@ public class MainActivity extends AppCompatActivity {
         mainAdapter.setProgressBar(progressBar);
         mainAdapter.setRecyclerView(mainView);
         mainAdapter.clearMainList();
-        db.collection("posts").whereEqualTo("petType", current_tag).get()
+        db.collection("posts").whereEqualTo("petType", current_tag).orderBy("time", Query.Direction.DESCENDING).get()
             .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<QuerySnapshot> task) {

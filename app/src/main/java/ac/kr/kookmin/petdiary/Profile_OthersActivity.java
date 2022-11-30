@@ -30,6 +30,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
@@ -153,7 +154,7 @@ public class Profile_OthersActivity extends AppCompatActivity {
     }
 
     private void initPostData(String uid) {
-        db.collection("posts").whereEqualTo("from", uid).get()
+        db.collection("posts").whereEqualTo("from", uid).orderBy("time", Query.Direction.DESCENDING).get()
                 .addOnCompleteListener(this, new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
