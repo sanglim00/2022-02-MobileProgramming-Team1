@@ -153,6 +153,7 @@ public class MainActivity extends AppCompatActivity {
                         current_tag = extraBtn.getText().toString();
                         if (current_tag.equals("+"))
                             extra_status++;
+                        RecyclerItemUpdate();
                         extra_status++;
                         break;
                 }
