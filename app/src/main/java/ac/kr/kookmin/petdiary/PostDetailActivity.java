@@ -74,7 +74,7 @@ public class PostDetailActivity extends AppCompatActivity {
     Comment_RecyclerViewAdapter adapter;
     int str_like;
     boolean isLiked = false; // 좋아요 여부
-
+    boolean canDownloadImg = false;
     ProgressBar progressBar;
 
     @Override
@@ -167,8 +167,13 @@ public class PostDetailActivity extends AppCompatActivity {
         imgbtn_download_img_detail_post.setOnClickListener(new View.OnClickListener() { // 이미지 다운로드 버튼
             @Override
             public void onClick(View view) {
-                Toast.makeText(PostDetailActivity.this, "다운로드가 완료되었습니다.",Toast.LENGTH_SHORT).show();
-                saveImageToGallery();
+                if(canDownloadImg) {
+                    Toast.makeText(PostDetailActivity.this, "다운로드가 완료되었습니다.", Toast.LENGTH_SHORT).show();
+                    saveImageToGallery();
+                }
+                else{
+                    Toast.makeText(PostDetailActivity.this, "작성자가 이미지 다운로드를 허용하지 않았습니다.", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -242,6 +247,7 @@ public class PostDetailActivity extends AppCompatActivity {
         });
 
 
+
     }
 
     private void initPostDetail(String postId, String userId) {
@@ -257,6 +263,7 @@ public class PostDetailActivity extends AppCompatActivity {
                                 txt_content_detail_post.setText(post.getContent());
                                 txt_like_detail_post.setText(post.getLikes() + "");
                                 str_like = post.getLikes();
+                                canDownloadImg = post.isAcceptDown();
                                 isLiked = post.getLikeUid().contains(mAuth.getCurrentUser().getUid());
                                 imgbtn_like_detail_post.setActivated(isLiked);
                                 for (Comment comment : post.getComments()) {
@@ -301,6 +308,7 @@ public class PostDetailActivity extends AppCompatActivity {
                         }
                     });
         }
+
     }
 
     private void init(){
