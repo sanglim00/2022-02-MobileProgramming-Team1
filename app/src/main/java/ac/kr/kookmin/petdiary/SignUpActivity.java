@@ -18,7 +18,6 @@ import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.Spinner;
@@ -71,7 +70,7 @@ public class SignUpActivity extends AppCompatActivity {
     public String showTxt, joinEmailTxt, joinPWTxt, joinPWChkTxt, joinIDTxt, joinPhoneTxt,
             joinPetNameTxt, joinPetType, joinGender, joinDate;
     String[] items = {"성별을 선택해주세요.", "남 (♂)", "여 (♀)", "공개 안 함"};
-    boolean isImageSelected, joinCheckEmail, joinCheckPW, joinCheckPhone, joinBtnCheck, joinCheckGender, joinCheckDate, joinFocus;
+    boolean isImageSelected, joinBtnCheck, joinCheckGender, joinCheckDate, joinFocus;
     int control;
     private FirebaseAuth mAuth;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -118,16 +117,13 @@ public class SignUpActivity extends AppCompatActivity {
         accept = findViewById(R.id.btn_accept);
         completion = findViewById(R.id.btn_completion);
         back = findViewById(R.id.btn_back);
-        showTxt = "";
         isImageSelected = false;
-        joinCheckEmail = false;
-        joinCheckPW = false;
-        joinCheckPhone = false;
         joinBtnCheck = false;
         joinCheckGender = false;
         joinCheckDate = false;
         joinFocus = false;
         joinDateBox.setFocusable(true);
+        control = 0;
         bitOption = new BitmapFactory.Options();
         bitOption.inSampleSize = 4;
         long now = System.currentTimeMillis();
@@ -234,7 +230,6 @@ public class SignUpActivity extends AppCompatActivity {
 
         // 회원가입 완료하기 버튼 클릭 함수
         completion.setOnClickListener(view -> {
-            showTxt = "";
             // 문자열 추출
             joinEmailTxt = joinEmail.getText().toString().replaceAll("\\s", "");
             joinPWTxt = joinPW.getText().toString().replaceAll("\\s", "");
@@ -243,51 +238,13 @@ public class SignUpActivity extends AppCompatActivity {
             joinPhoneTxt = joinPhone.getText().toString().replaceAll("\\s", "");
             joinPetNameTxt = joinPetName.getText().toString().replaceAll("\\s", "");
 
-            // 모든 항목이 채워져 있는지 확인
-            if (!(hasTxt(joinEmail) && hasTxt(joinPW) && hasTxt(joinPWChk) && hasTxt(joinID)
-                    && hasTxt(joinPhone) && hasTxt(joinPetName) && joinBtnCheck && joinCheckGender
-                    && joinCheckDate)) {
-                showTxt = "모든 항목을 채워주세요.";
-                joinEmailBox.setError(showTxt);
-                joinPWBox.setError(showTxt);
-                joinPWChkBox.setError(showTxt);
-                joinIDBox.setError(showTxt);
-                joinPhoneBox.setError(showTxt);
-                joinPetNameBox.setError(showTxt);
-                joinTypeBox.setError(showTxt);
-                joinGenderBox.setError(showTxt);
-                joinDateBox.setError(showTxt);
-                joinEmailBox.requestFocus();
-                joinFocus = true;
-                return;
-            } else {
-                joinEmailBox.setError(null);
-                joinPWBox.setError(null);
-                joinPWChkBox.setError(null);
-                joinIDBox.setError(null);
-                joinPhoneBox.setError(null);
-                joinPetNameBox.setError(null);
-                joinTypeBox.setError(null);
-                joinGenderBox.setError(null);
-                joinDateBox.setError(null);
-                joinFocus = false;
-            }
+            // TextInputLayout Focus 주기 위한 초기화
+            joinTypeBox.setFocusableInTouchMode(true);
+            joinGenderBox.setFocusableInTouchMode(true);
+            joinDateBox.setFocusableInTouchMode(true);
+            joinPrivacyBox.setFocusableInTouchMode(true);
 
-            // 개인정보 동의 여부 확인
-            if (!accept.isChecked()) {
-                showTxt = "개인정보 이용약관 동의가 필요합니다.";
-                joinPrivacyBox.setError(showTxt);
-                if (!joinFocus) {
-                    joinPrivacy.requestFocus();
-                    joinFocus = true;
-                }
-                return;
-            } else {
-                joinPrivacyBox.setError(null);
-                joinFocus = false;
-            }
-
-            // 이메일 유효성 검사(이메일 형식 맞는지 확인)
+            // 이메일 유효성 검사(이메일 형식이 맞는지 확인)
             Pattern pattern = Patterns.EMAIL_ADDRESS;
 
             // 비밀번호 유효성 검사(숫자, 특수문자가 포함)
@@ -301,71 +258,143 @@ public class SignUpActivity extends AppCompatActivity {
             Matcher Msymbol = Psymbol.matcher(joinPWTxt);
             Matcher Malpha = Palpha.matcher(joinPWTxt);
 
-            // 이메일 유효성 검사
-            if (!pattern.matcher(joinEmailTxt).matches()){
-                showTxt = "올바른 이메일을 입력해주세요.";
-                joinEmailBox.setError(showTxt);
+            // '이메일' 조건 확인
+            if (!hasTxt(joinEmail)){
+                joinEmailBox.setError("항목을 채워주세요.");
+                if (!joinFocus) {
+                    joinEmailBox.requestFocus();
+                    joinFocus = true;
+                }
+            } else if (!pattern.matcher(joinEmailTxt).matches()){
+                joinEmailBox.setError("올바른 이메일을 입력해주세요.");
                 if (!joinFocus) {
                     joinEmailBox.requestFocus();
                     joinFocus = true;
                 }
             } else {
-                joinCheckEmail = true;
                 joinEmailBox.setError(null);
                 joinFocus = false;
             }
 
-            // 비밀번호 5글자 이상 입력되었는지 확인
-            if (joinPWTxt.length() < 5) {
-                showTxt = "비밀번호는 5글자 이상 입력해주세요.";
-                joinPWBox.setError(showTxt);
+            // '비밀번호' 조건 확인
+            if (!hasTxt(joinPW)){
+                joinPWBox.setError("항목을 채워주세요.");
+                if (!joinFocus) {
+                    joinPWBox.requestFocus();
+                    joinFocus = true;
+                }
+            } else if (joinPWTxt.length() < 5) {
+                joinPWBox.setError("비밀번호는 5글자 이상 입력해주세요.");
                 if (!joinFocus) {
                     joinPWBox.requestFocus();
                     joinFocus = true;
                 }
             } else if (!Msymbol.find() || !Malpha.find()) {
-                // 비밀번호 유효성 검사
-                showTxt = "비밀번호에 숫자, 특수문자, 대소문자가 포함되어야합니다.";
-                joinPWBox.setError(showTxt);
-                joinPWBox.requestFocus();
-                if (!joinFocus) {
-                    joinPWBox.requestFocus();
-                    joinFocus = true;
-                }
-            } else if (!joinPWTxt.equals(joinPWChkTxt)){
-                // 비밀번호와 비밀번호 확인 일치여부 확인
-                showTxt = "두 비밀번호가 다릅니다.";
-                joinPWBox.setError(showTxt);
-                joinPWChkBox.setError(showTxt);
+                joinPWBox.setError("비밀번호에 숫자, 특수문자, 대소문자가 포함되어야합니다.");
                 if (!joinFocus) {
                     joinPWBox.requestFocus();
                     joinFocus = true;
                 }
             } else {
-                joinCheckPW = true;
+                joinPWBox.setError(null);
+                joinFocus = false;
+            }
+
+            // '비밀번호 확인' 조건 확인
+            if (!hasTxt(joinPWChk)){
+                joinPWChkBox.setError("항목을 채워주세요.");
+                if (!joinFocus) {
+                    joinEmailBox.requestFocus();
+                    joinFocus = true;
+                }
+            } else if (!joinPWTxt.equals(joinPWChkTxt)){
+                joinPWBox.setError("두 비밀번호가 다릅니다.");
+                joinPWChkBox.setError("두 비밀번호가 다릅니다.");
+                if (!joinFocus) {
+                    joinPWBox.requestFocus();
+                    joinFocus = true;
+                }
+            } else {
                 joinPWBox.setError(null);
                 joinPWChkBox.setError(null);
                 joinFocus = false;
             }
 
-            // 전화번호 유효성 검사
-            if (!Pattern.matches("^01(?:0|1|[6-9])(?:\\d{3}|\\d{4})\\d{4}$", joinPhoneTxt)) {
-                showTxt = "올바른 전화번호를 입력해주세요.";
-                joinPhoneBox.setError(showTxt);
+            // '아이디' 조건 확인
+            if (!hasTxt(joinID)) {
+                joinIDBox.setError("항목을 채워주세요.");
+                if (!joinFocus) {
+                    joinIDBox.requestFocus();
+                    joinFocus = true;
+                }
+            } else {
+                joinIDBox.setError(null);
+                joinFocus = false;
+            }
+
+            // '전화번호' 조건 확인
+            if (!hasTxt(joinPhone)) {
+                joinPhoneBox.setError("항목을 채워주세요.");
+                if (!joinFocus) {
+                    joinPhoneBox.requestFocus();
+                    joinFocus = true;
+                }
+            } else if (!Pattern.matches("^01(?:0|1|[6-9])(?:\\d{3}|\\d{4})\\d{4}$", joinPhoneTxt)) {
+                joinPhoneBox.setError("올바른 전화번호를 입력해주세요.");
                 if (!joinFocus) {
                     joinPhoneBox.requestFocus();
                     joinFocus = true;
                 }
             } else {
-                joinCheckPhone = true;
                 joinPhoneBox.setError(null);
                 joinFocus = false;
             }
 
-            // 만난 날짜 유효성 검사
-            if(!dateCompare(joinDate, now_date)){
-                showTxt = "반려동물과 만난 날짜는 오늘 이후로 설정할 수 없습니다.";
-                joinDateBox.setError(showTxt);
+            // '반려동물 이름' 조건 확인
+            if (!hasTxt(joinPetName)) {
+                joinPetNameBox.setError("항목을 채워주세요.");
+                if (!joinFocus) {
+                    joinPetNameBox.requestFocus();
+                    joinFocus = true;
+                }
+            } else {
+                joinPetNameBox.setError(null);
+                joinFocus = false;
+            }
+
+            // '반려동물 종류' 조건 확인
+            if (!joinBtnCheck) {
+                joinTypeBox.setError("항목을 채워주세요.");
+                if (!joinFocus) {
+                    joinTypeBox.requestFocus();
+                    joinFocus = true;
+                }
+            } else {
+                joinTypeBox.setError(null);
+                joinFocus = false;
+            }
+
+            // '반려동물 성별' 조건 확인
+            if (!joinCheckGender) {
+                joinGenderBox.setError("항목을 채워주세요.");
+                if (!joinFocus) {
+                    joinGenderBox.requestFocus();
+                    joinFocus = true;
+                }
+            } else {
+                joinGenderBox.setError(null);
+                joinFocus = false;
+            }
+
+            // '만난 날짜' 조건 확인
+            if (!joinCheckDate) {
+                joinDateBox.setError("항목을 채워주세요.");
+                if (!joinFocus) {
+                    joinDateBox.requestFocus();
+                    joinFocus = true;
+                }
+            } else if(!dateCompare(joinDate, now_date)){
+                joinDateBox.setError("반려동물과 만난 날짜는 오늘 이후로 설정할 수 없습니다.");
                 if (!joinFocus) {
                     joinDateBox.requestFocus();
                     joinFocus = true;
@@ -376,12 +405,27 @@ public class SignUpActivity extends AppCompatActivity {
                 joinFocus = false;
             }
 
+            // '개인정보 동의 여부' 확인
+            if (!accept.isChecked()) {
+                joinPrivacyBox.setError("개인정보 이용약관 동의가 필요합니다.");
+                if (!joinFocus) {
+                    joinPrivacy.requestFocus();
+                    joinFocus = true;
+                }
+            } else {
+                joinPrivacyBox.setError(null);
+                joinFocus = false;
+            }
+
             // 위의 조건들 중 하나 이상에 걸렸을 경우
-            if (!showTxt.equals("")) {
+            if (!(joinEmailBox.getError() == null && joinPWBox.getError() == null && joinPWChkBox.getError() == null
+                    && joinIDBox.getError() == null && joinPhoneBox.getError() == null && joinPetNameBox.getError() == null
+                    && joinTypeBox.getError() == null && joinGenderBox.getError() == null && joinDateBox.getError() == null
+                    && joinPrivacyBox.getError() == null)) {
                return;
             }
 
-            // 회원가입 성공시
+            // 모든 조건이 충족되었을 경우
             User user = new User(joinEmailTxt, joinIDTxt, joinPhoneTxt, joinPetNameTxt, joinPetType, joinGender, joinDate);
             signUp(joinEmailTxt, joinPWTxt, user);
         });

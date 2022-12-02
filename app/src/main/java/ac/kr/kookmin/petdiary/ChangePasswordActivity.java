@@ -31,7 +31,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
         changeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), "비밀번호 변경 버튼 클릭", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "비밀번호 변경 기능은 추후에 구현할 예정입니다!", Toast.LENGTH_SHORT).show();
             }
         });
     }
