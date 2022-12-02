@@ -11,6 +11,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
@@ -93,6 +95,36 @@ public class WritingActivity extends AppCompatActivity {
 
         postContents = findViewById(R.id.et_postContents);
         Download = findViewById(R.id.ck_download);
+
+
+        postContents.addTextChangedListener(new TextWatcher() {
+            String maxText = "";
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                maxText = charSequence.toString();
+            }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if(postContents.getLineCount() > 50){
+                    Toast.makeText(WritingActivity.this,"최대 50줄까지 입력 가능합니다.", Toast.LENGTH_SHORT).show();
+                    postContents.setText(maxText);
+                    postContents.setSelection(postContents.length());
+                }
+                if(postContents.length() > 500){
+                    Toast.makeText(WritingActivity.this,"최대 500글자까지 입력 가능합니다.", Toast.LENGTH_SHORT).show();
+                    postContents.setText(maxText);
+                    postContents.setSelection(postContents.length());
+                }
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+
         Download.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -165,60 +197,60 @@ public class WritingActivity extends AppCompatActivity {
         progressBar.setVisibility(View.VISIBLE);
         if (!isImageSelected) {
             Toast.makeText(this, "이미지를 선택해주세요.", Toast.LENGTH_SHORT).show();
-            return;
+            progressBar.setVisibility(View.INVISIBLE);
         } else if (postContents.getText().toString().length() == 0) {
             Toast.makeText(this, "내용을 입력해주세요.", Toast.LENGTH_SHORT).show();
-            return;
+            progressBar.setVisibility(View.INVISIBLE);
+        }else if(isImageSelected && postContents.getText().toString().length() != 0){
+            db.collection("users").document(mAuth.getCurrentUser().getUid()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                @Override
+                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                    User user = documentSnapshot.toObject(User.class);
+                    Post post = new Post(mAuth.getCurrentUser().getUid(), postContents.getText().toString(), permitToDownload, user.getPetType(), new Timestamp(new Date()));
+                    db.collection("posts").add(post)
+                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                @Override
+                                public void onSuccess(DocumentReference documentReference) {
+                                    Log.d("201", "Post DocumentSnapshot Id: " + documentReference.getId());
+
+                                    StorageReference storageRef = FirebaseStorage.getInstance().getReference();
+                                    StorageReference imageRef = storageRef.child("images/" + documentReference.getId());
+                                    uploadImg.setDrawingCacheEnabled(true);
+                                    uploadImg.buildDrawingCache();
+                                    Bitmap bitmap = ((BitmapDrawable) uploadImg.getDrawable()).getBitmap();
+                                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                                    byte[] data = baos.toByteArray();
+
+                                    UploadTask uploadTask = imageRef.putBytes(data);
+                                    uploadTask.addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            progressBar.setVisibility(View.INVISIBLE);
+                                            // 사진 업로드 실패 시,
+                                        }
+                                    }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                        @Override
+                                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                            // 사진 업로드 성공 시,
+                                            pushNotification(mAuth.getCurrentUser().getUid(), documentReference.getId());
+                                            Toast.makeText(WritingActivity.this, "업로드가 완료되었습니다!", Toast.LENGTH_SHORT).show();
+                                            finish();
+                                        }
+                                    });
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.w("500", "Error Adding Post Document", e);
+                                    Toast.makeText(WritingActivity.this, "게시물 올리기에 실패했습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                }
+            });
+
         }
-        db.collection("users").document(mAuth.getCurrentUser().getUid()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                User user = documentSnapshot.toObject(User.class);
-                Post post = new Post(mAuth.getCurrentUser().getUid(), postContents.getText().toString(), permitToDownload, user.getPetType(), new Timestamp(new Date()));
-                db.collection("posts").add(post)
-                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                            @Override
-                            public void onSuccess(DocumentReference documentReference) {
-                                Log.d("201", "Post DocumentSnapshot Id: " + documentReference.getId());
-
-                                StorageReference storageRef = FirebaseStorage.getInstance().getReference();
-                                StorageReference imageRef = storageRef.child("images/" + documentReference.getId());
-                                uploadImg.setDrawingCacheEnabled(true);
-                                uploadImg.buildDrawingCache();
-                                Bitmap bitmap = ((BitmapDrawable) uploadImg.getDrawable()).getBitmap();
-                                ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-                                byte[] data = baos.toByteArray();
-
-                                UploadTask uploadTask = imageRef.putBytes(data);
-                                uploadTask.addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        progressBar.setVisibility(View.INVISIBLE);
-                                        // 사진 업로드 실패 시,
-                                    }
-                                }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                                    @Override
-                                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                        // 사진 업로드 성공 시,
-                                        pushNotification(mAuth.getCurrentUser().getUid(), documentReference.getId());
-                                        Toast.makeText(WritingActivity.this, "업로드가 완료되었습니다!", Toast.LENGTH_SHORT).show();
-                                        finish();
-                                    }
-                                });
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Log.w("500", "Error Adding Post Document", e);
-                                Toast.makeText(WritingActivity.this, "게시물 올리기에 실패했습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-            }
-        });
-
-
     }
 
     public void pushNotification(String uid, String postId) {
