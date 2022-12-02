@@ -11,6 +11,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
@@ -93,6 +95,36 @@ public class WritingActivity extends AppCompatActivity {
 
         postContents = findViewById(R.id.et_postContents);
         Download = findViewById(R.id.ck_download);
+
+
+        postContents.addTextChangedListener(new TextWatcher() {
+            String maxText = "";
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                maxText = charSequence.toString();
+            }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if(postContents.getLineCount() > 50){
+                    Toast.makeText(WritingActivity.this,"최대 50줄까지 입력 가능합니다.", Toast.LENGTH_SHORT).show();
+                    postContents.setText(maxText);
+                    postContents.setSelection(postContents.length());
+                }
+                if(postContents.length() > 500){
+                    Toast.makeText(WritingActivity.this,"최대 500글자까지 입력 가능합니다.", Toast.LENGTH_SHORT).show();
+                    postContents.setText(maxText);
+                    postContents.setSelection(postContents.length());
+                }
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+
         Download.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

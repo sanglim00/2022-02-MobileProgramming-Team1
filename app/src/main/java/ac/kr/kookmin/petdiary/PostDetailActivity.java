@@ -7,6 +7,8 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
@@ -176,6 +178,36 @@ public class PostDetailActivity extends AppCompatActivity {
                 }
             }
         });
+
+
+        et_Comment.addTextChangedListener(new TextWatcher() {
+            String maxText = "";
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                maxText = charSequence.toString();
+            }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if(et_Comment.getLineCount() > 50){
+                    Toast.makeText(PostDetailActivity.this,"최대 50줄까지 입력 가능합니다.", Toast.LENGTH_SHORT).show();
+                    et_Comment.setText(maxText);
+                    et_Comment.setSelection(et_Comment.length());
+                }
+                if(et_Comment.length() > 500){
+                    Toast.makeText(PostDetailActivity.this,"최대 500글자까지 입력 가능합니다.", Toast.LENGTH_SHORT).show();
+                    et_Comment.setText(maxText);
+                    et_Comment.setSelection(et_Comment.length());
+                }
+
+            }
+
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
 
         btn_addComment.setOnClickListener(new View.OnClickListener() {
             @Override
