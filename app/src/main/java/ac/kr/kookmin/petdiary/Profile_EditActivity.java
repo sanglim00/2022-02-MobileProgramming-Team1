@@ -10,6 +10,8 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
@@ -132,6 +134,62 @@ public class Profile_EditActivity extends AppCompatActivity {
             }
         });
 
+        et_edit_one_line_info.addTextChangedListener(new TextWatcher() {
+            String maxText = "";
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                maxText = charSequence.toString();
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if(et_edit_one_line_info.getLineCount() > 2){
+                    Toast.makeText(Profile_EditActivity.this,"최대 두 줄까지 입력 가능합니다.", Toast.LENGTH_SHORT).show();
+                    et_edit_one_line_info.setText(maxText);
+                    et_edit_one_line_info.setSelection(et_edit_one_line_info.length());
+                }
+                if(et_edit_one_line_info.length() > 20){
+                    Toast.makeText(Profile_EditActivity.this,"최대 20글자까지 입력 가능합니다.", Toast.LENGTH_SHORT).show();
+                    et_edit_one_line_info.setText(maxText);
+                    et_edit_one_line_info.setSelection(et_edit_one_line_info.length());
+                }
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+        et_edit_name.addTextChangedListener(new TextWatcher() {
+            String maxText = "";
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                maxText = charSequence.toString();
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if(et_edit_name.getLineCount() > 2){
+                    Toast.makeText(Profile_EditActivity.this,"최대 두 줄까지 입력 가능합니다.", Toast.LENGTH_SHORT).show();
+                    et_edit_name.setText(maxText);
+                    et_edit_name.setSelection(et_edit_name.length());
+                }
+                if(et_edit_name.length() > 10){
+                    Toast.makeText(Profile_EditActivity.this,"최대 10글자까지 입력 가능합니다.", Toast.LENGTH_SHORT).show();
+                    et_edit_name.setText(maxText);
+                    et_edit_name.setSelection(et_edit_name.length());
+                }
+
+            }
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+
 
 
         imgBtn_pf_calendar.setOnClickListener(new View.OnClickListener() { // 만난 날짜 수정 버튼
@@ -165,6 +223,17 @@ public class Profile_EditActivity extends AppCompatActivity {
         });
 
 
+        if(genderIntent.equals("공개 안 함")){
+            spinner_gender.setSelection(0);
+            txt_gender = genders[0];
+        }else if(genderIntent.equals("남 (♂)")){
+            spinner_gender.setSelection(1);
+            txt_gender = genders[1];
+        }else if(genderIntent.equals("여 (♀)")){
+            spinner_gender.setSelection(2);
+            txt_gender = genders[2];
+        }
+
 
         btn_edit_complete.setOnClickListener(new View.OnClickListener() { // 편집 완료 버튼 onclick
             @Override
@@ -182,6 +251,7 @@ public class Profile_EditActivity extends AppCompatActivity {
                     Toast.makeText(Profile_EditActivity.this, "만난 날짜를 선택해주세요.", Toast.LENGTH_SHORT).show();
                     return;
                 }
+
                 db.collection("users").document(uid).update(
                         "petName", name,
                         "gender", gender,

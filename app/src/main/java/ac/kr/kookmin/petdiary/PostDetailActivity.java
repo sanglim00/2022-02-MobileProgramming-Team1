@@ -171,7 +171,7 @@ public class PostDetailActivity extends AppCompatActivity {
                     Toast.makeText(PostDetailActivity.this, "다운로드가 완료되었습니다.", Toast.LENGTH_SHORT).show();
                     saveImageToGallery();
                 }
-                else{
+                else if(!canDownloadImg){
                     Toast.makeText(PostDetailActivity.this, "작성자가 이미지 다운로드를 허용하지 않았습니다.", Toast.LENGTH_SHORT).show();
                 }
             }
