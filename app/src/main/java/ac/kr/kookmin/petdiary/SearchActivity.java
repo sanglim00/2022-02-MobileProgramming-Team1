@@ -2,6 +2,7 @@ package ac.kr.kookmin.petdiary;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
@@ -37,6 +38,7 @@ public class SearchActivity extends AppCompatActivity {
     SearchRecyclerAdapter searchAdapter;
     RadioGroup footer;
     ProgressBar progressBar;
+    ArrayList<String> userNames = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +92,7 @@ public class SearchActivity extends AppCompatActivity {
         search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
+                userNames.clear();
                 searchAdapter.clearSearchItem();
                 searchAdapter.setProgressBar(progressBar);
                 progressBar.setVisibility(View.VISIBLE);
@@ -106,6 +109,9 @@ public class SearchActivity extends AppCompatActivity {
                                     for(QueryDocumentSnapshot doc : task.getResult()) {
                                         if (doc.exists()) {
                                             User user = doc.toObject(User.class);
+                                            if (userNames.contains(user.getUserName())) continue;
+                                            userNames.add(user.getUserName());
+                                            Log.d("searchTest", user.getUserName());
                                             String comment = user.getComment();
                                             SearchItem item = new SearchItem(user.getUserName(), comment == null || comment.length() == 0 ? "한 줄 소개가 없습니다." : comment, doc.getId());
                                             searchAdapter.addSearchItem(item);
