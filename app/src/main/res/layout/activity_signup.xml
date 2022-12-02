@@ -191,7 +191,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="15dp"
-                        android:text="PHONE"
+                        android:text="PHONE(예: 01000000000)"
                         android:textSize="13sp" />
 
                     <com.google.android.material.textfield.TextInputLayout
