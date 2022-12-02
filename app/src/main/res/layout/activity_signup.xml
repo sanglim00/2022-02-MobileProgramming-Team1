@@ -64,13 +64,6 @@
                         android:src="@drawable/icon_edit_myprofile"
                         app:tint="@color/FCC73F" />
                 </FrameLayout>
-                <!--                <ImageView-->
-                <!--                    android:id="@+id/iv_profile"-->
-                <!--                    android:layout_width="150dp"-->
-                <!--                    android:layout_height="150dp"-->
-                <!--                    android:layout_marginTop="50dp"-->
-                <!--                    android:layout_marginTop="15dp"></ImageView>-->
-
             </LinearLayout>
 
             <LinearLayout
@@ -188,8 +181,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:digits="0123456789_.qwertzuiopasdfghjklyxcvbnm"
-                            android:hint="아이디를 입력해주세요."
-                            android:inputType="text" />
+                            android:hint="아이디를 입력해주세요.(8글자 이하 입력 가능)"
+                            android:inputType="text"
+                            android:maxLength="8"/>
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <TextView
@@ -258,8 +252,9 @@
                             android:id="@+id/tit_petName"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:hint="이름을 입력해주세요."
-                            android:inputType="text" />
+                            android:hint="이름을 입력해주세요.(8글자 이하 입력 가능)"
+                            android:inputType="text"
+                            android:maxLength="8" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <TextView

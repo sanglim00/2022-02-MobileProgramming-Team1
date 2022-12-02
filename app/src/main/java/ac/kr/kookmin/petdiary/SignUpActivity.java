@@ -509,7 +509,6 @@ public class SignUpActivity extends AppCompatActivity {
                     }
                 }
             });
-
     }
 
     // 계정 생성 함수
