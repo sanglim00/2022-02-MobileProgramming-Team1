@@ -191,7 +191,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="15dp"
-                        android:text="PHONE(예: 01000000000)"
+                        android:text="PHONE"
                         android:textSize="13sp" />
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -205,7 +205,7 @@
                             android:id="@+id/tit_phone"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:hint="전화번호를 입력해주세요."
+                            android:hint="전화번호를 입력해주세요.(예: 01000000000)"
                             android:inputType="text|phone" />
                     </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>

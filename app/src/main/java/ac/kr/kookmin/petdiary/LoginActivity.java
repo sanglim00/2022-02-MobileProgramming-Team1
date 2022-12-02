@@ -70,24 +70,25 @@ public class LoginActivity extends AppCompatActivity {
 
             Pattern pattern = Patterns.EMAIL_ADDRESS;
 
-            // 모든 항목 입력되었는지 확인
-            if (!(hasTxt(loginEmail) && hasTxt(loginPW))) {
-                showTxt = "모든 항목을 채워주세요";
-                loginEmailBox.setError(showTxt);
-                loginPWBox.setError(showTxt);
-                return;
+            // '이메일' 조건 확인
+            if (!hasTxt(loginEmail)) {
+                loginEmailBox.setError("항목을 채워주세요.");
+            } else if (!pattern.matcher(loginEmailTxt).matches()) {
+                loginEmailBox.setError("올바른 이메일을 입력해주세요.");
             } else {
                 loginEmailBox.setError(null);
+            }
+
+            // '비밀번호' 조건 확인
+            if (!hasTxt(loginPW)) {
+                loginPWBox.setError("항목을 채워주세요.");
+            } else {
                 loginPWBox.setError(null);
             }
 
-            // 이메일 유효성 검사
-            if (!pattern.matcher(loginEmailTxt).matches()) {
-                showTxt = "올바른 이메일을 입력해주세요";
-                loginEmailBox.setError(showTxt);
+            // 위의 조건들 중 하나 이상에 걸렸을 경우
+            if (!(loginEmailBox.getError() == null && loginPWBox.getError() == null)) {
                 return;
-            } else {
-                loginEmailBox.setError(null);
             }
 
             // 모든 조건이 충족되었을 경우
@@ -107,7 +108,7 @@ public class LoginActivity extends AppCompatActivity {
             .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
-                    String toastMsg = "아이디 또는 비밀번호를 확인해주세요.";
+                    showTxt = "아이디 또는 비밀번호를 확인해주세요.";
                     if (task.isSuccessful()) {
                         // Sign in success, update UI with the signed-in user's information
                         Log.d("200", "signInWithEmail:success");
@@ -116,8 +117,8 @@ public class LoginActivity extends AppCompatActivity {
                     } else {
                         // If sign in fails, display a message to the user.
                         Log.w("404", "signInWithEmail:failure", task.getException());
-                        loginEmailBox.setError(toastMsg);
-                        loginPWBox.setError(toastMsg);
+                        loginEmailBox.setError(showTxt);
+                        loginPWBox.setError(showTxt);
                     }
                     progressBar.setVisibility(View.INVISIBLE);
                 }
