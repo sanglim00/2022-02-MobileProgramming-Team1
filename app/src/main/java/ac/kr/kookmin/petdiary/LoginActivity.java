@@ -65,7 +65,6 @@ public class LoginActivity extends AppCompatActivity {
 
         // 로그인 버튼 클릭
         login.setOnClickListener(view -> {
-            progressBar.setVisibility(View.VISIBLE);
             loginEmailTxt = loginEmail.getText().toString().replaceAll("\\s", "");
             loginPWTxt = loginPW.getText().toString().replaceAll("\\s", "");
 
@@ -103,6 +102,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void loginAccount(String id, String pw) {
+        progressBar.setVisibility(View.VISIBLE);
         mAuth.signInWithEmailAndPassword(id, pw)
             .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                 @Override
