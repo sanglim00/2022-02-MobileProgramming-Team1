@@ -267,5 +267,23 @@
 <div>
 <img width="240" alt="image" src="https://user-images.githubusercontent.com/54923245/205439122-74cba830-cb71-4d8a-b86a-3b1fc458a1f1.png">
 <img width="240" alt="image" src="https://user-images.githubusercontent.com/54923245/205439202-fc4e0e68-816c-4fba-a65f-44ba1d8a2aa9.png">
+</div>  	
+	
+> 반려동물 타입 검색화면
+- 반려동물 타입별로 구분하여 게시글을 보여준다
+- 디폴트 타입이 아닌경우 보고싶은 타입을 검색하여 확인할 수 있다.
+- 다른 타입을 검색하고 싶을 경우 다시 한 번 버튼을 클릭하여 타입을 검색한다.
+<div>
+<img width="240" alt="image" src="https://user-images.githubusercontent.com/54923245/205439380-354f331c-63cc-4971-99f7-86e84d575687.png">
+<img width="240" alt="image" src="https://user-images.githubusercontent.com/54923245/205439406-1468170a-fd99-4bdd-a8fa-60252b4ebeec.png">
+</div>  
+	
+	
+> ID 검색 화면
+- ID를 직접 검색하여 계정을 찾을 수 있다.
+- 해당하는 아이디뿐만 아니라 검색텍스트와 비슷한 아이디도 확인이 가능하다.
+<div>
+<img width="240" alt="image" src="https://user-images.githubusercontent.com/54923245/205439586-4f8fabe1-22a1-4667-a27f-b7d011f6b78a.png">
+<img width="240" alt="image" src="https://user-images.githubusercontent.com/54923245/205439605-5846d73b-fad5-47d6-b33b-b3d5b72bf588.png">
 </div>
 
