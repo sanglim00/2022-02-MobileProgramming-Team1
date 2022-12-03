@@ -283,14 +283,24 @@
 - ID를 직접 검색하여 계정을 찾을 수 있다.
 - 해당하는 아이디뿐만 아니라 검색텍스트와 비슷한 아이디도 확인이 가능하다.
 <div>
-<img width="240" alt="image" src="https://user-images.githubusercontent.com/54923245/205439586-4f8fabe1-22a1-4667-a27f-b7d011f6b78a.png">
 <img width="240" alt="image" src="https://user-images.githubusercontent.com/54923245/205439605-5846d73b-fad5-47d6-b33b-b3d5b72bf588.png">
+<img width="240" alt="image" src="https://user-images.githubusercontent.com/54923245/205439586-4f8fabe1-22a1-4667-a27f-b7d011f6b78a.png">
 </div>
 
-> 사진 업로드 공통기능
+> 글 작성 기능 및 사진 업로드 기능
+- 사진과 글을 작성하여 업로드 할 수 있다.
+- 캡쳐기능을 막아놓았으며 유저가 다운로드를 허용한 경우 버튼을 클릭하여 사진을 다운받을 수 있다.(캡쳐기능은 막혀있다.)
 - 다이얼로그에서 앨범선택 또는 사진촬영을 선택하여 사진을 선택할 수 있다.
 <div>
 <img width="240" alt="image" src="https://user-images.githubusercontent.com/54923245/205439772-c6a84d16-e2f7-42b5-b737-9d9294e58b4c.png">
+<img width="240" alt="image" src="https://user-images.githubusercontent.com/54923245/205440131-b55883ed-fc0f-44f8-9402-b304b8cffd07.png">
+<img width="240" alt="image" src="https://user-images.githubusercontent.com/54923245/205440216-4ab828e9-307c-4d5e-b446-8964f8deb106.png">
+</div>
+	
+- 다운로드 가능 유무에 따른 버튼 클릭 이벤트 결과
+<div>
+<img width="240" alt="image" src="https://user-images.githubusercontent.com/54923245/205440286-d1bc47f5-7b5c-4ae6-82d3-d4737ab7ad66.png">
+<img width="240" alt="image" src="https://user-images.githubusercontent.com/54923245/205440304-9e81dae4-cedd-441d-a05c-55cfb7db87a2.png">
 </div>
 
 > 로그아웃 기능
