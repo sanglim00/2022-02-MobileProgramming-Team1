@@ -16,11 +16,11 @@
 
 
 ### 프로젝트 진행멤버
-- 곽희건
-- 김민선
-- 남상림
-- 박정명
-- 송재룡
+- [곽희건](https://github.com/VarGun)
+- [김민선](https://github.com/CLM-BONNY)
+- [남상림](https://github.com/Sanglim00)
+- [박정명](https://github.com/j-myeong)
+- [송재룡](https://github.com/ft-jasong)
 
 ### 페이지별 화면 설명 및 주요 기능 설명
 1. 회원가입페이지
