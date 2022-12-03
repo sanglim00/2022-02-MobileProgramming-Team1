@@ -1,5 +1,6 @@
 package ac.kr.kookmin.petdiary;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -103,8 +104,41 @@ public class PostDetailActivity extends AppCompatActivity {
 
         String postId = getIntent().getStringExtra("postId");
         String userId = getIntent().getStringExtra("userId");
+        String post_uid = getIntent().getStringExtra("uid");
 
         initPostDetail(postId, userId);
+        img_profile_detail_post.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent  intent;
+                String login_userUid = mAuth.getCurrentUser().getUid();
+
+                if (post_uid != null && login_userUid != null && post_uid.equals(login_userUid)) {
+                    intent = new Intent(view.getContext(), ProfileActivity.class);
+                    view.getContext().startActivity(intent);
+                } else {
+                    intent = new Intent(view.getContext(), Profile_OthersActivity.class);
+                    intent.putExtra("uid", post_uid);
+                    view.getContext().startActivity(intent);
+                }
+            }
+        });
+        txt_id_detail_post.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent  intent;
+                String login_userUid = mAuth.getCurrentUser().getUid();
+
+                if (post_uid != null && login_userUid != null && post_uid.equals(login_userUid)) {
+                    intent = new Intent(view.getContext(), ProfileActivity.class);
+                    view.getContext().startActivity(intent);
+                } else {
+                    intent = new Intent(view.getContext(), Profile_OthersActivity.class);
+                    intent.putExtra("uid", post_uid);
+                    view.getContext().startActivity(intent);
+                }
+            }
+        });
 
         imgbtn_like_detail_post.setOnClickListener(new View.OnClickListener() { // 좋아요 버튼
             @Override
