@@ -220,6 +220,7 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
                         intent = new Intent(view.getContext(), PostDetailActivity.class);
                         intent.putExtra("postId", mainList.get(pos).getUser_content_img_src());
                         intent.putExtra("userId", mainList.get(pos).getUsername());
+                        intent.putExtra("uid", mainList.get(pos).getUid());
                         view.getContext().startActivity(intent);
                     }
                 }
