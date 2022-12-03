@@ -262,14 +262,14 @@
 
 
 ## 기능위주 실행화면 예시
-> 앱 초반 실행화면
+> 앱 초반 실행 시
 - 앱로고가 등장하며 로딩 시 스피너를 띄운다 
 <div>
 <img width="240" alt="image" src="https://user-images.githubusercontent.com/54923245/205439122-74cba830-cb71-4d8a-b86a-3b1fc458a1f1.png">
 <img width="240" alt="image" src="https://user-images.githubusercontent.com/54923245/205439202-fc4e0e68-816c-4fba-a65f-44ba1d8a2aa9.png">
 </div>  	
 	
-> 반려동물 타입 검색화면
+> 반려동물 타입 검색
 - 반려동물 타입별로 구분하여 게시글을 보여준다
 - 디폴트 타입이 아닌경우 보고싶은 타입을 검색하여 확인할 수 있다.
 - 다른 타입을 검색하고 싶을 경우 다시 한 번 버튼을 클릭하여 타입을 검색한다.
@@ -279,7 +279,7 @@
 </div>  
 	
 	
-> ID 검색 화면
+> ID 검색
 - ID를 직접 검색하여 계정을 찾을 수 있다.
 - 해당하는 아이디뿐만 아니라 검색텍스트와 비슷한 아이디도 확인이 가능하다.
 <div>
@@ -287,3 +287,17 @@
 <img width="240" alt="image" src="https://user-images.githubusercontent.com/54923245/205439605-5846d73b-fad5-47d6-b33b-b3d5b72bf588.png">
 </div>
 
+> 사진 업로드 공통기능
+- 다이얼로그에서 앨범선택 또는 사진촬영을 선택하여 사진을 선택할 수 있다.
+<div>
+<img width="240" alt="image" src="https://user-images.githubusercontent.com/54923245/205439772-c6a84d16-e2f7-42b5-b737-9d9294e58b4c.png">
+</div>
+
+> 로그아웃 기능
+- 유저가 로그아웃을 원할 시 한 번의 클릭 단계를 거친 후 다이얼로그를 한 번 더 띄운다.
+- 로그아웃 시 로그인 화면으로 이동하며 로그아웃 되었다는 메세지를 확인 할 수 있다.
+	
+<div>
+<img width="240" alt="image" src="https://user-images.githubusercontent.com/54923245/205439884-632951c7-26de-4378-8fd6-7922d66dd71d.png">
+<img width="240" alt="image" src="https://user-images.githubusercontent.com/54923245/205439926-ad2e42be-8bd0-415a-806d-bc4b716fab47.png">
+</div>
