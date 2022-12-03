@@ -10,10 +10,15 @@
 ### 개발환경
 - 안드로이드 스튜디오
 - 개발언어 : JAVA
-- SDK 버전 : 안드로이드 12
+- Real Device: Galaxy S21+ (Android 12), Galaxy Note 10(Android 12)
+- Android Virtual Device (AVD): Pixel 2 API 31 (Android 12)
+ <img width="327" alt="image" src="https://user-images.githubusercontent.com/54923245/198889938-7a2eca21-8f53-423b-8295-da7091d3b496.png"> 
+
 
 ### 설치 및 실행방법
-
+- Github Repository 최상단 경로의 app-debug.apk 설치
+   - 디버깅 용 애플리케이션으로 빌드됨.
+- Github Repository Clone 및 Android Studio Run 'app'
 
 ### 프로젝트 진행멤버
 - [곽희건](https://github.com/VarGun)
