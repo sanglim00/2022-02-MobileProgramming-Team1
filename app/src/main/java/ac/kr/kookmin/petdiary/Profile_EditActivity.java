@@ -40,6 +40,7 @@ import androidx.core.content.ContextCompat;
 import androidx.core.app.ActivityCompat;
 import androidx.annotation.NonNull;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -56,6 +57,7 @@ import ac.kr.kookmin.petdiary.models.User;
 
 
 public class Profile_EditActivity extends AppCompatActivity {
+    FirebaseStorage storage = FirebaseStorage.getInstance();
     String[] genders = {"공개 안 함","남 (♂)", "여 (♀)"};
     TextView et_edit_meetDate;
     ImageView img_pf;
@@ -123,6 +125,26 @@ public class Profile_EditActivity extends AppCompatActivity {
         et_edit_name.setText(nameIntent);
         et_edit_meetDate.setText(meetDateIntent);
         et_edit_one_line_info.setText(oneLineIntent); // 기존값 받아옴
+
+        storage.getReference().child("profiles/" + uid).getDownloadUrl()
+            .addOnCompleteListener(new OnCompleteListener<Uri>() {
+                @Override
+                public void onComplete(@NonNull Task<Uri> task) {
+                    if (task.isSuccessful()) {
+                        if (Profile_EditActivity.this.isFinishing()) return;
+                        Glide.with(getApplicationContext())
+                                .load(task.getResult())
+                                .into(img_pf);
+
+                    } else {
+                        if (Profile_EditActivity.this.isFinishing()) return;
+                        Glide.with(getApplicationContext())
+                                .load(R.drawable.default_profile)
+                                .into(img_pf);
+                    }
+                    progressBar.setVisibility(View.INVISIBLE);
+                }
+            });
 
 
 
