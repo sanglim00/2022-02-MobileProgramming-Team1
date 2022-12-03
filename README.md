@@ -27,6 +27,17 @@
 - [박정명](https://github.com/j-myeong)
 - [송재룡](https://github.com/ft-jasong)
 
+## License
+- Apache License 2.0
+- Android - platform - frameworks - support
+- Android Constraint Layout Library
+- CircleImageView
+- FirebaseUI-Android
+- Google Cloud Firestore Client for Java
+- Google Firebase for Android
+- Google Gson
+- Material Components for Android
+
 ## 서버 및 데이터베이스 관련
 > ### Model
 
@@ -315,9 +326,18 @@
 
 > 로그아웃 기능
 - 유저가 로그아웃을 원할 시 한 번의 클릭 단계를 거친 후 다이얼로그를 한 번 더 띄운다.
-- 로그아웃 시 로그인 화면으로 이동하며 로그아웃 되었다는 메세지를 확인 할 수 있다.
+- 로그아웃 시 로그인 화면으로 이동하며 로그아웃 되었다는 메세지를 확인 할 수 있다. 
+	
 	
 <div>
 <img width="240" alt="image" src="https://user-images.githubusercontent.com/54923245/205439884-632951c7-26de-4378-8fd6-7922d66dd71d.png">
 <img width="240" alt="image" src="https://user-images.githubusercontent.com/54923245/205439926-ad2e42be-8bd0-415a-806d-bc4b716fab47.png">
 </div>
+
+> 프로필 변경 기능
+- 이미지와 한 줄 소개 등을 변경할 수 있다.
+<div>
+<img width="240" alt="image" src="https://user-images.githubusercontent.com/54923245/205440801-58d17c91-f33b-4c95-b3e9-bd3f240adb14.png">
+<img width="240" alt="image" src="https://user-images.githubusercontent.com/54923245/205440840-c0aeeac4-b1a3-4b7a-8cfa-badce7f94662.png">
+<img width="240" alt="image" src="https://user-images.githubusercontent.com/54923245/205440865-f018e726-7a93-4d43-ab48-ad5cfef3f257.png">
+</div>	
