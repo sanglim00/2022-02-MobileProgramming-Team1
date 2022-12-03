@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
@@ -181,12 +183,40 @@ public class MainActivity extends AppCompatActivity {
         alert.setMessage("추가할 Pet Type을 적어주세요.");
 
         final EditText inputTag = new EditText(this);
+
+        inputTag.addTextChangedListener(new TextWatcher() {
+            String maxText = "";
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                maxText = charSequence.toString();
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if(inputTag.getLineCount() > 1){
+                    inputTag.setText(maxText);
+                    inputTag.setSelection(inputTag.length());
+                }
+                if(inputTag.length() > 8){
+                    Toast.makeText(MainActivity.this,"최대 8글자까지 입력 가능합니다.", Toast.LENGTH_SHORT).show();
+                    inputTag.setText(maxText);
+                    inputTag.setSelection(inputTag.length());
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
         alert.setView(inputTag);
 
         alert.setPositiveButton("적용", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
+
                  current_tag = inputTag.getText().toString().toLowerCase();
+                 current_tag = current_tag.replaceAll("\\s", "");
                  extraBtn.setText(current_tag);
                  RecyclerItemUpdate();
             }
