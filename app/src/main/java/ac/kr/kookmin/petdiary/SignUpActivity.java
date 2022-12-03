@@ -10,7 +10,6 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.InputFilter;
 import android.util.Log;
-import android.util.Patterns;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -67,7 +66,7 @@ public class SignUpActivity extends AppCompatActivity {
     TextInputEditText joinEmail, joinPW, joinPWChk, joinID, joinPhone, joinPetName;
     Button dog, cat, fish, pig, plus, completion, back;
     RadioButton accept;
-    public String showTxt, joinEmailTxt, joinPWTxt, joinPWChkTxt, joinIDTxt, joinPhoneTxt,
+    public String joinEmailTxt, joinPWTxt, joinPWChkTxt, joinIDTxt, joinPhoneTxt,
             joinPetNameTxt, joinPetType, joinGender, joinDate;
     String[] items = {"성별을 선택해주세요.", "남 (♂)", "여 (♀)", "공개 안 함"};
     boolean isImageSelected, joinBtnCheck, joinCheckGender, joinCheckDate, joinFocus;
@@ -79,6 +78,8 @@ public class SignUpActivity extends AppCompatActivity {
     private BitmapFactory.Options bitOption;
     Date now_date;
     ProgressBar progressBar;
+    public static final Pattern VALID_EMAIL_ADDRESS_REGEX
+            = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -245,7 +246,7 @@ public class SignUpActivity extends AppCompatActivity {
             joinPrivacyBox.setFocusableInTouchMode(true);
 
             // 이메일 유효성 검사(이메일 형식이 맞는지 확인)
-            Pattern pattern = Patterns.EMAIL_ADDRESS;
+            Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(joinEmailTxt);
 
             // 비밀번호 유효성 검사(숫자, 특수문자가 포함)
             String symbol = "([0-9].*[!,@,#,^,&,*,(,)])|([!,@,#,^,&,*,(,)].*[0-9])";
@@ -265,7 +266,7 @@ public class SignUpActivity extends AppCompatActivity {
                     joinEmailBox.requestFocus();
                     joinFocus = true;
                 }
-            } else if (!pattern.matcher(joinEmailTxt).matches()){
+            } else if (!matcher.find()){
                 joinEmailBox.setError("올바른 이메일을 입력해주세요.");
                 if (!joinFocus) {
                     joinEmailBox.requestFocus();
