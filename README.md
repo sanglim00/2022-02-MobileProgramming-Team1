@@ -194,13 +194,19 @@
 
 
 
-> ### 검색페이지
+> ### 검색페이지 (activity_search.xml , SearchActivity, SearchRecyclerAdapter.java, SearchItem.java, recycler_search_item.xml)
+	
+- ConstraintLayout 사용
+- searchView로 검색한 유저의 아이디와 동일한 유저의 계정과 또는 연관된 아이디의 계정들을 보여준다. (검색기능)
+- 검색된 유저를 보여주기 위해 RecyclerView를 제작하여 사용
 
 
-> ### 글작성페이지
-
-
-> ### 알림페이지
+> ### 글 작성 페이지 (activity_writing.xml , WritingActivity)
+- ConstraintLayout 사용
+- 타임라인에서 확인할 수 있는 사진과 텍스트를 등록 하는 페이지
+- 다른 유저의 내 사진 다운로드 가능 유무를 설정할 수 있다. 
+	1) 다운로드 가능 -> 다른 유저들이 다운로드 버튼 클릭 시 앨범에 저장가능
+	2) 다운로드 불가 -> 다운로드 버튼 클릭 시 다운로드 불가 메세지를 띄움 (캡쳐기능을 막아놓았기 때문에 다운로드 허용을 해놓아야만 사진을 받을 수 있다.)
 
 
 > ### 유저페이지 (activity_profile.xml, ProfileActivity.java)
@@ -238,8 +244,12 @@
   - 게시글 RecyclerView 로 구현
      - View 생성자, Holder, Adapter 파일 생성
 
-> ### 세팅페이지
-
+> ### 세팅페이지 (activity_setting.xml , SettingActivity)
+- 사용자가 간단한 세팅을 확인할 수 있는 페이지
+- 로그아웃이 가능한 페이지
+- 비밀번호 변경과 알림온오프 기능은 추후 구현 예정
+	
+	
 > ### 앱 실행 시 대기화면 (activity_splash.xml, SplashActivity.java)
   - ImageView 사용
   - 앱 구동 시 정보를 받아오는 동안 화면에 나타나는 대기화면
