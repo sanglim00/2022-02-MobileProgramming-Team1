@@ -38,19 +38,22 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
                 <LinearLayout
+                    android:id="@+id/layout_header"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:background="@drawable/layer_profile_header"
                     android:orientation="horizontal"
                     android:paddingLeft="10dp"
-                    android:paddingRight="10dp">
+                    android:paddingRight="10dp"
+                    app:layout_constraintBaseline_toTopOf="parent"
+                    >
 
                     <TextView
                         android:id="@+id/txt_pf_id"
@@ -77,10 +80,13 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/layout_profile_img"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:paddingTop="20dp">
+                    android:paddingTop="20dp"
+                    app:layout_constraintTop_toBottomOf="@id/layout_header"
+                    >
 
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/img_pf"
@@ -113,11 +119,14 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/layout_profile_info"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:orientation="horizontal"
-                    android:padding="10dp">
+                    android:padding="10dp"
+                    app:layout_constraintTop_toBottomOf="@id/layout_profile_img"
+                    >
 
                     <LinearLayout
                         android:layout_width="120dp"
@@ -188,10 +197,12 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/post_recyclerView"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/layout_profile_info"
+                    />
 
 
-            </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
 
         <LinearLayout
