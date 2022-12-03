@@ -29,6 +29,8 @@ public class User {
         this.petType = petType;
         this.gender = gender;
         this.petBirth = petBirth;
+        follower = new ArrayList<>();
+        following = new ArrayList<>();
     }
 
     public String getEmail() {
