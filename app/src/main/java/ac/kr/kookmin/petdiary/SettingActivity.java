@@ -1,17 +1,21 @@
 package ac.kr.kookmin.petdiary;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class SettingActivity extends AppCompatActivity {
 
     Switch NotiSwitch;
+    TextView Logout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +25,14 @@ public class SettingActivity extends AppCompatActivity {
         NotiSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 Toast.makeText(getApplicationContext(), "알림 온오프 기능은 추후 구현 예정입니다 !", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        Logout = findViewById(R.id.logout);
+        Logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                LogoutDialog();
             }
         });
     }
@@ -38,6 +50,26 @@ public class SettingActivity extends AppCompatActivity {
     public void ShowServiceContents(View view) {
         Intent intent = new Intent(getApplicationContext(), ServiceContentsActivity.class);
         startActivity(intent);
+    }
+
+    private void LogoutDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("로그아웃").setMessage("로그아웃 하시려면 확인 버튼을 클릭해주세요 !");
+        builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Toast.makeText(getApplicationContext(), "여기서 진짜 로그아웃", Toast.LENGTH_SHORT).show();
+            }
+        });
+        builder.setNegativeButton("취소", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                return ;
+            }
+        });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+
     }
 
 

@@ -144,7 +144,6 @@ public class Profile_EditActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if(et_edit_one_line_info.getLineCount() > 2){
-                    Toast.makeText(Profile_EditActivity.this,"최대 두 줄까지 입력 가능합니다.", Toast.LENGTH_SHORT).show();
                     et_edit_one_line_info.setText(maxText);
                     et_edit_one_line_info.setSelection(et_edit_one_line_info.length());
                 }
