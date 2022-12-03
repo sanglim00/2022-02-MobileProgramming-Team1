@@ -262,3 +262,10 @@
 
 
 ## 기능위주 실행화면 예시
+> 앱 초반 실행화면
+- 앱로고가 등장하며 로딩 시 스피너를 띄운다 
+<div>
+<img width="240" alt="image" src="https://user-images.githubusercontent.com/54923245/205439122-74cba830-cb71-4d8a-b86a-3b1fc458a1f1.png">
+<img width="240" alt="image" src="https://user-images.githubusercontent.com/54923245/205439202-fc4e0e68-816c-4fba-a65f-44ba1d8a2aa9.png">
+</div>
+
