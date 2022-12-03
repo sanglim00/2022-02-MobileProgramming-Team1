@@ -8,7 +8,9 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.text.Editable;
 import android.text.InputFilter;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -173,14 +175,35 @@ public class SignUpActivity extends AppCompatActivity {
             joinBtnCheck = true;
             AlertDialog.Builder alert = new AlertDialog.Builder(this);
             alert.setTitle("Pet Type Add");
-            alert.setMessage("추가할 Pet Type을 적어주세요.");
+            alert.setMessage("추가할 Pet Type을 적어주세요.(15글자 이하만 입력 가능)");
             final EditText petType = new EditText(this);
-            InputFilter[] FilterArray = new InputFilter[1];
-            FilterArray[0] = new InputFilter.LengthFilter(8); //글자수 제한
-            petType.setFilters(FilterArray);
+            petType.addTextChangedListener(new TextWatcher() {
+                String maxText = "";
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                    maxText = charSequence.toString();
+                }
+
+                @Override
+                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                    if(petType.getLineCount() > 1){
+                        petType.setText(maxText);
+                        petType.setSelection(petType.length());
+                    }
+                    if(petType.length() > 16){
+                        petType.setText(maxText);
+                        petType.setSelection(petType.length());
+                    }
+                }
+                @Override
+                public void afterTextChanged(Editable editable) {
+
+                }
+            });
+
             alert.setView(petType);
             alert.setPositiveButton("확인", (dialog, whichButton) -> {
-                String input = petType.getText().toString();
+                String input = petType.getText().toString().replaceAll("\\s", "");
                 plus.setText(input);
                 joinPetType = input.toLowerCase();
             });
@@ -231,6 +254,19 @@ public class SignUpActivity extends AppCompatActivity {
 
         // 회원가입 완료하기 버튼 클릭 함수
         completion.setOnClickListener(view -> {
+            // 포커스 초기화
+            joinFocus = false;
+            joinEmailBox.clearFocus();
+            joinPWBox.clearFocus();
+            joinPWChkBox.clearFocus();
+            joinIDBox.clearFocus();
+            joinPhoneBox.clearFocus();
+            joinPetNameBox.clearFocus();
+            joinTypeBox.clearFocus();
+            joinGenderBox.clearFocus();
+            joinDateBox.clearFocus();
+            joinPrivacyBox.clearFocus();
+
             // 문자열 추출
             joinEmailTxt = joinEmail.getText().toString().replaceAll("\\s", "");
             joinPWTxt = joinPW.getText().toString().replaceAll("\\s", "");
