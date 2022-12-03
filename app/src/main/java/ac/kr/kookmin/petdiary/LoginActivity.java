@@ -26,6 +26,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import ac.kr.kookmin.petdiary.models.User;
@@ -40,6 +41,9 @@ public class LoginActivity extends AppCompatActivity {
     String showTxt, loginEmailTxt, loginPWTxt;
     public boolean loginCheckEmail;
     ProgressBar progressBar;
+    public static final Pattern VALID_EMAIL_ADDRESS_REGEX
+            = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+
 
     // 이메일, 비밀번호 입력되었는지 확인
     private boolean hasTxt(TextInputEditText et){
@@ -68,12 +72,14 @@ public class LoginActivity extends AppCompatActivity {
             loginEmailTxt = loginEmail.getText().toString().replaceAll("\\s", "");
             loginPWTxt = loginPW.getText().toString().replaceAll("\\s", "");
 
-            Pattern pattern = Patterns.EMAIL_ADDRESS;
+            // 이메일 유효성 검사(이메일 형식이 맞는지 확인)
+            Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(loginEmailTxt);
+
 
             // '이메일' 조건 확인
-            if (!hasTxt(loginEmail)) {
+            if (!hasTxt(loginEmail)){
                 loginEmailBox.setError("항목을 채워주세요.");
-            } else if (!pattern.matcher(loginEmailTxt).matches()) {
+            } else if (!matcher.find()){
                 loginEmailBox.setError("올바른 이메일을 입력해주세요.");
             } else {
                 loginEmailBox.setError(null);
