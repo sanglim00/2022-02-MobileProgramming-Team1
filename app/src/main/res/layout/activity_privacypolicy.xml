@@ -35,7 +35,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:text="제 1조"
+                android:text="-개인정보 수집 및 이용 동의-"
                 android:textColor="@color/black"
                 android:textSize="14sp"
                 android:textStyle="bold" />
@@ -45,7 +45,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
-                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque elit nulla, viverra ut nibh a, porttitor consequat augue. Aliquam mattis dolor dolor, ut viverra lorem auctor quis. Nam eget felis elit. Cras in lacus non erat porta porta. Maecenas cursus nec diam eu lobortis. Aliquam at elementum elit, non ultricies arcu. Sed vulputate eros vitae dui ultrices, ac rhoncus mauris tempus. Donec non ante dolor. Cras lobortis, libero nec pretium imperdiet, purus ligula scelerisque elit, eget interdum leo odio sit amet metus. Cras lobortis dolor sit amet mi fringilla, quis efficitur leo vestibulum. Proin dignissim tristique erat, eget ullamcorper neque ornare nec. Suspendisse blandit augue odio, eu ornare tellus dignissim id. Pellentesque ex massa, sagittis in libero non, volutpat rhoncus nibh. Praesent rhoncus cursus nunc, sit amet cursus quam hendrerit ut."
+                android:text="주식회사 모프 팀1(이하 “회사” 또는 서비스명인 “반려일지”라 함)는 이용자의 개인정보보호를 매우 중요시하며, 『개인정보보호법』, 『정보통신망이용촉진 및 정보보호에 관한 법률』 등 개인정보보호규정 및 정보통신부가 제정한 『개인정보보호지침』을 준수하고 있습니다.
+회사는 원활한 서비스 제공을 위해 이용자로부터 아래와 같이 개인정보 수집 및 이용동의를 받고자합니다. 내용을 자세히 읽으신 후 동의하시면 원래 화면으로 돌아가 해당 화면의 안내에 따라 버튼을 눌러 주시기 바랍니다. 자세한 내용은 회사의 개인정보처리방침을 참조하여 주시기 바랍니다.\n
+"
                 android:textColor="@color/black" />
 
             <TextView
@@ -53,7 +55,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:text="제 2조"
+                android:text="-개인정보 수집 항목-"
                 android:textColor="@color/black"
                 android:textSize="14sp"
                 android:textStyle="bold" />
@@ -63,14 +65,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
-                android:text="Duis blandit luctus dui, non commodo dolor tincidunt et. Sed lacinia scelerisque dignissim. Vivamus commodo condimentum dui, ac vehicula nibh lobortis et. Nulla volutpat ultricies leo, id pharetra magna elementum in. Integer aliquet cursus dui. Ut ut finibus dolor. Fusce eget cursus leo. Sed dignissim, est et facilisis cursus, libero dolor molestie mi, ac fringilla lacus neque quis ipsum. Duis interdum risus sagittis metus dictum vehicula. Sed ullamcorper ante ut hendrerit vestibulum. Cras eros nulla, feugiat quis auctor et, convallis in nunc. Mauris viverra ex vel fermentum vulputate. Proin sodales, leo nec gravida sodales, massa mi tristique ex, at sodales est magna ut ipsum. Mauris a fringilla est. Donec non interdum nibh. Curabitur porttitor tellus ut convallis pulvinar."
+                android:text="전화번호, 이름, 주소"
                 android:textColor="@color/black" />
 
             <TextView
                 android:id="@+id/textView6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="제 3조"
+                android:text="-개인정보의 이용 및 보유시간-"
                 android:textColor="@color/black"
                 android:textSize="14sp"
                 android:textStyle="bold" />
@@ -80,7 +82,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
-                android:text="Duis felis nisl, maximus ac accumsan vel, varius at massa. Fusce hendrerit, arcu non tristique facilisis, mi enim pharetra mauris, eu porta nibh nunc sit amet erat. Aliquam consectetur malesuada mollis. Sed euismod, quam eget lacinia tristique, metus felis ornare metus, vel vestibulum justo lectus non velit. Ut in luctus sem. Etiam id nulla id neque pharetra feugiat eu quis lectus. Donec eget sem bibendum, semper leo sed, rhoncus odio. Morbi mattis, nibh eu porttitor mattis, ipsum nunc ullamcorper metus, sit amet congue urna nulla eleifend mi. Sed ultricies tellus ut placerat ullamcorper."
+                android:text="회원 탈퇴 시까지 (관련 법령에 따라 보존할 필요가 있는 경우는 해당 보존 기간)"
                 android:textColor="@color/black" />
 
             <TextView
@@ -88,7 +90,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:text="제 4조"
+                android:text="-동의를 거부할 권리 및 동의를 거부할 경우의 불이익-"
                 android:textColor="@color/black"
                 android:textSize="14sp"
                 android:textStyle="bold" />
@@ -98,25 +100,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
-                android:text="Etiam cursus neque nec euismod porta. Quisque ut libero et magna scelerisque aliquam. Praesent posuere semper dignissim. Aliquam laoreet ipsum orci, at porta sem congue ac. Nullam sit amet lobortis est. Vivamus sed porta ante. Integer porta dapibus congue. Ut faucibus vitae orci nec luctus. Vivamus sed sagittis lacus. Vestibulum nec velit eu urna vehicula sagittis."
+                android:text="‍위의 개인정보 수집 및 이용에 대한 동의를 거부할 권리가 있으나 동의를 거부할 경우 ‘반려일지’ 서비스 제공에 제한 등 불이익을 받을 수 있습니다."
                 android:textColor="@color/black" />
 
-            <TextView
-                android:id="@+id/textView12"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:text="제 5조"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/textView13"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Donec at elit leo. Vivamus sed blandit sem. Nulla facilisi. Aenean vitae vehicula lacus, quis gravida ipsum. Pellentesque ac mauris sit amet diam sodales eleifend. Nam lacus enim, aliquam sodales eleifend aliquet, ultricies sed turpis. Quisque venenatis, eros eget egestas venenatis, nibh nibh maximus neque, a fringilla lectus turpis faucibus lorem. Nam vel bibendum elit. Ut porttitor convallis felis, ut convallis lorem."
-                android:textColor="@color/black" />
         </LinearLayout>
     </ScrollView>
 
