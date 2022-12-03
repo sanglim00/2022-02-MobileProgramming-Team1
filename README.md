@@ -263,11 +263,21 @@
 
 ## 기능위주 실행화면 예시
 > 앱 초반 실행 시
-- 앱로고가 등장하며 로딩 시 스피너를 띄운다 
+- 앱로고가 등장하며 로딩 시 스피너를 띄운다.
 <div>
 <img width="240" alt="image" src="https://user-images.githubusercontent.com/54923245/205439122-74cba830-cb71-4d8a-b86a-3b1fc458a1f1.png">
 <img width="240" alt="image" src="https://user-images.githubusercontent.com/54923245/205439202-fc4e0e68-816c-4fba-a65f-44ba1d8a2aa9.png">
-</div>  	
+</div>  
+
+> 회원가입 기능
+- 모든 입력이 정상적이어야만 로그인이 가능하다.
+- 반려동물과 만난날짜는 오늘을 포함한 이전만 가능하다.
+- 비밀번호 로직에 맞지 않으면 회원가입이 불가능하다.
+<div>
+<img height="450" alt="image" src="https://user-images.githubusercontent.com/54923245/205440564-d27ff286-f55b-418a-9925-78f6b5b03737.png">
+<img height="450" alt="image" src="https://user-images.githubusercontent.com/54923245/205440584-6fb07ff6-7698-40ab-86e0-69a6ed77e8c3.png">
+<img height="450" alt="image" src="https://user-images.githubusercontent.com/54923245/205440658-bf150420-63bc-4b4a-a271-dd8dfbf980ca.png">
+</div>
 	
 > 반려동물 타입 검색
 - 반려동물 타입별로 구분하여 게시글을 보여준다
