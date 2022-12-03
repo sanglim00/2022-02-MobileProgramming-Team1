@@ -1,6 +1,5 @@
 package ac.kr.kookmin.petdiary;
 
-import android.app.Activity;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -9,6 +8,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
@@ -43,6 +43,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 import ac.kr.kookmin.petdiary.models.Comment;
@@ -210,6 +211,7 @@ public class PostDetailActivity extends AppCompatActivity {
 
 
         btn_addComment.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View view) {
                 String content = et_Comment.getText().toString();
@@ -218,63 +220,13 @@ public class PostDetailActivity extends AppCompatActivity {
                     return;
                 }
                 et_Comment.setText("");
+                CommentTask task = new CommentTask();
+                task.setAdapter(adapter);
+                task.setParams(postId, content);
+                task.execute();
                 InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(et_Comment.getWindowToken(), 0);
                 adapter.addItem(new Comment_Item(content, "업로드 중 ..."));
-                AsyncTask.execute(new Runnable() {
-                    @RequiresApi(api = Build.VERSION_CODES.N)
-                    @Override
-                    public void run() {
-                        try {
-                            HttpURLConnection conn;
-                            URL url = new URL("http://20.249.4.187/api/post/comment");
-
-                            conn = (HttpURLConnection) url.openConnection();
-                            conn.setConnectTimeout(100000);
-                            conn.setReadTimeout(100000);
-
-                            conn.setRequestMethod("POST");
-
-                            // 타입설정
-                            conn.setRequestProperty("Content-Type", "application/json");
-                            conn.setRequestProperty("Accept", "application/json");
-
-                            // OutputStream으로 Post 데이터를 넘겨주겠다는 옵션
-                            conn.setDoOutput(true);
-
-                            // InputStream으로 서버로 부터 응답을 받겠다는 옵션
-                            conn.setDoInput(true);
-
-                            // 서버로 전달할 Json객체 생성
-                            JSONObject json = new JSONObject();
-
-                            // Json객체에 유저의 name, phone, address 값 세팅
-                            // Json의 파라미터는 Key, Value 형식
-                            json.put("uid", mAuth.getCurrentUser().getUid());
-                            json.put("postId", postId);
-                            json.put("content", content);
-
-                            // Request Body에 데이터를 담기위한 OutputStream 객체 생성
-                            OutputStream outputStream;
-                            outputStream = conn.getOutputStream();
-                            outputStream.write(json.toString().getBytes());
-                            outputStream.flush();
-
-                            // 실제 서버로 Request 요청 하는 부분 (응답 코드를 받음, 200은 성공, 나머지 에러)
-                            int response = conn.getResponseCode();
-
-                            if (response == 201) {
-                                BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-                                String data = br.lines().collect(Collectors.joining());
-                                JSONObject parseData = new JSONObject(data);
-                                adapter.changeItem(new Comment_Item(content, parseData.getString("userName")));
-                            }
-
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
             }
         });
 
@@ -360,6 +312,84 @@ public class PostDetailActivity extends AppCompatActivity {
         img_detail_post.setDrawingCacheEnabled(true);
         Bitmap bitmap = img_detail_post.getDrawingCache();
         MediaStore.Images.Media.insertImage(this.getContentResolver(), bitmap, txt_id_detail_post.getText().toString(),"gun");
+    }
+
+    class CommentTask extends AsyncTask<Void, Void, Void> {
+
+        Comment_RecyclerViewAdapter adapter;
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        String postId;
+        String content;
+        ArrayList<Comment_Item> commentItems = new ArrayList<>();
+
+        public void setParams(String postId, String content) {
+            this.postId = postId;
+            this.content = content;
+        }
+
+        public void setAdapter(Comment_RecyclerViewAdapter adapter) {
+            this.adapter = adapter;
+            commentItems.addAll(adapter.getListData());
+        }
+
+        @RequiresApi(api = Build.VERSION_CODES.N)
+        @Override
+        protected Void doInBackground(Void... voids) {
+            try {
+                HttpURLConnection conn;
+                URL url = new URL("http://20.249.4.187/api/post/comment");
+
+                conn = (HttpURLConnection) url.openConnection();
+                conn.setConnectTimeout(100000);
+                conn.setReadTimeout(100000);
+
+                conn.setRequestMethod("POST");
+
+                // 타입설정
+                conn.setRequestProperty("Content-Type", "application/json");
+                conn.setRequestProperty("Accept", "application/json");
+
+                // OutputStream으로 Post 데이터를 넘겨주겠다는 옵션
+                conn.setDoOutput(true);
+
+                // InputStream으로 서버로 부터 응답을 받겠다는 옵션
+                conn.setDoInput(true);
+
+                // 서버로 전달할 Json객체 생성
+                JSONObject json = new JSONObject();
+
+                // Json객체에 유저의 name, phone, address 값 세팅
+                // Json의 파라미터는 Key, Value 형식
+                json.put("uid", mAuth.getCurrentUser().getUid());
+                json.put("postId", postId);
+                json.put("content", content);
+
+                // Request Body에 데이터를 담기위한 OutputStream 객체 생성
+                OutputStream outputStream;
+                outputStream = conn.getOutputStream();
+                outputStream.write(json.toString().getBytes());
+                outputStream.flush();
+
+                // 실제 서버로 Request 요청 하는 부분 (응답 코드를 받음, 200은 성공, 나머지 에러)
+                int response = conn.getResponseCode();
+
+                if (response == 201) {
+                    BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                    String data = br.lines().collect(Collectors.joining());
+                    JSONObject parseData = new JSONObject(data);
+                    commentItems.add(new Comment_Item(content, parseData.getString("userName")));
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void unused) {
+            this.adapter.setListData(commentItems);
+        }
     }
 
 }
