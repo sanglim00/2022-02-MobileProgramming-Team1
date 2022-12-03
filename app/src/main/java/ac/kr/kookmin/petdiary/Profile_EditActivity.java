@@ -149,7 +149,6 @@ public class Profile_EditActivity extends AppCompatActivity {
                     et_edit_one_line_info.setSelection(et_edit_one_line_info.length());
                 }
                 if(et_edit_one_line_info.length() > 20){
-                    Toast.makeText(Profile_EditActivity.this,"최대 20글자까지 입력 가능합니다.", Toast.LENGTH_SHORT).show();
                     et_edit_one_line_info.setText(maxText);
                     et_edit_one_line_info.setSelection(et_edit_one_line_info.length());
                 }
@@ -171,17 +170,10 @@ public class Profile_EditActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if(et_edit_name.getLineCount() > 2){
-                    Toast.makeText(Profile_EditActivity.this,"최대 두 줄까지 입력 가능합니다.", Toast.LENGTH_SHORT).show();
+                if(et_edit_name.getLineCount() > 1){
                     et_edit_name.setText(maxText);
                     et_edit_name.setSelection(et_edit_name.length());
                 }
-                if(et_edit_name.length() > 10){
-                    Toast.makeText(Profile_EditActivity.this,"최대 10글자까지 입력 가능합니다.", Toast.LENGTH_SHORT).show();
-                    et_edit_name.setText(maxText);
-                    et_edit_name.setSelection(et_edit_name.length());
-                }
-
             }
             @Override
             public void afterTextChanged(Editable editable) {
@@ -238,7 +230,7 @@ public class Profile_EditActivity extends AppCompatActivity {
         btn_edit_complete.setOnClickListener(new View.OnClickListener() { // 편집 완료 버튼 onclick
             @Override
             public void onClick(View view) {
-                progressBar.setVisibility(View.VISIBLE);
+                boolean editflag = true;
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
                 String name = et_edit_name.getText().toString();
                 String gender = txt_gender;
@@ -246,36 +238,49 @@ public class Profile_EditActivity extends AppCompatActivity {
                 String comment = et_edit_one_line_info.getText().toString();
                 if (name == null || name.equals("")) {
                     Toast.makeText(Profile_EditActivity.this, "이름을 입력해주세요.", Toast.LENGTH_SHORT).show();
+                    editflag = false;
+                    return;
+                } else if(name.length() >= 15){
+                    Toast.makeText(Profile_EditActivity.this, "이름은 15글자까지 입력 가능합니다.", Toast.LENGTH_SHORT).show();
+                    editflag = false;
                     return;
                 } else if (date == null || date.equals("")) {
                     Toast.makeText(Profile_EditActivity.this, "만난 날짜를 선택해주세요.", Toast.LENGTH_SHORT).show();
+                    editflag = false;
                     return;
                 }
 
-                db.collection("users").document(uid).update(
-                        "petName", name,
-                        "gender", gender,
-                        "comment", comment,
-                        "petBirth", date
-                ).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void unused) {
-                        if (image_changed) {
-                            updateImage();
-                        } else {
-                            Intent intent = new Intent();
-                            setResult(0, intent);
-                            progressBar.setVisibility(View.INVISIBLE);
-                            finish();
+                if(editflag){
+                    progressBar.setVisibility(View.VISIBLE);
+
+
+                    db.collection("users").document(uid).update(
+                            "petName", name,
+                            "gender", gender,
+                            "comment", comment,
+                            "petBirth", date
+                    ).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void unused) {
+                            if (image_changed) {
+                                updateImage();
+                            } else {
+                                Intent intent = new Intent();
+                                setResult(0, intent);
+                                progressBar.setVisibility(View.INVISIBLE);
+                                finish();
+                            }
                         }
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(Profile_EditActivity.this, "변경에 실패하였습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
-                        progressBar.setVisibility(View.INVISIBLE);
-                    }
-                });
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(Profile_EditActivity.this, "변경에 실패하였습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
+                            progressBar.setVisibility(View.INVISIBLE);
+                        }
+                    });
+                }else{
+                    return;
+                }
 
             }
         });
