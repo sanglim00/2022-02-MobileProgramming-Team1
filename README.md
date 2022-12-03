@@ -28,15 +28,15 @@
 - [송재룡](https://github.com/ft-jasong)
 
 ## License
-- Apache License 2.0
-- Android - platform - frameworks - support
-- Android Constraint Layout Library
-- CircleImageView
-- FirebaseUI-Android
-- Google Cloud Firestore Client for Java
-- Google Firebase for Android
-- Google Gson
-- Material Components for Android
+- Apache License 2.0 by
+	- Android - platform - frameworks - support
+	- Android Constraint Layout Library
+	- CircleImageView
+	- FirebaseUI-Android
+	- Google Cloud Firestore Client for Java
+	- Google Firebase for Android
+	- Google Gson
+	- Material Components for Android
 
 ## 서버 및 데이터베이스 관련
 > ### Model
