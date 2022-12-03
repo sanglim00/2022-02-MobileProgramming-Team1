@@ -2,9 +2,6 @@ package ac.kr.kookmin.petdiary;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.KeyEvent;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
@@ -19,7 +16,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -111,7 +107,6 @@ public class SearchActivity extends AppCompatActivity {
                                             User user = doc.toObject(User.class);
                                             if (userNames.contains(user.getUserName())) continue;
                                             userNames.add(user.getUserName());
-                                            Log.d("searchTest", user.getUserName());
                                             String comment = user.getComment();
                                             SearchItem item = new SearchItem(user.getUserName(), comment == null || comment.length() == 0 ? "한 줄 소개가 없습니다." : comment, doc.getId());
                                             searchAdapter.addSearchItem(item);

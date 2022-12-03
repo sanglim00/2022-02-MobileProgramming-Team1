@@ -9,7 +9,6 @@ import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -18,7 +17,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import ac.kr.kookmin.petdiary.LoginActivity;
 import ac.kr.kookmin.petdiary.models.User;
 
 public class SplashActivity extends AppCompatActivity {
@@ -71,7 +69,6 @@ public class SplashActivity extends AppCompatActivity {
                             startActivity(new Intent(getApplication(), LoginActivity.class));
                         }
                         if (fcmToken.length() != 0 && user[0].getFcmToken() != null && fcmToken.equals(user[0].getFcmToken())) {
-                            Log.d("200", "fcm_token passed");
                         } else {
                             user[0].setFcmToken(fcmToken);
                             db.collection("users").document(uid).set(user[0])

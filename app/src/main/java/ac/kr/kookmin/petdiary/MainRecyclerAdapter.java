@@ -5,15 +5,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -26,7 +23,6 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
@@ -232,7 +228,6 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
         void onBind(MainItemList item) {
             username.setText(item.getUsername());
             isLiked = item.isLiked();
-            Log.d("like test2", "" + isLiked);
             str_like = item.getLikes();
             like_btn.setActivated(isLiked);
             txt_like_main.setText(Integer.toString(item.getLikes()));

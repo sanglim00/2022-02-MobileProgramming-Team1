@@ -6,7 +6,6 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.SharedPreferences;
 import android.os.Build;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
@@ -31,7 +30,6 @@ public class PetDiaryFCMService extends FirebaseMessagingService {
     public void onNewToken(@NonNull String token) {
         // 새로운 Token 생성 시,
         super.onNewToken(token);
-        Log.d("newToken", token);
         SharedPreferences preferences = getSharedPreferences("fcmToken", Activity.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString("fcmToken", token);
