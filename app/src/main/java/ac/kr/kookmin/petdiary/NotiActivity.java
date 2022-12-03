@@ -20,6 +20,7 @@ import com.google.gson.Gson;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import ac.kr.kookmin.petdiary.models.Notification;
@@ -49,6 +50,7 @@ public class NotiActivity extends AppCompatActivity {
         Type type = new TypeToken<List<Notification>>(){}.getType();
         List<ac.kr.kookmin.petdiary.models.Notification> notiList = gson.fromJson(json, type);
         if (notiList != null) {
+            Collections.reverse(notiList);
             notiItems.addAll(notiList);
             notiAdapter.setNotiList(notiItems);
         }

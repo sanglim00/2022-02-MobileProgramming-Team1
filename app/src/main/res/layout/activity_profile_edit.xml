@@ -12,7 +12,7 @@
         android:layout_height="100dp"
         android:elevation="5dp"
         android:indeterminateTint="#FCCE48"
-        android:visibility="invisible"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
