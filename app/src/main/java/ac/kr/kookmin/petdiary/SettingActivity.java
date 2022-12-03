@@ -12,6 +12,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class SettingActivity extends AppCompatActivity {
 
     Switch NotiSwitch;
@@ -58,7 +60,11 @@ public class SettingActivity extends AppCompatActivity {
         builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(getApplicationContext(), "여기서 진짜 로그아웃", Toast.LENGTH_SHORT).show();
+                FirebaseAuth.getInstance().signOut();
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivity(intent);
+                finish();
+                Toast.makeText(getApplicationContext(), "성공적으로 로그아웃 하였습니다.", Toast.LENGTH_SHORT).show();
             }
         });
         builder.setNegativeButton("취소", new DialogInterface.OnClickListener() {
