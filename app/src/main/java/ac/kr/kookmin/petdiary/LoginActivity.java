@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -117,7 +116,6 @@ public class LoginActivity extends AppCompatActivity {
                     showTxt = "아이디 또는 비밀번호를 확인해주세요.";
                     if (task.isSuccessful()) {
                         // Sign in success, update UI with the signed-in user's information
-                        Log.d("200", "signInWithEmail:success");
                         FirebaseUser user = mAuth.getCurrentUser();
                         fcmTokenRegisterAndStartMain(user.getUid());
                     } else {
