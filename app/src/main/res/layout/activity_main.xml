@@ -108,6 +108,8 @@
             android:button="@null"
             android:gravity="center"
             android:text="+"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:textColor="@drawable/radio_btn_text"
             android:textSize="15sp"
             android:textStyle="bold"
