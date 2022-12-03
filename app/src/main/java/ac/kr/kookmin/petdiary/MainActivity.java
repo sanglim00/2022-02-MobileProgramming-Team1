@@ -197,8 +197,7 @@ public class MainActivity extends AppCompatActivity {
                     inputTag.setText(maxText);
                     inputTag.setSelection(inputTag.length());
                 }
-                if(inputTag.length() > 15){
-                    Toast.makeText(MainActivity.this,"최대 15글자까지 입력 가능합니다.", Toast.LENGTH_SHORT).show();
+                if(inputTag.length() >= 15){
                     inputTag.setText(maxText);
                     inputTag.setSelection(inputTag.length());
                 }
